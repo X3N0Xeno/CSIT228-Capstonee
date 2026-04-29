@@ -64,13 +64,17 @@ public class HangmanController {
         word = wordRetriever.getWord();
         letters = new char[word.length()];
         Arrays.fill(letters, '_');
+
+        // --- ADD CLUE HERE IF YOU WANT ---
+        // letters[0] = word.charAt(0);
+
         wrongGuess = 0;
         gameOver = false;
         spinInProgress = false;
 
         wordLabel.setText(formatWord());
-        bulletLabel.setText("🔫 Wrong guesses: 0");
-        statusLabel.setText("Guess a letter!");
+        bulletLabel.setText("⚠️ Spared: 0 Lives");
+        statusLabel.setText("Choose a letter... wisely.");
         statusLabel.setStyle("-fx-text-fill: #aaaaaa;");
         inputField.clear();
         inputField.setDisable(false);
@@ -109,47 +113,44 @@ public class HangmanController {
 
         if (!correct) {
             wrongGuess++;
-            bulletLabel.setText("🔫 Wrong guesses: " + wrongGuess);
+            bulletLabel.setText("⚠️ Spared: " + wrongGuess + " Lives");
 
             if (pressedKey != null) {
                 pressedKey.setStyle(wrongKeyStyle());
                 pressedKey.setDisable(true);
             }
 
-            // Disable input during spin
             spinInProgress = true;
             inputField.setDisable(true);
             guessButton.setDisable(true);
             keyButtons.values().forEach(btn -> btn.setDisable(true));
 
-            statusLabel.setText("🎰 Spinning...");
+            statusLabel.setText("🎲 Spinning the cylinder...");
             statusLabel.setStyle("-fx-text-fill: #f5a623;");
 
             ScreenEffects.flashRed(rootPane);
 
             rouletteCanvas.spin(
-                    // Landed on bullet → dead
                     () -> {
-                        statusLabel.setText("💥 BANG! You're dead. Word was: " + word);
+                        statusLabel.setText("💥 BANG! You're dead. Word: " + word.toUpperCase());
                         statusLabel.setStyle("-fx-text-fill: #e94560;");
-                        wordLabel.setText(word);
+                        wordLabel.setText(word.toUpperCase());
                         ScreenEffects.shake(HangmanApplication.getStage());
                         endGame();
                     },
-                    // Survived
                     () -> {
                         spinInProgress = false;
-                        statusLabel.setText("*click* ... You survived. Death chance: " + (wrongGuess + 1) + "/7");
+                        statusLabel.setText(" *click* ... Empty chamber. Survive another turn.");
                         statusLabel.setStyle("-fx-text-fill: #f5a623;");
                         inputField.setDisable(false);
                         guessButton.setDisable(false);
-                        // Re-enable only unused keys
+
+                        // Re-enable remaining keys
                         keyButtons.forEach((c, btn) -> {
-                            if (!btn.isDisabled()) btn.setDisable(false);
+                            if (!btn.getStyle().equals(wrongKeyStyle()) && !btn.getStyle().equals(correctKeyStyle())) {
+                                btn.setDisable(false);
+                            }
                         });
-                        keyButtons.values().stream()
-                                .filter(btn -> btn.getStyle().equals(defaultKeyStyle()))
-                                .forEach(btn -> btn.setDisable(false));
                     }
             );
 
@@ -160,13 +161,13 @@ public class HangmanController {
             }
 
             if (new String(letters).equals(word)) {
-                statusLabel.setText("🎉 You got it! The word was: " + word);
+                statusLabel.setText("💰 You survived. The word was: " + word.toUpperCase());
                 statusLabel.setStyle("-fx-text-fill: #4caf50;");
-                wordLabel.setText(word);
+                wordLabel.setText(word.toUpperCase());
                 ScreenEffects.confetti(rootPane);
                 endGame();
             } else {
-                statusLabel.setText("✅ Good guess!");
+                statusLabel.setText("🎯 Direct hit!");
                 statusLabel.setStyle("-fx-text-fill: #4caf50;");
             }
         }
@@ -186,9 +187,10 @@ public class HangmanController {
     private String formatWord() {
         StringBuilder sb = new StringBuilder();
         for (char c : letters) sb.append(c).append(' ');
-        return sb.toString().trim();
+        return sb.toString().toUpperCase().trim();
     }
 
+    // Styles remain the same for consistency
     private String defaultKeyStyle() {
         return "-fx-font-family: Monospace; -fx-font-size: 13; " +
                 "-fx-background-color: #16213e; -fx-text-fill: #eaeaea; " +
