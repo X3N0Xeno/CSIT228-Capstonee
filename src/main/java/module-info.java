@@ -1,0 +1,20 @@
+module com.capstone.javabox.csit228 {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
+    requires javafx.media;
+
+    //MAIN APP STUFF
+    exports com.capstone.javabox.csit228;
+    opens com.capstone.javabox.csit228 to javafx.fxml;
+
+    //GAMES FOLDER
+    exports com.capstone.javabox.csit228.games to javafx.graphics;
+    opens com.capstone.javabox.csit228.games to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.knucklebones;
+    opens com.capstone.javabox.csit228.games.knucklebones to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.windowswarm to javafx.graphics;
+    opens com.capstone.javabox.csit228.games.windowswarm to javafx.fxml;
+}
