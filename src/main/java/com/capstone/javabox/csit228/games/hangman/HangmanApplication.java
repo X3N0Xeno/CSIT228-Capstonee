@@ -13,7 +13,7 @@ public class HangmanApplication extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("com/capstone/javabox/csit228/games/hangman/hangman-view.fxml")
+                getClass().getResource("hangman-view.fxml")
         );
         Scene scene = new Scene(loader.load(), 620, 700);
         stage.setTitle("Hangman x Russian Roulette");

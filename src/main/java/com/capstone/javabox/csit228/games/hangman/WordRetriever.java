@@ -13,7 +13,7 @@ public class WordRetriever {
         generateWord();
     }
     public void generateWord() {
-        try(BufferedReader br = new BufferedReader(new FileReader("5-letter-words.txt"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/capstone/javabox/csit228/games/5-letter-words.txt"))) {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
@@ -29,6 +29,7 @@ public class WordRetriever {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //word = "test";
     }
     public String getWord() {
         return word;
