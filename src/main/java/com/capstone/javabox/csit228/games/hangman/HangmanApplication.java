@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.capstone.javabox.csit228.games.hangman;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class HangmanApplication extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/hangman/hangman-view.fxml")
+                getClass().getResource("com/capstone/javabox/csit228/games/hangman/hangman-view.fxml")
         );
         Scene scene = new Scene(loader.load(), 620, 700);
         stage.setTitle("Hangman x Russian Roulette");

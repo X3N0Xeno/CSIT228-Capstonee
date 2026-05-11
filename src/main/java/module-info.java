@@ -12,6 +12,9 @@ module com.capstone.javabox.csit228 {
     exports com.capstone.javabox.csit228.games to javafx.graphics;
     opens com.capstone.javabox.csit228.games to javafx.fxml;
 
+    exports com.capstone.javabox.csit228.games.hangman;
+    opens com.capstone.javabox.csit228.games.hangman to javafx.fxml;
+
     exports com.capstone.javabox.csit228.games.knucklebones;
     opens com.capstone.javabox.csit228.games.knucklebones to javafx.fxml;
 

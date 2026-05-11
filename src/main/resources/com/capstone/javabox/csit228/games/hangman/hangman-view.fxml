@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import com.example.hangman.RouletteCanvas?>
+<?import com.capstone.javabox.csit228.games.hangman.RouletteCanvas ?>
 
 <StackPane fx:id="rootPane"
            xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.hangman.HangmanController"
+           fx:controller="com.capstone.javabox.csit228.games.hangman.HangmanController"
            style="-fx-background-color: #1a1a2e;">
 
     <VBox alignment="CENTER"

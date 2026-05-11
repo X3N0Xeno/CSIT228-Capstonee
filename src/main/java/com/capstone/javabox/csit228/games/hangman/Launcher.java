@@ -1,4 +1,4 @@
-package com.example.hangman;
+package com.capstone.javabox.csit228.games.hangman;
 
 import javafx.application.Application;
 
