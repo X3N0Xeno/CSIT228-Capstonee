@@ -1,0 +1,41 @@
+.color-swatch {
+    -fx-background-radius: 50;  /* Makes it a circle */
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 3px;
+    -fx-border-radius: 50;
+}
+
+/* When the button is clicked/selected */
+.color-swatch:selected {
+    -fx-border-color: white;
+}
+
+/* Optional: Slight glow when hovering */
+.color-swatch:hover {
+    -fx-opacity: 0.8;
+}
+
+#bar {
+    -fx-background-color: transparent, transparent, transparent; /* Removes default layers */
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#bar .track {
+    /* This is Player 2's space */
+    -fx-background-color: -fx-control-inner-background;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+#bar .bar {
+    /* This is Player 1's space */
+    -fx-background-color: -fx-accent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}

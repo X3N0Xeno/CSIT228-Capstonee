@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.windowswarm.WindowSwarmController">
+   <children>
+      <Label fx:id="skull" alignment="CENTER" text="__________&#10;/'''''''&quot;&quot;&quot;&quot;##\&#10;/&quot;''ERROR$$@@@##'&quot;\&#10;('''!!&quot;&quot;#####@&amp;&amp;&amp;&amp;&amp;#)&#10;/'''''.__###@__.&amp;&amp;&amp;#|\&#10;|'!'&quot;/   \##/   \&quot;&amp;&amp;#|&#10;|''!/    |#|    \&amp;@@|&#10;|_!(_____|^|_____)&amp;_|&#10;/'''/'&quot;/ \&quot;&quot;\$@#\&#10;\''(''(/^\)&quot;&quot;)@@/&#10;||IIIIIIIIII||&#10;||IIIIIIIIII||&#10;\|####@@@@|/&#10;\@@@@@@/" textAlignment="CENTER" textFill="#00ff40" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Courier New" size="24.0" />
+         </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect></Label>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="scoreLabel" alignment="CENTER" text="0" textFill="#00ff41" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Courier New" size="50.0" />
+                     </font>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="warningLabel" alignment="CENTER" text="INFECTION LEVEL: 0/10" textFill="#00ff41" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Courier New" size="30.0" />
+                     </font>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect></Label>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

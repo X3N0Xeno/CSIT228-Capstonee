@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: black;" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneMenuController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="menuBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox fx:id="titleBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label style="-fx-text-fill: white;" text="K">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="291.0" layoutY="28.0" style="-fx-text-fill: white;" text="N">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="309.0" layoutY="28.0" style="-fx-text-fill: white;" text="U">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="330.0" layoutY="28.0" style="-fx-text-fill: white;" text="C">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="352.0" layoutY="28.0" style="-fx-text-fill: white;" text="K">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="371.0" layoutY="28.0" style="-fx-text-fill: white;" text="L">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="393.0" layoutY="28.0" style="-fx-text-fill: white;" text="E">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="409.0" layoutY="28.0" style="-fx-text-fill: white;" text="B">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="425.0" layoutY="28.0" style="-fx-text-fill: white;" text="☠">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="440.0" layoutY="28.0" style="-fx-text-fill: white;" text="N">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="464.0" layoutY="28.0" style="-fx-text-fill: white;" text="E">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label layoutX="488.0" layoutY="28.0" style="-fx-text-fill: white;" text="S">
+                           <font>
+                              <Font name="Baskerville Old Face" size="75.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onPlayButtonClicked" prefHeight="30.0" prefWidth="150.0" text="PLAY" />
+                  <Button layoutX="235.0" layoutY="70.0" mnemonicParsing="false" onAction="#onHelpButtonClicked" prefHeight="30.0" prefWidth="150.0" text="HOW TO PLAY" />
+                  <Button mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="30.0" prefWidth="150.0" text="EXIT" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox fx:id="helpBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+         <children>
+            <Label style="-fx-text-fill: white;" text="HOW TO PLAY KNUCKLEBONES">
+               <font>
+                  <Font name="Baskerville Old Face" size="30.0" />
+               </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
+            </Label>
+            <TextFlow prefHeight="200.0" prefWidth="200.0" textAlignment="JUSTIFY" VBox.vgrow="ALWAYS">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="KNUCKLEBONES IS A GAME OF RISK AND REWARD&#10;EACH PLAYER TAKES TURNS ROLLING A DIE&#10;&#10;" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bookman Old Style Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="35.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THE GOAL&#10;">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fill your 3x3 grid with dice. The player with the highest total score when either board is full wins.&#10;&#10;&#10;">
+                     <font>
+                        <Font name="Bookman Old Style" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORING COMBOS&#10;">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Place matching dice in the same column to multiply their value.&#10;&#10;&#10;">
+                     <font>
+                        <Font name="Bookman Old Style" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATTACKING&#10;">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Match your die with an opponent’s die in the same column to destroy theirs. Use this to wipe out their high scores and clear space on your own board!">
+                     <font>
+                        <Font name="Bookman Old Style" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="80.0" right="80.0" top="20.0" />
+               </padding>
+            </TextFlow>
+            <Button mnemonicParsing="false" onAction="#onBackToMenuClicked" text="BACK TO MENU" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="lobbyBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" visible="false">
+         <children>
+            <Label style="-fx-text-fill: white;" text="LOBBY">
+               <font>
+                  <Font name="Baskerville Old Face" size="55.0" />
+               </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="player1" text="PLAYER 1">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                           <TextField fx:id="p1Name" promptText="Insert Name">
+                           <VBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: white;" styleClass="color-swatch">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="p1Color" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #ff6e69;" styleClass="color-swatch" toggleGroup="$p1Color" />
+                                    <ToggleButton layoutX="50.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #7aff69;" styleClass="color-swatch" toggleGroup="$p1Color" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #5eafff;" styleClass="color-swatch" toggleGroup="$p1Color" />
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #debbfc;" styleClass="color-swatch" toggleGroup="$p1Color" />
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #db66ff;" styleClass="color-swatch" toggleGroup="$p1Color" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="player2" text="PLAYER 2">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <TextField fx:id="p2Name" promptText="Insert Name">
+                           <VBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <ToggleButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: white;" styleClass="color-swatch">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="p2Color" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #ff6e69;" styleClass="color-swatch" toggleGroup="$p2Color" />
+                                    <ToggleButton layoutX="50.0" layoutY="10.0" mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #7aff69;" styleClass="color-swatch" toggleGroup="$p2Color" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #5eafff;" styleClass="color-swatch" toggleGroup="$p2Color" />
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #debbfc;" styleClass="color-swatch" toggleGroup="$p2Color" />
+                                    <ToggleButton mnemonicParsing="false" onAction="#onToggleButtonClicked" style="-fx-background-color: #db66ff;" styleClass="color-swatch" toggleGroup="$p2Color" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onStartRoundButtonClicked" text="START ROUND" />
+                  <Button mnemonicParsing="false" onAction="#onBackToMenuClicked" text="BACK TO MENU" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</StackPane>
