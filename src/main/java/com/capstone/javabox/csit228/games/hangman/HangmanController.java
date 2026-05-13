@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +26,17 @@ public class HangmanController extends JavaboxAbstractController {
     @FXML private FlowPane keyboardPane;
     @FXML private StackPane rootPane;
     @FXML private RouletteCanvas rouletteCanvas;
+
+    // Stats panel
+    @FXML private VBox statsPane;
+    @FXML private Label statGames;
+    @FXML private Label statWinRate;
+    @FXML private Label statStreak;
+    @FXML private Label statBestStreak;
+    @FXML private Label statPulls;
+    @FXML private Label statDeaths;
+
+    private final HangmanStatisticsManager statsManager = new HangmanStatisticsManager();
 
     private String word;
     private char[] letters;
@@ -62,14 +74,11 @@ public class HangmanController extends JavaboxAbstractController {
     }
 
     private void newGame() {
-        int numWord = (int) (Math.random() * 3103);
+        int numWord = (int) (Math.random() * 5757);
         WordRetriever wordRetriever = new WordRetriever(numWord);
         word = wordRetriever.getWord();
         letters = new char[word.length()];
         Arrays.fill(letters, '_');
-
-        // --- ADD CLUE HERE IF YOU WANT ---
-        // letters[0] = word.charAt(0);
 
         wrongGuess = 0;
         gameOver = false;
@@ -84,6 +93,7 @@ public class HangmanController extends JavaboxAbstractController {
         guessButton.setDisable(false);
         restartButton.managedProperty().bind(restartButton.visibleProperty());
         restartButton.setVisible(false);
+        statsPane.setVisible(false);
 
         rouletteCanvas.reset();
         keyButtons.values().forEach(btn -> {
@@ -143,17 +153,16 @@ public class HangmanController extends JavaboxAbstractController {
                         statusLabel.setStyle("-fx-text-fill: #e94560;");
                         wordLabel.setText(word.toUpperCase());
                         ScreenEffects.shake(JavaboxUtils.getStage(statusLabel));
-                        endGame();
+                        endGame(false);
                     },
                     () -> {
                         SoundManager.playSFX("sfx_empty_gun.mp3");
                         spinInProgress = false;
-                        statusLabel.setText(" *click* ... Empty chamber. Survive another turn.");
+                        statusLabel.setText("*click* ... Empty chamber. Survive another turn.");
                         statusLabel.setStyle("-fx-text-fill: #f5a623;");
                         inputField.setDisable(false);
                         guessButton.setDisable(false);
 
-                        // Re-enable remaining keys
                         keyButtons.forEach((c, btn) -> {
                             if (!btn.getStyle().equals(wrongKeyStyle()) && !btn.getStyle().equals(correctKeyStyle())) {
                                 btn.setDisable(false);
@@ -164,7 +173,6 @@ public class HangmanController extends JavaboxAbstractController {
 
         } else {
             if (pressedKey != null) {
-
                 pressedKey.setStyle(correctKeyStyle());
                 pressedKey.setDisable(true);
             }
@@ -175,7 +183,7 @@ public class HangmanController extends JavaboxAbstractController {
                 statusLabel.setStyle("-fx-text-fill: #4caf50;");
                 wordLabel.setText(word.toUpperCase());
                 ScreenEffects.confetti(rootPane);
-                endGame();
+                endGame(true);
             } else {
                 SoundManager.playSFX("sfx_ui_confirm.mp3");
                 statusLabel.setText("🎯 Direct hit!");
@@ -185,17 +193,39 @@ public class HangmanController extends JavaboxAbstractController {
     }
 
     @FXML
-    private void handleRestart() { SoundManager.playSFX("sfx_ui_confirm.mp3");
-        newGame(); }
-    @FXML private void handleQuit(){ SoundManager.playSFX("sfx_ui_accept_death.mp3");
-        quitToLobby();}
+    private void handleRestart() {
+        SoundManager.playSFX("sfx_ui_confirm.mp3");
+        newGame();
+    }
 
-    private void endGame() {
+    @FXML
+    private void handleQuit() {
+        SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        quitToLobby();
+    }
+
+    private void endGame(boolean win) {
         gameOver = true;
         inputField.setDisable(true);
         guessButton.setDisable(true);
         restartButton.setVisible(true);
         keyButtons.values().forEach(btn -> btn.setDisable(true));
+
+        // Record the game — pulls survived = wrong guesses that didn't kill
+        int pullsSurvived = win ? wrongGuess : wrongGuess - 1;
+        HangmanGame game = new HangmanGame(word, win, Math.max(0, pullsSurvived));
+        statsManager.recordGame(game);
+        showStats();
+    }
+
+    private void showStats() {
+        statGames.setText("Games Played: " + statsManager.getTotalGamesPlayed());
+        statWinRate.setText(String.format("Win Rate: %.1f%%", statsManager.getWinRate()));
+        statStreak.setText("Current Streak: " + statsManager.getCurrentStreak());
+        statBestStreak.setText("Best Streak: " + statsManager.getBestStreak());
+        statPulls.setText("🔫 Pulls Survived: " + statsManager.getTotalPullsSurvived());
+        statDeaths.setText("💀 Times Shot: " + statsManager.getTotalDeaths());
+        statsPane.setVisible(true);
     }
 
     private String formatWord() {
@@ -204,7 +234,6 @@ public class HangmanController extends JavaboxAbstractController {
         return sb.toString().toUpperCase().trim();
     }
 
-    // Styles remain the same for consistency
     private String defaultKeyStyle() {
         return "-fx-font-family: Monospace; -fx-font-size: 13; " +
                 "-fx-background-color: #16213e; -fx-text-fill: #eaeaea; " +
