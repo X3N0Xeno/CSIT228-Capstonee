@@ -8,11 +8,9 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -22,6 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -95,7 +94,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
     private KBPlayer current;
     private int dice_val;
     private boolean isAnimating = false; //Prevent clicks during dice roll
-    private Runnable quitCallback; //To return back to JavaboxLobby
 
     @FXML
     public void initialize() {
@@ -252,7 +250,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         return true;
     }
 
-
     public boolean insertBoard(int col) {
         boolean inserted = current.insertBoard(col, dice_val);
         if (inserted) {
@@ -287,14 +284,29 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         //Return to menu
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("knucklebone-menu.fxml"));
-            Scene menuScene = new Scene(loader.load(), 1280, 720);
-            Stage stage = (Stage) turn.getScene().getWindow();
-            stage.setTitle("Welcome to Knucklebones");
-            stage.setScene(menuScene);
-        } catch (Exception e) {
+            Scene gameScene = new Scene(loader.load(), 1280, 720);
+
+            KnuckleBoneMenuController menuController = getKnuckleBoneMenuController(loader);
+            menuController.setQuitCallback(this.quitCallback);
+
+            Stage stage = (Stage) p1_score.getScene().getWindow();
+
+            stage.setTitle("Knucklebones - Menu");
+            stage.setScene(gameScene);
+
+        } catch (IOException e) {
             e.printStackTrace();
-            JavaboxUtils.showAlert(Alert.AlertType.ERROR, "Error", "Could not load menu", e.getMessage());
+            JavaboxUtils.showAlert(
+                    Alert.AlertType.ERROR,
+                    "System Error",
+                    "Failed to load game screen",
+                    "Check if knucklebone-view.fxml exists."
+            );
         }
+    }
+
+    private KnuckleBoneMenuController getKnuckleBoneMenuController(FXMLLoader loader) {
+        return loader.getController();
     }
 
     public void setCurrent() {

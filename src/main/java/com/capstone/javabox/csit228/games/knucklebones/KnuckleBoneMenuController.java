@@ -34,7 +34,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
     @FXML private Label player2;
 
     public void initialize() {
-        SoundManager.playSFX("music_COTL_knucklebones.mp3");
+        SoundManager.playMusic("music_COTL_knucklebones.mp3");
         player1.setStyle("-fx-text-fill: white;");
         player2.setStyle("-fx-text-fill: white;");
         double delay = 0;
@@ -73,6 +73,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
     @FXML
     public void onExitButtonClicked(ActionEvent event){
         if (JavaboxUtils.showConfirmation("Exit Game", "Are you sure you want to quit to the lobby?")) {
+            SoundManager.stopMusic();
             quitToLobby();
         }
     }

@@ -105,6 +105,7 @@ public class WindowSwarmController extends JavaboxAbstractController {
 
     @FXML
     public void initialize() {
+        SoundManager.playMusic("music_breakbeat.mp3");
         // Cache URLs at startup to keep the game loop lightning fast
         swarmUrl = getClass().getResource("swarm-window.fxml");
         fatalErrorUrl = getClass().getResource("fatal-error.fxml");
@@ -363,6 +364,7 @@ public class WindowSwarmController extends JavaboxAbstractController {
             });
 
             lobbyBtn.setOnAction(e -> {
+                SoundManager.stopMusic();
                 overlayStage.close();
                 Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
                 mainStage.setAlwaysOnTop(false);

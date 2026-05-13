@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import com.example.hangman.RouletteCanvas?>
+<?import com.capstone.javabox.csit228.games.hangman.RouletteCanvas ?>
 
 <StackPane fx:id="rootPane"
            xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.hangman.HangmanController"
+           fx:controller="com.capstone.javabox.csit228.games.hangman.HangmanController"
            style="-fx-background-color: #1a1a2e;">
 
     <VBox alignment="CENTER"
@@ -55,13 +55,21 @@
                   prefWrapLength="420"
                   style="-fx-padding: 10;"/>
 
-        <Button fx:id="restartButton"
-                text="New Game"
-                visible="false"
-                onAction="#handleRestart"
-                style="-fx-font-family: Monospace; -fx-font-size: 13;
-                       -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
-                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+        <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="restartButton"
+                    text="New Game"
+                    visible="false"
+                    onAction="#handleRestart"
+                    style="-fx-font-family: Monospace; -fx-font-size: 13;
+                           -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                           -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+            <Button
+                    text="Quit"
+                    onAction="#handleQuit"
+                    style="-fx-font-family: Monospace; -fx-font-size: 13;
+                           -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                           -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+        </HBox>
     </VBox>
 
 </StackPane>

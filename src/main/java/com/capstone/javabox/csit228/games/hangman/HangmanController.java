@@ -1,5 +1,7 @@
-package com.example.hangman;
+package com.capstone.javabox.csit228.games.hangman;
 
+import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.utils.JavaboxUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HangmanController {
+public class HangmanController extends JavaboxAbstractController {
 
     @FXML private Label wordLabel;
     @FXML private Label statusLabel;
@@ -79,6 +81,7 @@ public class HangmanController {
         inputField.clear();
         inputField.setDisable(false);
         guessButton.setDisable(false);
+        restartButton.managedProperty().bind(restartButton.visibleProperty());
         restartButton.setVisible(false);
 
         rouletteCanvas.reset();
@@ -135,7 +138,7 @@ public class HangmanController {
                         statusLabel.setText("💥 BANG! You're dead. Word: " + word.toUpperCase());
                         statusLabel.setStyle("-fx-text-fill: #e94560;");
                         wordLabel.setText(word.toUpperCase());
-                        ScreenEffects.shake(HangmanApplication.getStage());
+                        ScreenEffects.shake(JavaboxUtils.getStage(statusLabel));
                         endGame();
                     },
                     () -> {
@@ -175,6 +178,7 @@ public class HangmanController {
 
     @FXML
     private void handleRestart() { newGame(); }
+    @FXML private void handleQuit(){quitToLobby();}
 
     private void endGame() {
         gameOver = true;

@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games;
 
+import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
 import com.capstone.javabox.csit228.utils.SoundManager;
@@ -23,7 +24,8 @@ public class JavaboxController {
                 //Add your game's Launcher here! Don't forget about the comma heh heh...
                 //By the way, your launcher must implement JavaboxGame and your Controller must extend JavaboxAbstractController!
                 new KnuckleBoneLauncher(),
-                new WindowSwarmLauncher()
+                new WindowSwarmLauncher(),
+                new HangmanLauncher()
         ));
 
         for (JavaboxGame game : availableGames) {
