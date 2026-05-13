@@ -2,6 +2,7 @@ package com.capstone.javabox.csit228.games.hangman;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
 import com.capstone.javabox.csit228.utils.JavaboxUtils;
+import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -129,12 +130,15 @@ public class HangmanController extends JavaboxAbstractController {
             keyButtons.values().forEach(btn -> btn.setDisable(true));
 
             statusLabel.setText("🎲 Spinning the cylinder...");
+            SoundManager.playSFX("sfx_revolver_spin.mp3");
             statusLabel.setStyle("-fx-text-fill: #f5a623;");
 
             ScreenEffects.flashRed(rootPane);
 
             rouletteCanvas.spin(
                     () -> {
+                        SoundManager.playSFX("sfx_gunshot.mp3");
+                        SoundManager.playSFX("sfx_death.mp3");
                         statusLabel.setText("💥 BANG! You're dead. Word: " + word.toUpperCase());
                         statusLabel.setStyle("-fx-text-fill: #e94560;");
                         wordLabel.setText(word.toUpperCase());
@@ -142,6 +146,7 @@ public class HangmanController extends JavaboxAbstractController {
                         endGame();
                     },
                     () -> {
+                        SoundManager.playSFX("sfx_empty_gun.mp3");
                         spinInProgress = false;
                         statusLabel.setText(" *click* ... Empty chamber. Survive another turn.");
                         statusLabel.setStyle("-fx-text-fill: #f5a623;");
@@ -159,17 +164,20 @@ public class HangmanController extends JavaboxAbstractController {
 
         } else {
             if (pressedKey != null) {
+
                 pressedKey.setStyle(correctKeyStyle());
                 pressedKey.setDisable(true);
             }
 
             if (new String(letters).equals(word)) {
+                SoundManager.playSFX("sfx_powerup.mp3");
                 statusLabel.setText("💰 You survived. The word was: " + word.toUpperCase());
                 statusLabel.setStyle("-fx-text-fill: #4caf50;");
                 wordLabel.setText(word.toUpperCase());
                 ScreenEffects.confetti(rootPane);
                 endGame();
             } else {
+                SoundManager.playSFX("sfx_ui_confirm.mp3");
                 statusLabel.setText("🎯 Direct hit!");
                 statusLabel.setStyle("-fx-text-fill: #4caf50;");
             }
@@ -177,8 +185,10 @@ public class HangmanController extends JavaboxAbstractController {
     }
 
     @FXML
-    private void handleRestart() { newGame(); }
-    @FXML private void handleQuit(){quitToLobby();}
+    private void handleRestart() { SoundManager.playSFX("sfx_ui_confirm.mp3");
+        newGame(); }
+    @FXML private void handleQuit(){ SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        quitToLobby();}
 
     private void endGame() {
         gameOver = true;
