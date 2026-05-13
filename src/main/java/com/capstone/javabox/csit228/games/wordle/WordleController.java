@@ -29,7 +29,7 @@ public class WordleController extends JavaboxAbstractController {
     private static final int MAX_GUESSES = 8;
     private static final int WORD_LENGTH = 5;
 
-    private WordValidator validator;
+    private WordRetriever retriever;
     private StatisticsManager statsManager;
 
     private String secretWord;
@@ -46,8 +46,6 @@ public class WordleController extends JavaboxAbstractController {
 
     @FXML
     public void initialize() {
-        validator = new WordValidator();
-        new Thread(validator).start();
         statsManager = new StatisticsManager();
 
         tiles = new Label[MAX_GUESSES][WORD_LENGTH];
@@ -84,7 +82,7 @@ public class WordleController extends JavaboxAbstractController {
 
     private void newGame() {
         int numWord = (int) (Math.random() * 5757);
-        WordRetriever retriever = new WordRetriever(numWord);
+        this.retriever = new WordRetriever(numWord);
         secretWord = retriever.getWord().toLowerCase().trim();
 
         currentRow = 0;
@@ -117,7 +115,7 @@ public class WordleController extends JavaboxAbstractController {
             return;
         }
 
-        if (!validator.isValid(input)) {
+        if (!retriever.isValidWord(input)) {
             statusLabel.setText("⚠ Not a valid word!");
             statusLabel.setStyle("-fx-text-fill: #f5a623;");
             return;
