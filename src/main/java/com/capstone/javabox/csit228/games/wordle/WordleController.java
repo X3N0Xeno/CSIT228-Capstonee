@@ -81,7 +81,7 @@ public class WordleController extends JavaboxAbstractController {
     }
 
     private void newGame() {
-        int numWord = (int) (Math.random() * 5757);
+        int numWord = (int) (Math.random() *5761 );
         this.retriever = new WordRetriever(numWord);
         secretWord = retriever.getWord().toLowerCase().trim();
 
@@ -100,6 +100,7 @@ public class WordleController extends JavaboxAbstractController {
         statsPane.setVisible(false);
         statusLabel.setText("Guess the 5-letter word!");
         statusLabel.setStyle("-fx-text-fill: #aaaaaa;");
+        restartButton.managedProperty().bind(restartButton.visibleProperty());
     }
 
     @FXML

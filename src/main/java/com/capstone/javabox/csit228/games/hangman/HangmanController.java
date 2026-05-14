@@ -74,7 +74,7 @@ public class HangmanController extends JavaboxAbstractController {
     }
 
     private void newGame() {
-        int numWord = (int) (Math.random() * 5757);
+        int numWord = (int) (Math.random() * 5761);
         WordRetriever wordRetriever = new WordRetriever(numWord);
         word = wordRetriever.getWord();
         letters = new char[word.length()];
