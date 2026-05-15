@@ -207,7 +207,6 @@ public class WindowSwarmController extends JavaboxAbstractController {
 
     private void spawnSwarmWindow() {
         try {
-            // Uses cached URL
             FXMLLoader loader = new FXMLLoader(swarmUrl);
             Parent root = loader.load();
             SwarmWindowController controller = loader.getController();
@@ -238,7 +237,7 @@ public class WindowSwarmController extends JavaboxAbstractController {
                 activeWindows--;
                 openSwarmWindows.remove(swarmStage);
 
-                // Phase-based scaling logic for better flow
+                //Scaling logic
                 if (currentScore % 5 == 0) {
                     SoundManager.playSFX("sfx_powerup.mp3");
                     if (currentScore < 50 && currentSpawnRate > 500) {
@@ -321,8 +320,6 @@ public class WindowSwarmController extends JavaboxAbstractController {
         Scene scene = new Scene(rootPane);
         scene.setFill(Color.TRANSPARENT);
         overlayStage.setScene(scene);
-
-        // Memory management: free up resources when the overlay closes
         overlayStage.setOnHidden(e -> rootPane.getChildren().clear());
 
         overlayStage.show();

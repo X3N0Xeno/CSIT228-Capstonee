@@ -1,14 +1,8 @@
 package com.capstone.javabox.csit228.games.knucklebones;
 
 import com.capstone.javabox.csit228.games.JavaboxGame;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-// Notice: No longer extends Application
 public class KnuckleBoneLauncher implements JavaboxGame {
 
     @Override
