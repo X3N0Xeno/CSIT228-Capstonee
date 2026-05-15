@@ -63,13 +63,40 @@
                     style="-fx-font-family: Monospace; -fx-font-size: 13;
                            -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
                            -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
-            <Button
-                    text="Quit"
+            <Button text="Quit"
                     onAction="#handleQuit"
                     style="-fx-font-family: Monospace; -fx-font-size: 13;
                            -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
                            -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
         </HBox>
+
+        <!-- Stats Panel -->
+        <VBox fx:id="statsPane"
+              visible="false"
+              spacing="8"
+              alignment="CENTER"
+              style="-fx-background-color: #16213e; -fx-padding: 16;
+                     -fx-border-color: #e94560; -fx-border-radius: 6;
+                     -fx-background-radius: 6;">
+
+            <Label text="📊 Statistics"
+                   style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #e94560;"/>
+
+            <Label fx:id="statGames"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #eaeaea;"/>
+            <Label fx:id="statWinRate"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #eaeaea;"/>
+            <Label fx:id="statStreak"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #4caf50;"/>
+            <Label fx:id="statBestStreak"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #f5a623;"/>
+            <Label fx:id="statPulls"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #aaaaaa;"/>
+            <Label fx:id="statDeaths"
+                   style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #e94560;"/>
+
+        </VBox>
+
     </VBox>
 
 </StackPane>
