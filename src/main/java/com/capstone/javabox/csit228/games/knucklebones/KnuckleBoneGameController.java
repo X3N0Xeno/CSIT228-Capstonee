@@ -134,11 +134,10 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
             }
         }
 
-        // Create the colored glows (BlurType, Color, Radius, Spread, OffsetX, OffsetY)
+        //Glow
         p1Glow = new DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, Color.web(hex1), 15, 0.4, 0, 0);
         p2Glow = new DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, Color.web(hex2), 15, 0.4, 0, 0);
 
-        // 2. The Animation: Pulse the spread for solidity, and only slightly bump the radius
         pulseAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(p1Glow.spreadProperty(), 0.4),
@@ -203,8 +202,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
 
         int col = Character.getNumericValue(id.charAt(id.length() - 1));
 
-        // --- NEW: Find exactly which row the die will land in BEFORE we insert it ---
-        // Gravity pulls to the bottom, so we check row 2, then 1, then 0.
         int targetRow = -1;
         for (int r = 2; r >= 0; r--) {
             if (current.board[r][col] == 0) {
@@ -216,17 +213,12 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         if (insertBoard(col)) {
             refreshBoardUI();
 
-            // JUICE: Get the exact label the die just landed on!
-            // This perfectly matches your FXML naming convention (e.g., "#p1_02" -> col 0, row 2)
             String labelId = "#" + expectedPrefix + "_" + col + targetRow;
             Label exactCellLabel = (Label) turn.getScene().lookup(labelId);
 
-            // Force layout and spawn sparks from the specific LABEL, not the whole column
             GridPane activeGrid = current.equals(p1) ? p1_grid : p2_grid;
             activeGrid.layout();
 
-            // Fallback to the button if the label lookup fails for some reason,
-            // but it will normally use the exact cell!
             spawnSparks(exactCellLabel != null ? exactCellLabel : clickedBtn, current.equals(p1) ? hex1 : hex2);
 
             if (isBoardFull(current)) {
@@ -258,8 +250,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
             if (attackLanded) {
                 SoundManager.playSFX("sfx_explosion.mp3");
                 System.out.println("YO!!! " + current.name + " destroyed a die!");
-
-                // JUICE: Trigger the screen shake on destruction!
                 shakeScreen();
             }
         }
@@ -317,16 +307,10 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         turn.setText(current.name.toUpperCase() + "'S TURN");
 
         if (current.equals(p1)) {
-            // Make Player 1's entire grid pulse!
             p1_grid.setEffect(p1Glow);
-
-            // Strip the effect from Player 2's grid
             p2_grid.setEffect(null);
         } else {
-            // Make Player 2's entire grid pulse!
             p2_grid.setEffect(p2Glow);
-
-            // Strip the effect from Player 1's grid
             p1_grid.setEffect(null);
         }
     }
@@ -359,8 +343,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
                 "-fx-accent: " + JavaboxUtils.extractHex(color1) + "; " +
                         "-fx-control-inner-background: " + JavaboxUtils.extractHex(color2) + ";"
         );
-
-        // Start at 50%
         bar.setProgress(0.5);
     }
 
@@ -376,8 +358,7 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         timeline.play();
     }
 
-    // --- JUICE METHODS BELOW ---
-
+    //Effects and Juice (glugh gluhg)
     private void shakeScreen() {
         if (rootPane == null) {
             System.err.println("Shake failed: rootPane is null. Ensure StackPane has fx:id=\"rootPane\" in FXML.");
@@ -388,8 +369,8 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         rootPane.setTranslateY(0);
 
         Timeline shakeTimeline = new Timeline();
-        int frames = 8;        // How many violent jerks
-        int durationPerFrame = 35; // Milliseconds per jerk
+        int frames = 8;        //How many shakes
+        int durationPerFrame = 35; //Milliseconds per shake
 
         for (int i = 0; i < frames; i++) {
             double offsetX = (random.nextDouble() * 12) - 6;
@@ -403,7 +384,7 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
             shakeTimeline.getKeyFrames().add(keyFrame);
         }
 
-        // CRITICAL: Snap back to absolute zero
+        //Back to Zero
         KeyFrame snapBack = new KeyFrame(
                 Duration.millis(frames * durationPerFrame),
                 new KeyValue(rootPane.translateXProperty(), 0, Interpolator.LINEAR),
@@ -417,7 +398,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
     private void spawnSparks(javafx.scene.Node targetNode, String hexColor) {
         if (particleLayer == null) return;
 
-        // 1. Find exactly where the node is on the screen
         javafx.geometry.Point2D sceneCoords = targetNode.localToScene(targetNode.getBoundsInLocal().getWidth() / 2, targetNode.getBoundsInLocal().getHeight() / 2);
         javafx.geometry.Point2D layerCoords = particleLayer.sceneToLocal(sceneCoords);
 
@@ -425,34 +405,28 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         double startY = layerCoords.getY();
 
         Color playerColor = Color.web(hexColor);
-
-        // 2. We don't want 1000 particles. 12-15 is plenty for a punchy UI burst.
         int particleCount = 15;
 
         for (int i = 0; i < particleCount; i++) {
-            // Create a tiny circle
             Circle spark = new Circle(random.nextDouble() * 3 + 1, playerColor); // Radius between 1 and 4
             spark.setLayoutX(startX);
             spark.setLayoutY(startY);
 
-            // Give the spark that sharp neon glow we built earlier!
             DropShadow sparkGlow = new DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, playerColor, 5, 0.6, 0, 0);
             spark.setEffect(sparkGlow);
 
             particleLayer.getChildren().add(spark);
 
-            // 3. Calculate a random direction and distance to shoot the spark
-            double angle = random.nextDouble() * 2 * Math.PI; // Random angle 0 to 360 degrees
-            double distance = random.nextDouble() * 60 + 20; // Fly out between 20 and 80 pixels
+            double angle = random.nextDouble() * 2 * Math.PI;
+            double distance = random.nextDouble() * 60 + 20;
 
             double targetX = startX + Math.cos(angle) * distance;
             double targetY = startY + Math.sin(angle) * distance;
 
-            // 4. Animate it! (Move out, scale down, and fade out simultaneously)
             TranslateTransition move = new TranslateTransition(Duration.millis(400 + random.nextInt(200)), spark);
-            move.setToX(targetX - startX); // TranslateTransition uses relative coordinates
+            move.setToX(targetX - startX);
             move.setToY(targetY - startY);
-            // Use an easing that shoots out fast, then slows down
+
             move.setInterpolator(Interpolator.SPLINE(0.25, 0.1, 0.25, 1));
 
             FadeTransition fade = new FadeTransition(Duration.millis(300), spark);
@@ -463,10 +437,7 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
             shrink.setToX(0);
             shrink.setToY(0);
 
-            // Group the animations together
             ParallelTransition burst = new ParallelTransition(spark, move, fade, shrink);
-
-            // CRITICAL: When the animation finishes, delete the particle from memory!
             burst.setOnFinished(e -> particleLayer.getChildren().remove(spark));
 
             burst.play();
