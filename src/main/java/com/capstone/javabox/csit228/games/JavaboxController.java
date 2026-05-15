@@ -3,6 +3,7 @@ package com.capstone.javabox.csit228.games;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
+import com.capstone.javabox.csit228.games.wordle.WordleLauncher;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -37,7 +38,8 @@ public class JavaboxController {
                 //By the way, your launcher must implement JavaboxGame and your Controller must extend JavaboxAbstractController!
                 new KnuckleBoneLauncher(),
                 new WindowSwarmLauncher(),
-                new HangmanLauncher()
+                new HangmanLauncher(),
+                new WordleLauncher()
         ));
 
         //Load the Default Background
