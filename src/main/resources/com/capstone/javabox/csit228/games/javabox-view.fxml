@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../lobby-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.JavaboxController">
-   <children>
-      <VBox HBox.hgrow="ALWAYS">
-         <children>
-            <Label text="JAVABOX">
-               <font>
-                  <Font name="Rockwell" size="40.0" />
-               </font>
-            </Label>
-            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-padding: 0;" vbarPolicy="NEVER">
-                     <content>
-                        <VBox fx:id="gameContainer" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-                           <padding>
-                              <Insets bottom="80.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-                   <Region maxHeight="100" mouseTransparent="true" style="-fx-background-color: linear-gradient(to bottom, transparent, #FFFFFF);" />
-               </children>
-            </StackPane>
-         </children>
-      </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-   </children>
-   <padding>
-      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-   </padding>
+<HBox prefHeight="720.0" prefWidth="1280.0" styleClass="lobby-bg" stylesheets="@../lobby-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.JavaboxController">
+    <children>
+        <VBox prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+            <children>
+                <Label style="-fx-font-size: 48px;" styleClass="lobby-title" text="JAVABOX" />
+                <StackPane VBox.vgrow="ALWAYS">
+                    <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" vbarPolicy="NEVER">
+                            <content>
+                                <VBox fx:id="gameContainer" spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="120.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <Region maxHeight="120.0" mouseTransparent="true" style="-fx-background-color: linear-gradient(to bottom, transparent, #121212);" StackPane.alignment="BOTTOM_CENTER" />
+                    </children>
+                </StackPane>
+            </children>
+        </VBox>
+        <StackPane fx:id="previewArea" style="-fx-background-color: #000000;" HBox.hgrow="ALWAYS" />
+    </children>
 </HBox>

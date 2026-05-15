@@ -67,10 +67,11 @@ public class SoundManager {
                 return;
             }
 
+
             Media media = new Media(resource.toExternalForm());
             MediaPlayer newPlayer = new MediaPlayer(media);
             newPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop indefinitely!
-
+            System.out.println("Now Playing... " + fileName);
             //If there is nothing playing...then play music
             if (currentMusicPlayer == null) {
                 newPlayer.setVolume(1.0);
@@ -104,6 +105,7 @@ public class SoundManager {
                     oldPlayer.stop();
                     oldPlayer.dispose();
                 });
+
 
                 crossfade.play();
             }

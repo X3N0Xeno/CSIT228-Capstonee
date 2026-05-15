@@ -1,47 +1,40 @@
-/* Make the entire background of the lobby a sleek dark gray */
-.root {
-    -fx-background-color: #FFFFFF;
+.lobby-bg {
+    -fx-background-color: #121212;
 }
 
-/* Make all standard text white so it shows up on the dark background */
-.label {
-    -fx-text-fill: black;
+.lobby-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Courier New';
+    -fx-font-weight: bold;
 }
 
-.scroll-pane {
+/* Hide the scrollbar but keep the functionality */
+.scroll-pane, .scroll-pane > .viewport {
     -fx-background-color: transparent;
     -fx-control-inner-background: transparent;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
-/* This is the magic line: Make the internal viewing window transparent */
-.scroll-pane > .viewport {
+/* The invisible button style */
+.lobby-button {
     -fx-background-color: transparent;
-}
-
-/* The style for your dynamically generated game buttons */
-.game-tile {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Courier New';
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-background-radius: 0px;
-    -fx-border-radius: 0px;
-    -fx-border-color: black;
-    -fx-border-width: 2px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15 20 15 20;
     -fx-cursor: hand;
+    -fx-background-radius: 5px;
 }
 
-/* The Game Juice: What happens when the mouse hovers over a game tile */
-.game-tile:hover {
-    -fx-background-color: white;
-    -fx-scale-x: 1.05; /* Pops out slightly */
-    -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 0, 5); /* Adds a shadow */
+/* The stark inversion on hover */
+.lobby-button:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #121212;
 }
 
-/* Remove the ugly default blue focus ring when a button is clicked */
-.game-tile:focus {
-    -fx-background-color: white;
+.lobby-button:focus {
+    -fx-background-color: transparent;
 }

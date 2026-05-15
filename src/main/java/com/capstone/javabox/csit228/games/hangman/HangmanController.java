@@ -48,6 +48,7 @@ public class HangmanController extends JavaboxAbstractController {
 
     @FXML
     public void initialize() {
+        SoundManager.playMusic("music_jazz_unsolved_mystery.mp3");
         buildKeyboard();
         newGame();
     }
@@ -144,9 +145,10 @@ public class HangmanController extends JavaboxAbstractController {
             statusLabel.setStyle("-fx-text-fill: #f5a623;");
 
             ScreenEffects.flashRed(rootPane);
-
+            //SMOOTH AHH TRANSITION RIGHT???
             rouletteCanvas.spin(
                     () -> {
+                        SoundManager.playMusic("music_jazz_game_over.mp3");
                         SoundManager.playSFX("sfx_gunshot.mp3");
                         SoundManager.playSFX("sfx_death.mp3");
                         statusLabel.setText("💥 BANG! You're dead. Word: " + word.toUpperCase());
@@ -195,12 +197,14 @@ public class HangmanController extends JavaboxAbstractController {
     @FXML
     private void handleRestart() {
         SoundManager.playSFX("sfx_ui_confirm.mp3");
+        SoundManager.playMusic("music_jazz_unsolved_mystery.mp3");
         newGame();
     }
 
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.stopMusic();
         quitToLobby();
     }
 
