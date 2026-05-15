@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games;
 
+import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
@@ -25,7 +26,8 @@ public class JavaboxController {
                 //By the way, your launcher must implement JavaboxGame and your Controller must extend JavaboxAbstractController!
                 new KnuckleBoneLauncher(),
                 new WindowSwarmLauncher(),
-                new HangmanLauncher()
+                new HangmanLauncher(),
+                new FullHouseLauncher()
         ));
 
         for (JavaboxGame game : availableGames) {
