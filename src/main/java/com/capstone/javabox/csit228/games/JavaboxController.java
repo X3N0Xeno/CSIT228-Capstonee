@@ -73,6 +73,10 @@ public class JavaboxController {
                 previewFxmlFile = "preview/preview-hangman.fxml";
                 hoverSound = "sfx_reload.mp3";
             }
+            else if(game instanceof WordleLauncher){
+                previewFxmlFile = "preview/preview-default.fxml";
+                hoverSound = "sfx_button.mp3";
+            }
 
             try {
                 Node previewNode = FXMLLoader.load(getClass().getResource(previewFxmlFile));
