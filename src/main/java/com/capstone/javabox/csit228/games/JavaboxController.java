@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class JavaboxController {
     @FXML
-    private TilePane gameContainer;
+    private VBox gameContainer;
 
     @FXML
     public void initialize() {
