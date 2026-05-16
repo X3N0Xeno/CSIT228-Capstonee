@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTController"
+      alignment="CENTER"
+      spacing="12"
+      style="-fx-background-color: #1a1a2e; -fx-padding: 20;">
+
+    <Label text="⬛ Ultimate Tic-Tac-Toe"
+           style="-fx-font-family: Monospace; -fx-font-size: 24; -fx-text-fill: #e94560;"/>
+
+    <Label fx:id="turnLabel"
+           style="-fx-font-family: Monospace; -fx-font-size: 18; -fx-text-fill: #eaeaea;"/>
+
+    <Label fx:id="statusLabel"
+           style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #aaaaaa;"/>
+
+    <!-- Player 1 Hand -->
+    <VBox alignment="CENTER" spacing="4">
+        <Label fx:id="p1Label"
+               text="Player X — Hand:"
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #e94560;"/>
+        <HBox fx:id="p1Hand" alignment="CENTER" spacing="8"/>
+    </VBox>
+
+    <!-- Main Board -->
+    <GridPane fx:id="mainBoard"
+              alignment="CENTER"
+              hgap="6"
+              vgap="6"/>
+
+    <!-- Player 2 Hand -->
+    <VBox alignment="CENTER" spacing="4">
+        <Label fx:id="p2Label"
+               text="Player O — Hand:"
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #4caf50;"/>
+        <HBox fx:id="p2Hand" alignment="CENTER" spacing="8"/>
+    </VBox>
+
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="restartButton"
+                text="New Game"
+                visible="false"
+                onAction="#handleRestart"
+                style="-fx-font-family: Monospace; -fx-font-size: 13;
+                       -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+        <Button text="Quit"
+                onAction="#handleQuit"
+                style="-fx-font-family: Monospace; -fx-font-size: 13;
+                       -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+    </HBox>
+
+</VBox>
