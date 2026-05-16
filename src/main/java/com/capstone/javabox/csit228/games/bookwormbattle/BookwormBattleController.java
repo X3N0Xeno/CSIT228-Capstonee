@@ -362,21 +362,33 @@ public class BookwormBattleController extends JavaboxAbstractController {
     }
 
     private void checkGameOver() {
-        turnTimer.stop();
-        String winner = p1.hearts > 0 ? "Player 1" : "Player 2";
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText(winner + " Wins!");
-        alert.setContentText("Play again?");
+        if (p1.hearts <= 0) p1.hearts = 0;
+        if (p2.hearts <= 0) p2.hearts = 0;
 
-        ButtonType btnYes = new ButtonType("Yes");
-        ButtonType btnNo = new ButtonType("No, Hub");
-        alert.getButtonTypes().setAll(btnYes, btnNo);
+        if (p1.hearts <= 0 || p2.hearts <= 0) {
+            if (turnTimer != null) turnTimer.stop();
 
-        alert.showAndWait().ifPresent(type -> {
-            if (type == btnYes) startCountdown();
-            else quitToLobby();
-        });
+            javafx.application.Platform.runLater(() -> {
+                String winner = p1.hearts > 0 ? "Player 1" : "Player 2";
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("GAME OVER");
+                alert.setHeaderText(winner + " is the Victor!");
+                alert.setContentText("Would you like to play again or return to the JavaBox lobby?");
+
+                ButtonType btnPlayAgain = new ButtonType("Play Again");
+                ButtonType btnLobby = new ButtonType("Return to Lobby");
+                alert.getButtonTypes().setAll(btnPlayAgain, btnLobby);
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == btnPlayAgain) {
+                    startCountdown();
+                } else {
+                    quitToLobby();
+                }
+            });
+        }
     }
 
     private void setupBoard(Player p) {
