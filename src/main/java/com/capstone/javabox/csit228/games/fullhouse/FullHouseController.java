@@ -143,6 +143,7 @@ public class FullHouseController extends JavaboxAbstractController {
             card.getChildren().addAll(imageBox, name, stats);
 
             card.setOnMouseClicked(e -> {
+                SoundManager.playSFX("sfx_button.mp3");
                 selectedHouse = h;
                 for (int i = 0; i < cardContainer.getChildren().size(); i++) {
                     cardContainer.getChildren().get(i).setStyle("-fx-background-color: #1a241c; -fx-border-color: " + activeHouses.get(i).colorHex + "; -fx-border-width: 2; -fx-padding: 8; -fx-cursor: hand;");
@@ -219,6 +220,7 @@ public class FullHouseController extends JavaboxAbstractController {
 
     @FXML
     private void handlePlaceBet() {
+        SoundManager.playSFX("sfx_ui_confirm.mp3");
         String pName = txtPlayerName.getText().trim();
         if (pName.isEmpty() || selectedHouse == null) return;
 
@@ -249,6 +251,7 @@ public class FullHouseController extends JavaboxAbstractController {
 
     @FXML
     private void handleSpeedToggle() {
+        SoundManager.playSFX("sfx_junimo.mp3");
         if(speedMultiplier == 0.5){speedMultiplier = 1;}
         else{speedMultiplier *= 2;}
         if (speedMultiplier > 4) speedMultiplier = 0.5;
@@ -257,6 +260,7 @@ public class FullHouseController extends JavaboxAbstractController {
 
     @FXML
     private void handleStartRace() {
+        SoundManager.playSFX("sfx_pistol_shot.mp3");
         SoundManager.playMusic("music_full_house_race.mp3");
         setupPane.setVisible(false);
         racePane.setVisible(true);
@@ -361,6 +365,7 @@ public class FullHouseController extends JavaboxAbstractController {
     }
 
     private void declareWinner(House w) {
+        SoundManager.playSFX("sfx_fanfare.mp3");
         String winnerText;
         if (w.getBettors().isEmpty()) {
             winnerText = "THE HOUSE TAKES IT ALL!";
@@ -425,10 +430,12 @@ public class FullHouseController extends JavaboxAbstractController {
         racePane.setVisible(false);
         setupPane.setVisible(true);
         SoundManager.playMusic("music_full_house_lobby.mp3");
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
     }
 
     @FXML
     private void onExitButtonClicked() {
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Leave the Parlor");
         alert.setHeaderText("Return to Lobby?");
@@ -441,6 +448,7 @@ public class FullHouseController extends JavaboxAbstractController {
             if (response == ButtonType.OK) {
                 isRaceOver = true;
                 quitToLobby();
+                SoundManager.playSFX("sfx_ui_accept_death.mp3");
                 SoundManager.stopMusic();
             }
         });

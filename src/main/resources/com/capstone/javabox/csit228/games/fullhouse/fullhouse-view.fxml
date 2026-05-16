@@ -7,7 +7,7 @@
 <StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0b120d;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.fullhouse.FullHouseController">
     <children>
 
-        <VBox fx:id="racePane" spacing="10" style="-fx-padding: 20;">
+        <VBox fx:id="racePane" spacing="10" style="-fx-padding: 20;" visible="false">
             <children>
                 <HBox alignment="CENTER_LEFT" prefHeight="40">
                     <Label style="-fx-text-fill: #d4af37; -fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="THE ESTATE DERBY" />
@@ -50,7 +50,7 @@
             </children>
         </VBox>
 
-        <VBox fx:id="setupPane" alignment="CENTER" spacing="20.0" style="-fx-background-color: #0b120d; -fx-padding: 30;" visible="false">
+        <VBox fx:id="setupPane" alignment="CENTER" spacing="20.0" style="-fx-background-color: #0b120d; -fx-padding: 30;">
             <children>
                 <HBox alignment="CENTER" spacing="20" VBox.vgrow="NEVER">
                     <Label style="-fx-text-fill: #d4af37; -fx-font-size: 42px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="THE BETTING PARLOR" />

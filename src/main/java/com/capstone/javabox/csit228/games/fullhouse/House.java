@@ -1,5 +1,7 @@
 package com.capstone.javabox.csit228.games.fullhouse;
 
+import com.capstone.javabox.csit228.utils.SoundManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -71,6 +73,7 @@ public class House {
             int secretRoll = dice.nextInt(100) + 1;
             if (secretRoll == 100) {
                 specialMoveTicks = 5;
+                SoundManager.playSFX("sfx_powerup.mp3");
             }
         }
 

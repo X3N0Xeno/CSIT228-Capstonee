@@ -86,8 +86,8 @@ public class JavaboxController {
                 hoverSound = "sfx_ui_prompt.mp3";
             }
             else if(game instanceof FullHouseLauncher){
-                previewFxmlFile = "preview/preview-wordle.fxml";
-                hoverSound = "sfx_ui_prompt.mp3";
+                previewFxmlFile = "preview/preview-fullhouse.fxml";
+                hoverSound = "sfx_fanfare.mp3";
             }
 
             try {
