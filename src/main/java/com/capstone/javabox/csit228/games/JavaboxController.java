@@ -74,8 +74,8 @@ public class JavaboxController {
                 hoverSound = "sfx_reload.mp3";
             }
             else if(game instanceof WordleLauncher){
-                previewFxmlFile = "preview/preview-default.fxml";
-                hoverSound = "sfx_button.mp3";
+                previewFxmlFile = "preview/preview-wordle.fxml";
+                hoverSound = "sfx_ui_prompt.mp3";
             }
 
             try {

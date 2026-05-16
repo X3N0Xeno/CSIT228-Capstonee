@@ -9,7 +9,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SoundManager {
@@ -17,6 +21,7 @@ public class SoundManager {
     private SoundManager() {
         throw new UnsupportedOperationException("Hey this is kinda like an autoload in Godot. Please don't instantiate this!");
     }
+
     private static final String SFX_FOLDER = "/com/capstone/javabox/csit228/audio/sfx/";
     private static final String MUSIC_FOLDER = "/com/capstone/javabox/csit228/audio/music/";
 
@@ -25,6 +30,13 @@ public class SoundManager {
     private static MediaPlayer currentMusicPlayer;
     private static String currentMusicName;
 
+    // --- QUEUE VARIABLES ---
+    private static List<String> musicQueue = new ArrayList<>();
+    private static int currentTrackIndex = 0;
+    private static boolean isShuffleMode = false;
+    private static boolean isQueueMode = false;
+
+    // --- SFX ENGINE (Unchanged) ---
     public static void playSFX(String fileName) {
         try {
             AudioClip clip = audioCache.get(fileName);
@@ -54,7 +66,51 @@ public class SoundManager {
         }
     }
 
+    // --- OVERLOAD 1: SINGLE TRACK (Legacy compatibility) ---
     public static void playMusic(String fileName) {
+        isQueueMode = false; // Turn off queue behaviors
+        musicQueue.clear();
+        playMusicInternal(fileName, true, 0); // true = loop indefinitely
+    }
+
+    // --- OVERLOAD 2: QUEUE/PLAYLIST (New Feature) ---
+    public static void playMusic(boolean shuffle, String... tracks) {
+        if (tracks == null || tracks.length == 0) return;
+
+        isQueueMode = true;
+        isShuffleMode = shuffle;
+        musicQueue = new ArrayList<>(Arrays.asList(tracks));
+        currentTrackIndex = 0;
+
+        if (isShuffleMode) {
+            Collections.shuffle(musicQueue);
+        }
+
+        playNextTrackInQueue(0);
+    }
+
+    // --- INTERNAL QUEUE HANDLER (StackOverflow Fail-safe) ---
+    private static void playNextTrackInQueue(int consecutiveFailures) {
+        if (!isQueueMode || musicQueue.isEmpty() || consecutiveFailures >= musicQueue.size()) {
+            if (consecutiveFailures > 0) {
+                System.err.println("SoundManager: Aborting queue. No valid tracks found.");
+            }
+            return;
+        }
+
+        if (currentTrackIndex >= musicQueue.size()) {
+            currentTrackIndex = 0;
+            if (isShuffleMode) {
+                Collections.shuffle(musicQueue);
+            }
+        }
+
+        String trackFile = musicQueue.get(currentTrackIndex);
+        playMusicInternal(trackFile, false, consecutiveFailures); // false = trigger next track on end
+    }
+
+    // --- INTERNAL MUSIC ENGINE (Your exact Crossfade & Logic) ---
+    private static void playMusicInternal(String fileName, boolean loopIndefinitely, int failures) {
         try {
             //If requested track is already playing do nothing
             if (fileName.equals(currentMusicName) && currentMusicPlayer != null) {
@@ -64,14 +120,30 @@ public class SoundManager {
             URL resource = SoundManager.class.getResource(MUSIC_FOLDER + fileName);
             if (resource == null) {
                 System.err.println("You dyslexic FAILURE! The music track doesn't exist! -> " + fileName + " at " + MUSIC_FOLDER);
+
+                // If in a playlist, skip to the next track safely
+                if (isQueueMode) {
+                    currentTrackIndex++;
+                    playNextTrackInQueue(failures + 1);
+                }
                 return;
             }
 
-
             Media media = new Media(resource.toExternalForm());
             MediaPlayer newPlayer = new MediaPlayer(media);
-            newPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop indefinitely!
+
+            if (loopIndefinitely) {
+                newPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop indefinitely!
+            } else {
+                newPlayer.setCycleCount(1); // Play once, then queue next
+                newPlayer.setOnEndOfMedia(() -> {
+                    currentTrackIndex++;
+                    playNextTrackInQueue(0); // Reset failures on success!
+                });
+            }
+
             System.out.println("Now Playing... " + fileName);
+
             //If there is nothing playing...then play music
             if (currentMusicPlayer == null) {
                 newPlayer.setVolume(1.0);
@@ -106,16 +178,23 @@ public class SoundManager {
                     oldPlayer.dispose();
                 });
 
-
                 crossfade.play();
             }
 
         } catch (Exception e) {
             System.err.println("Failed to play music: " + e.getMessage());
+            if (isQueueMode) {
+                currentTrackIndex++;
+                playNextTrackInQueue(failures + 1);
+            }
         }
     }
 
+    // --- ORIGINAL STOP MUSIC LOGIC (Unchanged) ---
     public static void stopMusic() {
+        isQueueMode = false;
+        musicQueue.clear();
+
         if (currentMusicPlayer != null) {
             MediaPlayer playerToStop = currentMusicPlayer;
             currentMusicPlayer = null;

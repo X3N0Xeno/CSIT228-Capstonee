@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.PreviewWordleController">
+
+    <HBox fx:id="letterContainer" alignment="CENTER" spacing="10" fillHeight="false">
+
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="W" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="O" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="R" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="D" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="L" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #E8DCC4; -fx-border-color: #A08C6A; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="E" style="-fx-text-fill: #1A1A1A; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+
+        <StackPane style="-fx-background-color: #538D4E; -fx-border-color: #3A6336; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="+" style="-fx-text-fill: #FFFFFF; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane style="-fx-background-color: #538D4E; -fx-border-color: #3A6336; -fx-border-width: 4; -fx-background-radius: 8; -fx-border-radius: 8; -fx-min-width: 80; -fx-min-height: 80;">
+            <Label text="+" style="-fx-text-fill: #FFFFFF; -fx-font-size: 56px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+
+    </HBox>
+</StackPane>

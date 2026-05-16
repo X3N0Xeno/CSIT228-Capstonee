@@ -48,7 +48,6 @@ public class HangmanController extends JavaboxAbstractController {
 
     @FXML
     public void initialize() {
-        SoundManager.playMusic("music_jazz_unsolved_mystery.mp3");
         buildKeyboard();
         newGame();
     }
@@ -75,6 +74,7 @@ public class HangmanController extends JavaboxAbstractController {
     }
 
     private void newGame() {
+        SoundManager.playMusic("music_jazz_unsolved_mystery.mp3");
         int numWord = (int) (Math.random() * 5761);
         WordRetriever wordRetriever = new WordRetriever(numWord);
         word = wordRetriever.getWord();
