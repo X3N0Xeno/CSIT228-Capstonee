@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="mainMenuVBox" alignment="CENTER" prefHeight="850.0" prefWidth="1100.0" spacing="40"
+      style="-fx-background-color: #1e272e;" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.bookwormbattle.BookwormBattleMenuController">
+
+    <Label text="BOOKWORM BATTLE" textFill="#ffd32a">
+        <font>
+            <Font name="System Bold" size="72.0" />
+        </font>
+    </Label>
+
+    <VBox alignment="CENTER" spacing="20">
+        <Button onAction="#onPlayGame" prefHeight="60.0" prefWidth="300.0"
+                style="-fx-background-color: #05c46b; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24; -fx-cursor: hand;" text="PLAY GAME" />
+
+        <Button onAction="#onHowToPlay" prefHeight="50.0" prefWidth="300.0"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 18; -fx-cursor: hand;" text="HOW TO PLAY" />
+
+        <Button onAction="#onExit" prefHeight="50.0" prefWidth="300.0"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 18; -fx-cursor: hand;" text="EXIT GAME" />
+    </VBox>
+</VBox>

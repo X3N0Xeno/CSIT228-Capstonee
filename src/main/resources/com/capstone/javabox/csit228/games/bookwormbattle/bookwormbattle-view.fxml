@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.effect.DropShadow?>
+<StackPane prefHeight="850.0" prefWidth="1100.0" style="-fx-background-color: #1e272e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.bookwormbattle.BookwormBattleController">
+    <children>
+
+        <!-- LAYER 1: GAMEPLAY UI -->
+        <HBox fx:id="gameUI" alignment="CENTER" spacing="30.0" style="-fx-padding: 25;">
+            <children>
+
+                <!-- PLAYER 1 SIDE -->
+                <VBox alignment="TOP_CENTER" prefWidth="320.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="p1HealthLabel" text="Hearts: 20.0" textFill="#ff4757">
+                            <font><Font name="System Bold" size="26.0" /></font>
+                        </Label>
+
+                        <GridPane fx:id="p1GridPane" alignment="CENTER" hgap="8.0" style="-fx-background-color: #485460; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #ff4757; -fx-border-width: 2; -fx-border-radius: 15;" vgap="8.0" />
+
+                        <Label fx:id="p1ScrambleLabel" text="Scrambles: 2" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+
+                        <Separator opacity="0.2" />
+
+                        <Label text="INVENTORY" textFill="#808e9b"><font><Font name="System Bold" size="10.0" /></font></Label>
+                        <VBox fx:id="p1Inventory" alignment="TOP_CENTER" prefHeight="130.0" spacing="5.0" />
+
+                        <Label text="ACTIVE STATUS" textFill="#808e9b"><font><Font name="System Bold" size="10.0" /></font></Label>
+                        <VBox fx:id="p1StatusBox" alignment="TOP_CENTER" prefHeight="130.0" spacing="5.0" />
+                    </children>
+                </VBox>
+
+                <!-- CENTER CONTROL PANEL -->
+                <VBox alignment="CENTER" prefWidth="320.0" spacing="20.0" style="-fx-background-color: #2f3542; -fx-background-radius: 20; -fx-padding: 20; -fx-border-color: #ffd32a; -fx-border-radius: 20;">
+                    <children>
+                        <Label fx:id="timerLabel" text="Time: 30s" textFill="#e74c3c">
+                            <font><Font name="System Bold" size="44.0" /></font>
+                        </Label>
+
+                        <Label fx:id="turnIndicator" alignment="CENTER" prefHeight="60.0" prefWidth="280.0" text="Player 1's Turn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                            <font><Font name="System Bold" size="24.0" /></font>
+                        </Label>
+
+                        <Separator opacity="0.2" />
+
+                        <VBox alignment="CENTER" spacing="5.0">
+                            <children>
+                                <Label text="CURRENT WORD" textFill="#808e9b"><font><Font name="System Bold" size="11.0" /></font></Label>
+                                <Label fx:id="wordPreview" alignment="CENTER" minHeight="60.0" text="" textFill="#ffd32a">
+                                    <font><Font name="System Bold" size="44.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="12.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onSpell" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: #05c46b; -fx-text-fill: white; -fx-cursor: hand;" text="SPELL!">
+                                    <font><Font name="System Bold" size="22.0" /></font>
+                                </Button>
+                                <Button mnemonicParsing="false" onAction="#onClear" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="CLEAR (Right-Click)" />
+                                <Button mnemonicParsing="false" onAction="#onScramble" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #f0932b; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="USE SCRAMBLE" />
+                                <Button mnemonicParsing="false" onAction="#onSkip" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #57606f; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="SKIP TURN" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- PLAYER 2 SIDE -->
+                <VBox alignment="TOP_CENTER" prefWidth="320.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="p2HealthLabel" text="Hearts: 20.0" textFill="#ff4757">
+                            <font><Font name="System Bold" size="26.0" /></font>
+                        </Label>
+
+                        <GridPane fx:id="p2GridPane" alignment="CENTER" hgap="8.0" style="-fx-background-color: #485460; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 2; -fx-border-radius: 15;" vgap="8.0" />
+
+                        <Label fx:id="p2ScrambleLabel" text="Scrambles: 2" textFill="WHITE">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+
+                        <Separator opacity="0.2" />
+
+                        <Label text="INVENTORY" textFill="#808e9b"><font><Font name="System Bold" size="10.0" /></font></Label>
+                        <VBox fx:id="p2Inventory" alignment="TOP_CENTER" prefHeight="130.0" spacing="5.0" />
+
+                        <Label text="ACTIVE STATUS" textFill="#808e9b"><font><Font name="System Bold" size="10.0" /></font></Label>
+                        <VBox fx:id="p2StatusBox" alignment="TOP_CENTER" prefHeight="130.0" spacing="5.0" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <!-- LAYER 2: COUNTDOWN OVERLAY -->
+        <VBox fx:id="countdownBox" alignment="CENTER" mouseTransparent="true" visible="false">
+            <children>
+                <Label fx:id="countdownLabel" text="3" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="180.0" />
+                    </font>
+                    <effect>
+                        <!-- This creates a black "glow" or "outline" around the text -->
+                        <DropShadow blurType="ONE_PASS_BOX" color="BLACK" radius="5.0" spread="1.0" />
+                    </effect>
+                </Label>
+            </children>
+        </VBox>
+
+        <!-- LAYER 3: REWARD WHEEL OVERLAY -->
+        <VBox fx:id="wheelOverlay" alignment="CENTER" spacing="30.0" style="-fx-background-color: rgba(0,0,0,0.9);" visible="false">
+            <children>
+                <Label text="SELECTING RANDOM REWARD..." textFill="#ffd32a">
+                    <font><Font name="System Bold" size="36.0" /></font>
+                </Label>
+
+                <!-- The Flicker Box -->
+                <StackPane prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: #34495e; -fx-border-color: #ffd32a; -fx-border-width: 5; -fx-background-radius: 20; -fx-border-radius: 20;">
+                    <children>
+                        <Label fx:id="wheelStatusLabel" text="???" textFill="WHITE">
+                            <font><Font name="System Bold" size="48.0" /></font>
+                        </Label>
+                    </children>
+                </StackPane>
+
+                <Label fx:id="wheelResultLabel" text="Good luck!" textFill="#808e9b">
+                    <font><Font size="24.0" /></font>
+                </Label>
+            </children>
+        </VBox>
+
+    </children>
+</StackPane>
