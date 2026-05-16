@@ -2,10 +2,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<StackPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox alignment="CENTER" spacing="10">
-        <Label text="KNUCKLE" style="-fx-text-fill: #FFFFFF; -fx-font-size: 72px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
-        <Label text="☠" style="-fx-text-fill: #FFFFFF; -fx-font-size: 150px;" />
-        <Label text="BONES" style="-fx-text-fill: #FFFFFF; -fx-font-size: 72px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane fx:id="rootPane" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.PreviewKnucklebonesController">
+
+    <Rectangle fx:id="scrollingBackground" opacity="0.15" />
+
+    <VBox alignment="CENTER" spacing="-10">
+        <Label text="KNUCKLE" style="-fx-text-fill: #ffffff; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 15, 0.6, 0, 5);" />
+        <Label text="BONES" style="-fx-text-fill: #ffffff; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 15, 0.6, 0, 5);" />
     </VBox>
+
 </StackPane>
