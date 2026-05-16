@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
 
 <StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0b120d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.fullhouse.FullHouseController">
     <children>
@@ -15,6 +16,14 @@
                     <StackPane alignment="CENTER_LEFT" style="-fx-border-color: #2b3d2f; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
                         <children>
                             <VBox fx:id="trackContainer" spacing="0" />
+
+                            <VBox fx:id="winnerOverlay" visible="false" alignment="CENTER" spacing="15" maxWidth="-Infinity" maxHeight="-Infinity" style="-fx-background-color: #0b120dEE; -fx-border-color: #d4af37; -fx-border-width: 4; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 40 60;" StackPane.alignment="CENTER">
+                                <Label text="VICTORY!" style="-fx-text-fill: #ffdb58; -fx-font-size: 36px; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
+                                <ImageView fx:id="winnerIcon" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+                                <Label fx:id="winnerName" text="HOUSE WINS!" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #ffffff; -fx-font-size: 28px; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
+                                <Label fx:id="winnerPayout" text="PAYOUT GOES TO..." textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #e0e0e0; -fx-font-size: 18px;"/>
+                                <Button text="NEXT RACE" onAction="#handleNextRace" prefWidth="200" style="-fx-background-color: #d4af37; -fx-text-fill: #0b120d; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Georgia'; -fx-cursor: hand; -fx-margin-top: 15;"/>
+                            </VBox>
                         </children>
                     </StackPane>
 
@@ -31,7 +40,6 @@
                 <HBox spacing="15" alignment="CENTER_LEFT" prefHeight="100" minHeight="100" VBox.vgrow="NEVER">
                     <VBox alignment="CENTER" spacing="5">
                         <Button fx:id="btnSpeed" text="SPEED: 1x" onAction="#handleSpeedToggle" prefWidth="150" style="-fx-background-color: #2b3d2f; -fx-text-fill: #e0e0e0; -fx-border-color: #e0e0e0; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                        <Button fx:id="btnNextRace" text="NEXT RACE" visible="false" onAction="#handleNextRace" prefWidth="150" style="-fx-background-color: #d4af37; -fx-text-fill: #0b120d; -fx-font-size: 14px; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
                     </VBox>
 
                     <VBox alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 20;" HBox.hgrow="ALWAYS">

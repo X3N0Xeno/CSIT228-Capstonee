@@ -7,7 +7,8 @@ import java.util.Random;
 public class House {
     public final String name;
     public final String mantra;
-    public final String imagePath;
+    public final String iconPath;   // For the Betting Parlor
+    public final String spritePath; // For the Race Track
     public final String propertyValue;
     public final String colorHex;
     public final String specialQuote;
@@ -28,10 +29,11 @@ public class House {
     private final Random dice = new Random();
     private List<String> bettors = new ArrayList<>();
 
-    public House(String name, String mantra, String imageFileName, double agility, String propertyValue, int luck, String colorHex, String specialQuote) {
+    public House(String name, String mantra, String iconFileName, String spriteFileName, double agility, String propertyValue, int luck, String colorHex, String specialQuote) {
         this.name = name;
         this.mantra = mantra;
-        this.imagePath = "/com/capstone/javabox/csit228/games/fullhouse/images/" + imageFileName;
+        this.iconPath = "/com/capstone/javabox/csit228/images/" + iconFileName;
+        this.spritePath = "/com/capstone/javabox/csit228/images/" + spriteFileName;
         this.agility = agility;
         this.propertyValue = propertyValue;
         this.luck = luck;
@@ -68,7 +70,7 @@ public class House {
         if (specialMoveTicks == 0 && !isExhausted) {
             int secretRoll = dice.nextInt(100) + 1;
             if (secretRoll == 100) {
-                specialMoveTicks = 5; // 1.0s special move duration
+                specialMoveTicks = 5;
             }
         }
 

@@ -35,11 +35,17 @@ public class FullHouseController extends JavaboxAbstractController {
     @FXML private VBox trackContainer;
     @FXML private Label lblStatus;
     @FXML private VBox activeLedgerContainer;
-    @FXML private Button btnNextRace, btnSpeed;
+    @FXML private Button btnSpeed;
+
+    // NEW OVERLAY FXML INJECTIONS
+    @FXML private VBox winnerOverlay;
+    @FXML private ImageView winnerIcon;
+    @FXML private Label winnerName;
+    @FXML private Label winnerPayout;
 
     private List<House> masterRoster;
     private List<House> activeHouses = new ArrayList<>();
-    private List<Rectangle> nodes = new ArrayList<>();
+    private List<ImageView> nodes = new ArrayList<>();
     private List<ProgressBar> staminas = new ArrayList<>();
     private List<Label> quotes = new ArrayList<>();
 
@@ -52,19 +58,19 @@ public class FullHouseController extends JavaboxAbstractController {
     @FXML
     public void initialize() {
         masterRoster = Arrays.asList(
-                new House("The Shelby Estate", "By order of the hopping blinders.", "shelby.png", 8, "£4.5M", 3, "#8b0000", "BY ORDER OF THE BLINDERS!"),
-                new House("Shamrock Manor", "Gold in the basement, speed in the bricks.", "shamrock.png", 6, "£850k", 5, "#228b22", "POT OF GOLD UNLEASHED!"),
-                new House("The Rusty Garrison", "Smells like stout and victory.", "garrison.png", 7, "£120k", 4, "#cd853f", "RUSTY JUGGERNAUT!"),
-                new House("Gilded Cottage", "Lavish, small, suspiciously fast.", "cottage.png", 5, "£2.1M", 6, "#ffd700", "GILDED GLORY!"),
-                new House("Cobblestone Keep", "Slow, steady, heavily rigged.", "keep.png", 6, "£600k", 5, "#a9a9a9", "STONE WALL STANDING!"),
-                new House("The Emerald Pub", "Spilled ale, slippery tracks.", "pub.png", 8, "£250k", 3, "#32cd32", "LIQUID COURAGE!"),
-                new House("Ironforge Mill", "Grinding gears, broken bets.", "mill.png", 5, "£400k", 6, "#ff4500", "GRINDING GEARS OF FATE!"),
-                new House("Velvet Parlor", "Elegance comes at crawling pace.", "parlor.png", 7, "£3.2M", 4, "#800080", "VELVET THUNDER!"),
-                new House("Whisperers' Alley", "Secrets move faster than wind.", "alley.png", 6, "£150k", 5, "#4b0082", "WHISPERS IN THE DARK!"),
-                new House("Banshee's Wail", "Terrifying unpredictability.", "wail.png", 8, "£880k", 3, "#00ffff", "SHATTERING WAIL!"),
-                new House("The Brass Vault", "Heavy pockets, heavy steps.", "vault.png", 5, "£5.0M", 6, "#b8860b", "BANK IN THE BANK!"),
-                new House("Leprechaun's Loot", "Pure unadulterated Irish luck.", "loot.png", 6, "Priceless", 5, "#adff2f", "LEPRECHAUN'S WRATH!"),
-                new House("The Crooked Spire", "Leaning dangerously close to victory.", "spire.png", 7, "£330k", 4, "#8a2be2", "CROOKED ASCENSION!")
+                new House("The Shelby Estate", "By order of the hopping blinders.", "shelby_icon.png", "shelby_sprite.png", 8, "£4.5M", 3, "#8b0000", "BY ORDER OF THE BLINDERS!"),
+                new House("Shamrock Manor", "Gold in the basement, speed in the bricks.", "shamrock_icon.png", "shamrock_sprite.png", 6, "£850k", 5, "#228b22", "POT OF GOLD UNLEASHED!"),
+                new House("The Rusty Garrison", "Smells like stout and victory.", "garrison_icon.png", "garrison_sprite.png", 7, "£120k", 4, "#cd853f", "RUSTY JUGGERNAUT!"),
+                new House("Gilded Cottage", "Lavish, small, suspiciously fast.", "cottage_icon.png", "cottage_sprite.png", 5, "£2.1M", 6, "#ffd700", "GILDED GLORY!"),
+                new House("Cobblestone Keep", "Slow, steady, heavily rigged.", "keep_icon.png", "keep_sprite.png", 6, "£600k", 5, "#a9a9a9", "STONE WALL STANDING!"),
+                new House("The Emerald Pub", "Spilled ale, slippery tracks.", "pub_icon.png", "pub_sprite.png", 8, "£250k", 3, "#32cd32", "LIQUID COURAGE!"),
+                new House("Ironforge Mill", "Grinding gears, broken bets.", "mill_icon.png", "mill_sprite.png", 5, "£400k", 6, "#ff4500", "GRINDING GEARS OF FATE!"),
+                new House("Velvet Parlor", "Elegance comes at crawling pace.", "parlor_icon.png", "parlor_sprite.png", 7, "£3.2M", 4, "#800080", "VELVET THUNDER!"),
+                new House("Whisperers' Alley", "Secrets move faster than wind.", "alley_icon.png", "alley_sprite.png", 6, "£150k", 5, "#4b0082", "WHISPERS IN THE DARK!"),
+                new House("Banshee's Wail", "Terrifying unpredictability.", "wail_icon.png", "wail_sprite.png", 8, "£880k", 3, "#00ffff", "SHATTERING WAIL!"),
+                new House("The Brass Vault", "Heavy pockets, heavy steps.", "vault_icon.png", "vault_sprite.png", 5, "£5.0M", 6, "#b8860b", "BANK IN THE BANK!"),
+                new House("Leprechaun's Loot", "Pure unadulterated Irish luck.", "loot_icon.png", "loot_sprite.png", 6, "Priceless", 5, "#adff2f", "LEPRECHAUN'S WRATH!"),
+                new House("The Crooked Spire", "Leaning dangerously close to victory.", "spire_icon.png", "spire_sprite.png", 7, "£330k", 4, "#8a2be2", "CROOKED ASCENSION!")
         );
 
         comboRacerCount.getItems().addAll(6, 7, 8, 9, 10, 11, 12, 13);
@@ -110,18 +116,18 @@ public class FullHouseController extends JavaboxAbstractController {
             card.setAlignment(Pos.CENTER);
             card.setStyle("-fx-background-color: #1a241c; -fx-border-color: " + h.colorHex + "; -fx-border-width: 2; -fx-padding: 8; -fx-cursor: hand;");
             card.setPrefWidth(160);
-            card.setPrefHeight(190);
+            card.setPrefHeight(220); // Taller to fit bigger image
 
             StackPane imageBox = new StackPane();
-            imageBox.setPrefSize(40, 40);
+            imageBox.setPrefSize(70, 70); // Bigger Parlor Icons!
             try {
-                ImageView imgView = new ImageView(new Image(getClass().getResourceAsStream(h.imagePath)));
-                imgView.setFitWidth(40); imgView.setFitHeight(40);
+                ImageView imgView = new ImageView(new Image(getClass().getResourceAsStream(h.iconPath)));
+                imgView.setFitWidth(70); imgView.setFitHeight(70);
                 imageBox.getChildren().add(imgView);
             } catch (Exception e) {
                 imageBox.setStyle("-fx-background-color: #0b120d; -fx-border-color: " + h.colorHex + "; -fx-border-width: 1;");
                 Label initial = new Label(h.name.substring(0, 1));
-                initial.setStyle("-fx-text-fill: " + h.colorHex + "; -fx-font-size: 18px; -fx-font-family: 'Georgia';");
+                initial.setStyle("-fx-text-fill: " + h.colorHex + "; -fx-font-size: 24px; -fx-font-family: 'Georgia';");
                 imageBox.getChildren().add(initial);
             }
 
@@ -174,10 +180,13 @@ public class FullHouseController extends JavaboxAbstractController {
             stamina.setPrefHeight(10);
             stamina.setStyle("-fx-accent: " + h.colorHex + ";");
             stamina.setLayoutX(5);
+            stamina.setLayoutY(25); // Pinned tightly below the Name Label
 
-            Rectangle node = new Rectangle(25, 25);
-            node.setFill(Color.web(h.colorHex));
-            node.setStroke(Color.web("#ffffff"));
+            ImageView node = new ImageView();
+            try {
+                node.setImage(new Image(getClass().getResourceAsStream(h.spritePath)));
+            } catch (Exception e) {}
+            node.setPreserveRatio(true);
             node.setLayoutX(100);
 
             Label quoteLbl = new Label(h.getStatus());
@@ -186,10 +195,15 @@ public class FullHouseController extends JavaboxAbstractController {
 
             track.heightProperty().addListener((obs, oldVal, newVal) -> {
                 double hTrack = newVal.doubleValue();
-                // Vertically stack: name (top), stamina (immediately below)
-                stamina.setLayoutY(nameLbl.getLayoutY() + nameLbl.getHeight() + 2);
-                node.setLayoutY((hTrack / 2) - 12.5); // Center racer vertically
-                quoteLbl.setLayoutY(node.getLayoutY() - 20); // Position quote relative to racer
+
+                // --- DYNAMIC SPRITE SCALING ---
+                // The sprite will take up 65% of its lane's vertical space!
+                double dynamicSize = Math.max(30, hTrack * 0.80);
+                node.setFitHeight(dynamicSize);
+                node.setFitWidth(dynamicSize);
+
+                node.setLayoutY((hTrack / 2) - (dynamicSize / 2));
+                quoteLbl.setLayoutY(node.getLayoutY() - 20);
             });
 
             track.getChildren().addAll(finishLineSegment, nameLbl, stamina, node, quoteLbl);
@@ -242,14 +256,12 @@ public class FullHouseController extends JavaboxAbstractController {
     private void handleStartRace() {
         setupPane.setVisible(false);
         racePane.setVisible(true);
+        winnerOverlay.setVisible(false); // Hide overlay on start
         lblStatus.setText("THE RACE IS ON...");
         lblStatus.setStyle("-fx-text-fill: #728075; -fx-font-size: 18px; -fx-font-family: 'Georgia'; -fx-font-style: italic;");
 
         updateLedgerBoard(activeLedgerContainer);
-
-        btnNextRace.setVisible(false);
         btnSpeed.setVisible(true);
-
         isRaceOver = false;
 
         for (int i = 0; i < activeHouses.size(); i++) {
@@ -276,13 +288,15 @@ public class FullHouseController extends JavaboxAbstractController {
     }
 
     private void updateHouseUI(int index, House h) {
-        Rectangle actualNode = nodes.get(index);
+        ImageView actualNode = nodes.get(index);
         Pane trackPane = (Pane) actualNode.getParent();
 
         double trackWidth = trackPane.getWidth();
         if (trackWidth < 200) trackWidth = 1000;
 
-        double maxTravelDist = trackWidth - 60 - 100 - actualNode.getWidth();
+        // Dynamic pixel translation based on current screen size
+        double currentSize = actualNode.getFitWidth();
+        double maxTravelDist = trackWidth - 60 - 100 - currentSize;
 
         double progress = Math.min(h.getPosition() / FINISH_LINE, 1.0);
         double lastProgress = Math.min(h.getLastPosition() / FINISH_LINE, 1.0);
@@ -290,10 +304,25 @@ public class FullHouseController extends JavaboxAbstractController {
         double currentPixelX = progress * maxTravelDist;
         double lastPixelX = lastProgress * maxTravelDist;
 
-        Rectangle ghost = new Rectangle(actualNode.getWidth(), actualNode.getHeight(), actualNode.getFill());
+        double speed = currentPixelX - lastPixelX;
+        double tiltAngle = 0.0;
+        if (h.isSpecialActive()) {
+            tiltAngle = 30.0;
+        } else if (h.isExhausted()) {
+            tiltAngle = 5.0;
+        } else {
+            tiltAngle = Math.min(15.0, speed * 1.5);
+        }
+        actualNode.setRotate(tiltAngle);
+
+        ImageView ghost = new ImageView(actualNode.getImage());
+        ghost.setFitWidth(actualNode.getFitWidth());
+        ghost.setFitHeight(actualNode.getFitHeight());
+        ghost.setPreserveRatio(true);
         ghost.setLayoutX(100);
         ghost.setLayoutY(actualNode.getLayoutY());
         ghost.setTranslateX(lastPixelX);
+        ghost.setRotate(tiltAngle);
         ghost.setOpacity(0.5);
         trackPane.getChildren().add(0, ghost);
 
@@ -330,15 +359,24 @@ public class FullHouseController extends JavaboxAbstractController {
     private void declareWinner(House w) {
         String winnerText;
         if (w.getBettors().isEmpty()) {
-            winnerText = "PAYOUT GOES TO: THE HOUSE TAKES IT ALL! (" + w.name + " Wins)";
+            winnerText = "THE HOUSE TAKES IT ALL!";
         } else {
-            winnerText = "PAYOUT GOES TO: " + String.join(", ", w.getBettors()) + " (" + w.name + " Wins!)";
+            winnerText = "PAYOUT GOES TO: " + String.join(", ", w.getBettors());
         }
 
-        lblStatus.setText(winnerText.toUpperCase());
-        lblStatus.setStyle("-fx-text-fill: " + w.colorHex + "; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Georgia';");
-        btnNextRace.setVisible(true);
+        lblStatus.setText(w.name.toUpperCase() + " CROSSES THE FINISH LINE!");
         btnSpeed.setVisible(false);
+
+        // --- POPULATE AND SHOW OVERLAY ---
+        try {
+            winnerIcon.setImage(new Image(getClass().getResourceAsStream(w.iconPath)));
+        } catch (Exception e) {}
+
+        winnerName.setText(w.name.toUpperCase() + " WINS!");
+        winnerName.setStyle("-fx-text-fill: " + w.colorHex + "; -fx-font-size: 28px; -fx-font-weight: bold; -fx-font-family: 'Georgia';");
+
+        winnerPayout.setText(winnerText);
+        winnerOverlay.setVisible(true);
 
         activeLedgerContainer.getChildren().clear();
         Label leaderHeader = new Label("FINAL PLACEMENTS");
@@ -364,11 +402,13 @@ public class FullHouseController extends JavaboxAbstractController {
         setupLedgerContainer.getChildren().clear();
         activeLedgerContainer.getChildren().clear();
         btnStartRaceMenu.setDisable(true);
+        winnerOverlay.setVisible(false); // Hide overlay
 
         for (House h : activeHouses) { h.resetForNextRace(); }
 
         for (int i = 0; i < activeHouses.size(); i++) {
             nodes.get(i).setTranslateX(0);
+            nodes.get(i).setRotate(0);
             quotes.get(i).setTranslateX(0);
             staminas.get(i).setProgress(1.0);
             staminas.get(i).setStyle("-fx-accent: " + activeHouses.get(i).colorHex + ";");
