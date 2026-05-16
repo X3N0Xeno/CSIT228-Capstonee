@@ -2,6 +2,7 @@ package com.capstone.javabox.csit228.games;
 
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
+import com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
 import com.capstone.javabox.csit228.games.wordle.WordleLauncher;
 import com.capstone.javabox.csit228.utils.SoundManager;
@@ -39,7 +40,8 @@ public class JavaboxController {
                 new KnuckleBoneLauncher(),
                 new WindowSwarmLauncher(),
                 new HangmanLauncher(),
-                new WordleLauncher()
+                new WordleLauncher(),
+                new UltimateTTTLauncher()
         ));
 
         //Load the Default Background
