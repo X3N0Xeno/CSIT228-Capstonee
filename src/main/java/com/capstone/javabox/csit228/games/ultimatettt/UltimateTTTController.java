@@ -63,6 +63,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
     }
 
     private void newGame() {
+        SoundManager.playMusic("music_TTT_p1.mp3");
         smallBoard = new char[SIZE][SIZE][SIZE][SIZE];
         bigBoard = new char[SIZE][SIZE];
         anchored = new boolean[SIZE][SIZE][SIZE][SIZE];
@@ -156,6 +157,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
     }
 
     private void placeSymbol(int br, int bc, int sr, int sc, char symbol) {
+        SoundManager.playSFX("sfx_collect.mp3");
         smallBoard[br][bc][sr][sc] = symbol;
         updateCellUI(br, bc, sr, sc);
 
@@ -221,6 +223,12 @@ public class UltimateTTTController extends JavaboxAbstractController {
 
         highlightActiveBoards();
         updateTurnLabel();
+
+        if (currentPlayer == 'X') {
+            SoundManager.playMusic("music_TTT_p1.mp3");
+        } else {
+            SoundManager.playMusic("music_TTT_p2.mp3");
+        }
     }
 
     // --- Card UI ---
@@ -317,7 +325,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
                 smallBoard[br][bc][sr][sc] = '\0';
                 updateCellUI(br, bc, sr, sc);
                 statusLabel.setText("🗑 Deleted one enemy symbol!");
-                SoundManager.playSFX("sfx_ui_confirm.mp3");
+                SoundManager.playSFX("sfx_explosion.mp3");
             }
 
             case DELETE_2_ENEMY -> {
@@ -333,7 +341,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
                     }
                 }
                 statusLabel.setText("🗑 Deleted " + deleted + " enemy symbols!");
-                SoundManager.playSFX("sfx_ui_confirm.mp3");
+                SoundManager.playSFX("sfx_explosion_long.mp3");
             }
 
             case SUMMON_ALLY -> {
@@ -439,7 +447,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
                     }
                 rebuildAllCellUI();
                 statusLabel.setText("⇄ All symbols swapped!");
-                SoundManager.playSFX("sfx_ui_confirm.mp3");
+                SoundManager.playSFX("sfx_ui_accept_death.mp3");
             }
 
             case CLAIM -> {
@@ -560,6 +568,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
     }
 
     private void showBigCellClaim(int br, int bc, char winner) {
+        SoundManager.playSFX("sfx_break.mp3");
         StackPane pane = bigPanes[br][bc];
         pane.getChildren().clear();
 
@@ -676,6 +685,7 @@ public class UltimateTTTController extends JavaboxAbstractController {
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.stopMusic();
         quitToLobby();
     }
 
