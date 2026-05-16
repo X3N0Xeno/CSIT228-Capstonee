@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane style="-fx-background-color: #0b120d;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.PreviewFullHouseController">
+
+    <Pane fx:id="racerPane" />
+
+    <VBox fx:id="titleBox" alignment="CENTER" spacing="-15">
+        <Label text="FULL" style="-fx-text-fill: #d4af37; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;" />
+        <Label text="HOUSE" style="-fx-text-fill: #ffffff; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;" />
+    </VBox>
+
+</StackPane>
