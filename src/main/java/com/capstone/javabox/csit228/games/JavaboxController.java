@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games;
 
+import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTLauncher;
@@ -41,7 +42,8 @@ public class JavaboxController {
                 new WindowSwarmLauncher(),
                 new HangmanLauncher(),
                 new WordleLauncher(),
-                new UltimateTTTLauncher()
+                new UltimateTTTLauncher(),
+                new FullHouseLauncher()
         ));
 
         //Load the Default Background
@@ -76,6 +78,14 @@ public class JavaboxController {
                 hoverSound = "sfx_reload.mp3";
             }
             else if(game instanceof WordleLauncher){
+                previewFxmlFile = "preview/preview-wordle.fxml";
+                hoverSound = "sfx_ui_prompt.mp3";
+            }
+            else if(game instanceof UltimateTTTLauncher){
+                previewFxmlFile = "preview/preview-wordle.fxml";
+                hoverSound = "sfx_ui_prompt.mp3";
+            }
+            else if(game instanceof FullHouseLauncher){
                 previewFxmlFile = "preview/preview-wordle.fxml";
                 hoverSound = "sfx_ui_prompt.mp3";
             }

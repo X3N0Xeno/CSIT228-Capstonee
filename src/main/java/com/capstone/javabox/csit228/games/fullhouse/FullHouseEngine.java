@@ -11,7 +11,7 @@ public class FullHouseEngine {
     private Runnable updateUI;
     private Consumer<House> onWin;
     private Timeline gameLoop;
-    private final double FINISH_LINE = 700.0; // X-coordinate for the win
+    private final double FINISH_LINE = 70.0; // X-coordinate for the win
 
     public FullHouseEngine(List<House> houses, Runnable updateUI, Consumer<House> onWin) {
         this.racingHouses = houses;

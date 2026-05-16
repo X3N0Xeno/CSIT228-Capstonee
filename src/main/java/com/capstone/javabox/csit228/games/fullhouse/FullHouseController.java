@@ -1,6 +1,7 @@
 package com.capstone.javabox.csit228.games.fullhouse;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -53,10 +54,11 @@ public class FullHouseController extends JavaboxAbstractController {
     private int totalBets = 0;
     private House selectedHouse = null;
     private volatile boolean isRaceOver = false;
-    private int speedMultiplier = 1;
+    private double speedMultiplier = 0.5;
 
     @FXML
     public void initialize() {
+        SoundManager.playMusic("music_full_house_lobby.mp3");
         masterRoster = Arrays.asList(
                 new House("The Shelby Estate", "By order of the hopping blinders.", "shelby_icon.png", "shelby_sprite.png", 8, "£4.5M", 3, "#8b0000", "BY ORDER OF THE BLINDERS!"),
                 new House("Shamrock Manor", "Gold in the basement, speed in the bricks.", "shamrock_icon.png", "shamrock_sprite.png", 6, "£850k", 5, "#228b22", "POT OF GOLD UNLEASHED!"),
@@ -247,13 +249,15 @@ public class FullHouseController extends JavaboxAbstractController {
 
     @FXML
     private void handleSpeedToggle() {
-        speedMultiplier *= 2;
-        if (speedMultiplier > 4) speedMultiplier = 1;
+        if(speedMultiplier == 0.5){speedMultiplier = 1;}
+        else{speedMultiplier *= 2;}
+        if (speedMultiplier > 4) speedMultiplier = 0.5;
         btnSpeed.setText("SPEED: " + speedMultiplier + "x");
     }
 
     @FXML
     private void handleStartRace() {
+        SoundManager.playMusic("music_full_house_race.mp3");
         setupPane.setVisible(false);
         racePane.setVisible(true);
         winnerOverlay.setVisible(false); // Hide overlay on start
@@ -273,7 +277,7 @@ public class FullHouseController extends JavaboxAbstractController {
                     h.takeTurn();
                     Platform.runLater(() -> updateHouseUI(index, h));
 
-                    try { Thread.sleep(200 / speedMultiplier); }
+                    try { Thread.sleep((long) (200 / speedMultiplier)); }
                     catch (InterruptedException e) { Thread.currentThread().interrupt(); break; }
 
                     if (h.getPosition() >= FINISH_LINE && !isRaceOver) {
@@ -420,6 +424,7 @@ public class FullHouseController extends JavaboxAbstractController {
 
         racePane.setVisible(false);
         setupPane.setVisible(true);
+        SoundManager.playMusic("music_full_house_lobby.mp3");
     }
 
     @FXML
@@ -436,6 +441,7 @@ public class FullHouseController extends JavaboxAbstractController {
             if (response == ButtonType.OK) {
                 isRaceOver = true;
                 quitToLobby();
+                SoundManager.stopMusic();
             }
         });
     }
