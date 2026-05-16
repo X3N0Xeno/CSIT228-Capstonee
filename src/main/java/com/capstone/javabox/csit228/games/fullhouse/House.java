@@ -7,82 +7,133 @@ import java.util.Random;
 public class House {
     public final String name;
     public final String mantra;
-    public final String imagePath; // Path for your images
+    public final String imagePath;
+    public final String propertyValue;
+    public final String colorHex;
+    public final String specialQuote;
 
-    private double agility, stamina, currentStamina;
-    private double position = 0;
+    private double agility;
+    private final double RECOVERY_RATE = 15.0;
     private int luck;
+
+    private final double MAX_ENERGY = 100.0;
+    private double currentEnergy;
+
+    private double position = 0;
+    private double lastPosition = 0;
     private boolean isExhausted = false;
+    private int specialMoveTicks = 0;
     private String currentStatus = "Ready at the starting line.";
 
     private final Random dice = new Random();
     private List<String> bettors = new ArrayList<>();
 
-    public House(String name, String mantra, String imageFileName, double agility, double stamina, int luck) {
+    public House(String name, String mantra, String imageFileName, double agility, String propertyValue, int luck, String colorHex, String specialQuote) {
         this.name = name;
         this.mantra = mantra;
         this.imagePath = "/com/capstone/javabox/csit228/games/fullhouse/images/" + imageFileName;
         this.agility = agility;
-        this.stamina = stamina;
-        this.currentStamina = stamina;
+        this.propertyValue = propertyValue;
         this.luck = luck;
+        this.colorHex = colorHex;
+        this.specialQuote = specialQuote;
+        this.currentEnergy = MAX_ENERGY;
     }
 
     public void addBettor(String playerName) { bettors.add(playerName); }
     public List<String> getBettors() { return bettors; }
     public String getStatus() { return currentStatus; }
+    public boolean isSpecialActive() { return specialMoveTicks > 0; }
 
     public String getStatsString() {
-        return String.format("Agi: %.0f | Sta: %.0f | Luck: %d", agility, stamina, luck);
+        double maxMult = ((luck - 1) / 2.0) + 1.0;
+        return String.format("Agility: %.0f\nValue: %s\nMax Spd: %.1fx", agility, propertyValue, maxMult);
+    }
+
+    private double getMultiplier(int roll) {
+        switch (roll) {
+            case 1: return 0.2;
+            case 2: return 0.6;
+            case 3: return 1.2;
+            case 4: return 2.2;
+            case 5: return 3.2;
+            case 6: return 4.5;
+            default: return 1.0;
+        }
     }
 
     public void takeTurn() {
-        if (isExhausted) {
-            currentStatus = "*Out of stamina... resting*";
-            recover();
+        lastPosition = position;
+
+        if (specialMoveTicks == 0 && !isExhausted) {
+            int secretRoll = dice.nextInt(100) + 1;
+            if (secretRoll == 100) {
+                specialMoveTicks = 5; // 1.0s special move duration
+            }
+        }
+
+        if (specialMoveTicks > 0) {
+            specialMoveTicks--;
+            this.position += (agility * 5.0);
+            this.currentEnergy = MAX_ENERGY;
+            this.currentStatus = "SPECIAL: " + specialQuote;
             return;
         }
 
-        int roll = dice.nextInt(6) + 1;
-        double speedModifier = (roll <= 2 && dice.nextInt(10) < luck) ? 0.7 : roll / 6.0;
+        int roll = dice.nextInt(luck) + 1;
+        double multiplier = getMultiplier(roll);
+        double intendedSpeed = agility * multiplier;
 
-        // Smug and Salty Quotes
-        if (roll >= 5) {
-            currentStatus = "Smug: \"Eat my dust, peasants!\"";
-        } else if (roll <= 2 && speedModifier < 0.7) {
-            currentStatus = "Salty: \"This track is bloody rigged!\"";
+        if (isExhausted) {
+            this.position += (intendedSpeed * 0.10);
+            this.currentEnergy += RECOVERY_RATE;
+
+            if (multiplier >= 2.2) {
+                currentStatus = "*Gasping... pushing!*";
+            } else if (multiplier <= 0.6) {
+                currentStatus = "*Can't... breathe...*";
+            } else {
+                currentStatus = "*Crawling forward*";
+            }
+
+            if (currentEnergy >= MAX_ENERGY) {
+                currentEnergy = MAX_ENERGY;
+                isExhausted = false;
+                currentStatus = "Second wind!";
+            }
         } else {
-            currentStatus = "*Hopping steadily*";
-        }
+            this.position += intendedSpeed;
+            double energyCost = intendedSpeed * 1.5;
+            this.currentEnergy -= energyCost;
 
-        this.position += (agility * speedModifier);
-        this.currentStamina -= (agility * 0.35);
+            if (multiplier >= 3.2) {
+                currentStatus = "\"Massive bound!\"";
+            } else if (multiplier >= 1.2) {
+                currentStatus = "*Picking up speed*";
+            } else {
+                currentStatus = "\"Mud on the tracks!\"";
+            }
 
-        if (currentStamina <= 0) {
-            isExhausted = true;
-            currentStamina = 0;
-            currentStatus = "*Collapsed... lungs burning*";
-        }
-    }
-
-    private void recover() {
-        this.currentStamina += 10;
-        if (currentStamina >= stamina) {
-            currentStamina = stamina;
-            isExhausted = false;
-            currentStatus = "Back in the race!";
+            if (currentEnergy <= 0) {
+                isExhausted = true;
+                currentEnergy = 0;
+                currentStatus = "*Collapsed... burning!*";
+            }
         }
     }
 
     public void resetForNextRace() {
         this.position = 0;
-        this.currentStamina = stamina;
+        this.lastPosition = 0;
+        this.currentEnergy = MAX_ENERGY;
         this.isExhausted = false;
+        this.specialMoveTicks = 0;
         this.currentStatus = "Ready at the starting line.";
         this.bettors.clear();
     }
 
     public double getPosition() { return position; }
-    public double getStaminaPercent() { return currentStamina / stamina; }
+    public double getLastPosition() { return lastPosition; }
+    public double getEnergyPercent() { return currentEnergy / MAX_ENERGY; }
     public boolean isExhausted() { return isExhausted; }
 }

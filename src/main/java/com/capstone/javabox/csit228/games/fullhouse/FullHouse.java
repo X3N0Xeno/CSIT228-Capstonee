@@ -9,7 +9,7 @@ public class FullHouse extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(FullHouse.class.getResource("fullhouse-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("JavaBox: Estate Race");
         stage.setScene(scene);
         stage.show();
