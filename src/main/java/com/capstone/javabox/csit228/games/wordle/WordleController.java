@@ -81,6 +81,7 @@ public class WordleController extends JavaboxAbstractController {
     }
 
     private void newGame() {
+        SoundManager.playMusic(true, "music_wordle_1.mp3", "music_spacey.mp3");
         int numWord = (int) (Math.random() *5761 );
         this.retriever = new WordRetriever(numWord);
         secretWord = retriever.getWord().toLowerCase().trim();
@@ -274,6 +275,7 @@ public class WordleController extends JavaboxAbstractController {
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.stopMusic();
         quitToLobby();
     }
 

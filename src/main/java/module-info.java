@@ -20,7 +20,8 @@ module com.capstone.javabox.csit228 {
 
     exports com.capstone.javabox.csit228.games.windowswarm to javafx.graphics;
     opens com.capstone.javabox.csit228.games.windowswarm to javafx.fxml;
-
+    exports com.capstone.javabox.csit228.games.previews to javafx.graphics;
+    opens com.capstone.javabox.csit228.games.previews to javafx.fxml;
     exports com.capstone.javabox.csit228.games.wordle;
     opens com.capstone.javabox.csit228.games.wordle to javafx.fxml;
 

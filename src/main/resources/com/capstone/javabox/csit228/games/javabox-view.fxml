@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../lobby-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.JavaboxController">
-    <center>
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <content>
-                <TilePane fx:id="gameContainer" alignment="TOP_CENTER" hgap="20.0" prefColumns="3" tileAlignment="TOP_CENTER" vgap="20.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding></TilePane>
-            </content>
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
-        </ScrollPane>
-    </center>
-    <top>
-        <VBox alignment="CENTER" prefHeight="0.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="WELCOME TO JAVABOX">
-                    <font>
-                        <Font name="Book Antiqua" size="24.0" />
-                    </font>
-                </Label>
-            </children>
+<HBox prefHeight="720.0" prefWidth="1280.0" styleClass="lobby-bg" stylesheets="@../lobby-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.JavaboxController">
+    <children>
+        <VBox prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
             <padding>
-                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
             </padding>
+            <children>
+                <Label style="-fx-font-size: 48px;" styleClass="lobby-title" text="JAVABOX" />
+                <StackPane VBox.vgrow="ALWAYS">
+                    <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" vbarPolicy="NEVER">
+                            <content>
+                                <VBox fx:id="gameContainer" spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="120.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <Region maxHeight="120.0" mouseTransparent="true" style="-fx-background-color: linear-gradient(to bottom, transparent, #121212);" StackPane.alignment="BOTTOM_CENTER" />
+                    </children>
+                </StackPane>
+            </children>
         </VBox>
-    </top>
-</BorderPane>
+        <StackPane fx:id="previewArea" style="-fx-background-color: #000000;" HBox.hgrow="ALWAYS" />
+    </children>
+</HBox>
