@@ -3,6 +3,7 @@ module com.capstone.javabox.csit228 {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.media;
+    requires java.sql;
 
     //MAIN APP STUFF
     exports com.capstone.javabox.csit228;
@@ -30,6 +31,8 @@ module com.capstone.javabox.csit228 {
 
     exports com.capstone.javabox.csit228.games.ultimatettt;
     opens com.capstone.javabox.csit228.games.ultimatettt to javafx.fxml;
+    exports com.capstone.javabox.csit228.database;
+    opens com.capstone.javabox.csit228.database to javafx.fxml;
 
     exports com.capstone.javabox.csit228.games.gemforge;
     opens com.capstone.javabox.csit228.games.gemforge to javafx.fxml;
