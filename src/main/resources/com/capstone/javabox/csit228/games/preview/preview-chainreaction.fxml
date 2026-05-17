@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="previewRoot" style="-fx-background-color: #161a2b;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.ChainReactionPreviewController">
+
+    <Pane fx:id="animationCanvas" prefWidth="600" prefHeight="400" maxWidth="600" maxHeight="400" mouseTransparent="true" />
+
+    <VBox alignment="CENTER" spacing="-5" mouseTransparent="true">
+        <Label text="CHAIN" style="-fx-text-fill: #ff4757; -fx-font-size: 80px; -fx-font-family: 'Monospace'; -fx-font-weight: bold; -fx-letter-spacing: 15px; -fx-effect: dropshadow(gaussian, rgba(255, 71, 87, 0.5), 15, 0.6, 0, 0);" />
+        <Label text="REACTION" style="-fx-text-fill: #ff4757; -fx-font-size: 80px; -fx-font-family: 'Monospace'; -fx-font-weight: bold; -fx-letter-spacing: 15px; -fx-effect: dropshadow(gaussian, rgba(255, 71, 87, 0.5), 15, 0.6, 0, 0);" />
+    </VBox>
+
+</StackPane>

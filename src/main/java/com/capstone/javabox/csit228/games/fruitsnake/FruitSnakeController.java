@@ -52,12 +52,14 @@ public class FruitSnakeController extends JavaboxAbstractController {
 
     @FXML
     public void initialize() {
+        SoundManager.playMusic("music_fruit_snake_menu.mp3");
         scoreManager = new FruitSnakeScoreManager();
         showScene(setupScene);
     }
 
     @FXML
     private void handleStartGame() {
+        SoundManager.playMusic("music_fruit_snake_game.mp3");
         game = new FruitSnakeGame();
         snakeInterval = BASE_SNAKE_INTERVAL;
         elapsedSeconds = 0;
@@ -269,6 +271,7 @@ public class FruitSnakeController extends JavaboxAbstractController {
 
     @FXML
     private void handlePlayAgain() {
+        SoundManager.playMusic("music_fruit_snake_game.mp3");
         SoundManager.playSFX("sfx_ui_confirm.mp3");
         handleStartGame();
     }
@@ -277,6 +280,7 @@ public class FruitSnakeController extends JavaboxAbstractController {
     private void handleQuit() {
         if (gameLoop != null) gameLoop.stop();
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
         quitToLobby();
     }
 

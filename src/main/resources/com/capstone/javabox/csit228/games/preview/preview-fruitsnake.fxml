@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="previewRoot" style="-fx-background-color: #1e1e2f;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.FruitSnakePreviewController">
+
+    <VBox alignment="CENTER" spacing="-10" mouseTransparent="true">
+        <Label text="FRUIT" style="-fx-text-fill: #6ab04c; -fx-font-size: 90px; -fx-font-family: 'Monospace'; -fx-font-weight: bold; -fx-letter-spacing: 20px; -fx-effect: dropshadow(gaussian, rgba(106, 176, 76, 0.4), 10, 0.5, 0, 0);" />
+        <Label text="SNAKE" style="-fx-text-fill: #eb4d4b; -fx-font-size: 90px; -fx-font-family: 'Monospace'; -fx-font-weight: bold; -fx-letter-spacing: 20px; -fx-effect: dropshadow(gaussian, rgba(235, 77, 75, 0.4), 10, 0.5, 0, 0);" />
+    </VBox>
+
+    <Pane fx:id="animationCanvas" mouseTransparent="true" />
+
+</StackPane>
