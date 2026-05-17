@@ -361,7 +361,7 @@ public class WindowSwarmController extends JavaboxAbstractController {
             });
 
             lobbyBtn.setOnAction(e -> {
-                SoundManager.stopMusic();
+                SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
                 overlayStage.close();
                 Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
                 mainStage.setAlwaysOnTop(false);

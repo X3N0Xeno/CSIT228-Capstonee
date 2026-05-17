@@ -204,7 +204,7 @@ public class HangmanController extends JavaboxAbstractController {
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
-        SoundManager.stopMusic();
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
         quitToLobby();
     }
 
