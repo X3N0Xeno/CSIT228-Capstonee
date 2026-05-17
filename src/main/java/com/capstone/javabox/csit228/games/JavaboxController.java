@@ -56,7 +56,8 @@ public class JavaboxController {
                 new LeaderboardLauncher(),
                 new GemForgeLauncher(),
                 new ChainReactionLauncher(),
-                new FruitSnakeLauncher()
+                new FruitSnakeLauncher(),
+                new GemForgeLauncher()
         ));
 
         //Load the Default Background
