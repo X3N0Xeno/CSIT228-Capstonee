@@ -1,6 +1,7 @@
 package com.capstone.javabox.csit228.games.wordle;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.WordleDAO;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -25,6 +26,9 @@ public class WordleController extends JavaboxAbstractController {
     @FXML private Label statBestStreak;
     @FXML private Label statGames;
     @FXML private VBox distributionChart;
+    @FXML private TextField playerNameInput;
+    @FXML private Button saveScoreBtn;
+    private WordleGame lastGameResult;
 
     private static final int MAX_GUESSES = 8;
     private static final int WORD_LENGTH = 5;
@@ -189,7 +193,7 @@ public class WordleController extends JavaboxAbstractController {
         submitButton.setDisable(true);
         restartButton.setVisible(true);
 
-        WordleGame game = new WordleGame(
+        lastGameResult = new WordleGame(
                 secretWord, win,
                 win ? currentRow + 1 : MAX_GUESSES,
                 Arrays.copyOf(guesses, currentRow + (win ? 1 : 0)),
@@ -197,8 +201,30 @@ public class WordleController extends JavaboxAbstractController {
                 Arrays.copyOf(misplacedCounts, currentRow + (win ? 1 : 0))
         );
 
-        statsManager.recordGame(game);
+        statsManager.recordGame(lastGameResult);
         showStats();
+
+        if (playerNameInput != null) {
+            playerNameInput.setDisable(false);
+            playerNameInput.clear();
+            saveScoreBtn.setDisable(false);
+            saveScoreBtn.setText("Upload");
+        }
+    }
+
+    @FXML
+    private void handleSaveScore() {
+        if (lastGameResult == null) return;
+
+        String alias = playerNameInput.getText().trim();
+        if (!alias.isEmpty()) {
+            WordleDAO.saveGame(alias, lastGameResult.isWin(), lastGameResult.getGuessesUsed());
+
+            // Lock the UI so they don't spam upload
+            saveScoreBtn.setText("Uploaded!");
+            saveScoreBtn.setDisable(true);
+            playerNameInput.setDisable(true);
+        }
     }
 
     private void showStats() {

@@ -2,6 +2,7 @@ package com.capstone.javabox.csit228.games.knucklebones;
 
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.KnucklebonesDAO;
 import com.capstone.javabox.csit228.utils.JavaboxUtils;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.*;
@@ -265,6 +266,8 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         else if (s2 > s1) result = p2.name + " wins!";
         else result = "It's a tie!";
 
+        KnucklebonesDAO.saveMatch(p1.name, s1, p2.name, s2);
+
         JavaboxUtils.showAlert(
                 Alert.AlertType.INFORMATION,
                 "GAME OVER", result,
@@ -275,7 +278,6 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("knucklebone-menu.fxml"));
             Scene gameScene = new Scene(loader.load(), 1280, 720);
-
             KnuckleBoneMenuController menuController = getKnuckleBoneMenuController(loader);
             menuController.setQuitCallback(this.quitCallback);
 

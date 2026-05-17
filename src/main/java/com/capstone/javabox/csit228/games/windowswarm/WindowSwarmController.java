@@ -1,6 +1,7 @@
 package com.capstone.javabox.csit228.games.windowswarm;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.WindowSwarmDAO;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -17,11 +18,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -437,5 +437,54 @@ public class WindowSwarmController extends JavaboxAbstractController {
             }
         }
         return new Rectangle2D(screen.getMinX(), screen.getMinY(), width, height);
+    }
+
+    private Parent createActionNode(Stage overlayStage, double x, double y) {
+        try {
+            FXMLLoader loader = new FXMLLoader(restorePointUrl);
+            Parent root = loader.load();
+
+            Button rebootBtn = (Button) loader.getNamespace().get("rebootBtn");
+            Button lobbyBtn = (Button) loader.getNamespace().get("lobbyBtn");
+            TextField playerNameInput = (TextField) loader.getNamespace().get("playerNameInput");
+            Button saveBtn = (Button) loader.getNamespace().get("saveBtn");
+
+            root.setLayoutX(x);
+            root.setLayoutY(y);
+
+            // --- NEW SAVE LOGIC ---
+            saveBtn.setOnAction(e -> {
+                String alias = playerNameInput.getText().trim();
+                if (!alias.isEmpty()) {
+                    // Send it to the database!
+                    WindowSwarmDAO.saveScore(alias, currentScore);
+
+                    // Disable the inputs so they can't spam save
+                    saveBtn.setText("UPLOADED!");
+                    saveBtn.setDisable(true);
+                    playerNameInput.setDisable(true);
+                }
+            });
+
+            rebootBtn.setOnAction(e -> {
+                overlayStage.close();
+                restartGame();
+            });
+
+            lobbyBtn.setOnAction(e -> {
+                SoundManager.stopMusic();
+                overlayStage.close();
+                Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
+                mainStage.setAlwaysOnTop(false);
+                mainStage.setOnCloseRequest(null);
+                quitToLobby();
+            });
+
+            makeDraggable(root);
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
