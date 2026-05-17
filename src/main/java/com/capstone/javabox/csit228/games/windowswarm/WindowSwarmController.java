@@ -344,39 +344,6 @@ public class WindowSwarmController extends JavaboxAbstractController {
         }
     }
 
-    private Parent createActionNode(Stage overlayStage, double x, double y) {
-        try {
-            FXMLLoader loader = new FXMLLoader(restorePointUrl);
-            Parent root = loader.load();
-
-            Button rebootBtn = (Button) loader.getNamespace().get("rebootBtn");
-            Button lobbyBtn = (Button) loader.getNamespace().get("lobbyBtn");
-
-            root.setLayoutX(x);
-            root.setLayoutY(y);
-
-            rebootBtn.setOnAction(e -> {
-                overlayStage.close();
-                restartGame();
-            });
-
-            lobbyBtn.setOnAction(e -> {
-                SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
-                overlayStage.close();
-                Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
-                mainStage.setAlwaysOnTop(false);
-                mainStage.setOnCloseRequest(null);
-                quitToLobby();
-            });
-
-            makeDraggable(root);
-            return root;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private void restartGame() {
         currentScore = 0;
         activeWindows = 0;

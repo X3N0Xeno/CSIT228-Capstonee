@@ -40,4 +40,9 @@ module com.capstone.javabox.csit228 {
     exports com.capstone.javabox.csit228.games.gemforge;
     opens com.capstone.javabox.csit228.games.gemforge to javafx.fxml;
 
+    exports com.capstone.javabox.csit228.database;
+    opens com.capstone.javabox.csit228.database to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.leaderboard;
+    opens com.capstone.javabox.csit228.games.leaderboard to javafx.fxml;
 }
