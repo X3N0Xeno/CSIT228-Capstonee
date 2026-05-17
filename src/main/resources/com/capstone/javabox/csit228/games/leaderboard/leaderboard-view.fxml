@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.effect.Glow?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.capstone.javabox.csit228.games.leaderboard.LeaderboardController"
+      alignment="CENTER" spacing="20" style="-fx-background-color: #121212; -fx-padding: 30;">
+
+    <Label text="JAVABOX HALL OF FAME"
+           style="-fx-text-fill: #d4af37; -fx-font-family: 'Courier New'; -fx-font-size: 42px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="25" vgap="25" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33"/>
+            <ColumnConstraints percentWidth="33"/>
+            <ColumnConstraints percentWidth="33"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="50"/>
+            <RowConstraints percentHeight="50"/>
+        </rowConstraints>
+
+        <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10"
+              style="-fx-background-color: #000000; -fx-border-color: #5eafff; -fx-border-width: 2; -fx-padding: 15; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <Label text="🎲 Knucklebones" style="-fx-text-fill: #5eafff; -fx-font-family: 'JetBrains Mono', 'Courier New'; -fx-font-weight: bold; -fx-font-size: 20px;"/>
+            <Label text="(Highest Score)" style="-fx-text-fill: #777777; -fx-font-family: 'JetBrains Mono', 'Courier New'; -fx-font-size: 12px; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listKnucklebones" spacing="5"/>
+        </VBox>
+
+        <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10"
+              style="-fx-background-color: #000000; -fx-border-color: #00FF41; -fx-border-width: 2; -fx-padding: 15;">
+            <Label text="🦠 Window Swarm" style="-fx-text-fill: #00FF41; -fx-font-family: 'Courier New'; -fx-font-weight: bold; -fx-font-size: 20px;">
+                <effect><Glow level="0.8"/></effect>
+            </Label>
+            <Label text="(Highest Score)" style="-fx-text-fill: #00661a; -fx-font-family: 'Courier New'; -fx-font-size: 12px; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listSwarm" spacing="5"/>
+        </VBox>
+
+        <VBox GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="10"
+              style="-fx-background-color: #0b120d; -fx-border-color: #d4af37; -fx-border-width: 3; -fx-padding: 15;">
+            <Label text="🏇 Full House" style="-fx-text-fill: #d4af37; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-font-size: 20px; -fx-underline: true;"/>
+            <Label text="THE LEDGER (Most Bets Won)" style="-fx-text-fill: #728075; -fx-font-family: 'Georgia'; -fx-font-size: 11px; -fx-font-style: italic; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listFullHouse" spacing="5"/>
+        </VBox>
+
+        <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10"
+              style="-fx-background-color: #1a1a2e; -fx-border-color: #4caf50; -fx-border-width: 2; -fx-padding: 15; -fx-border-radius: 6; -fx-background-radius: 6;">
+            <Label text="🟩 Wordle++" style="-fx-text-fill: #4caf50; -fx-font-family: Monospace; -fx-font-weight: bold; -fx-font-size: 20px;"/>
+            <Label text="(Total Wins)" style="-fx-text-fill: #555588; -fx-font-family: Monospace; -fx-font-size: 12px; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listWordle" spacing="5"/>
+        </VBox>
+
+        <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10"
+              style="-fx-background-color: #1a1a2e; -fx-border-color: #e94560; -fx-border-width: 2; -fx-padding: 15; -fx-border-radius: 6; -fx-background-radius: 6;">
+            <Label text="💀 Hangman Roulette" style="-fx-text-fill: #e94560; -fx-font-family: Monospace; -fx-font-weight: bold; -fx-font-size: 20px;"/>
+            <Label text="(Total Wins)" style="-fx-text-fill: #555588; -fx-font-family: Monospace; -fx-font-size: 12px; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listHangman" spacing="5"/>
+        </VBox>
+
+        <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" spacing="10"
+              style="-fx-background-color: #1a1a2e; -fx-border-color: #f5a623; -fx-border-width: 2; -fx-padding: 15; -fx-border-radius: 6; -fx-background-radius: 6;">
+            <Label text="⬛ Ultimate TTT" style="-fx-text-fill: #f5a623; -fx-font-family: Monospace; -fx-font-weight: bold; -fx-font-size: 20px;"/>
+            <Label text="(Total Wins)" style="-fx-text-fill: #555588; -fx-font-family: Monospace; -fx-font-size: 12px; -fx-padding: -5 0 5 0;"/>
+            <VBox fx:id="listUTTT" spacing="5"/>
+        </VBox>
+    </GridPane>
+
+    <Button text="RETURN TO LOBBY" onAction="#handleBackToLobby"
+            style="-fx-background-color: #2a2a2a; -fx-text-fill: #ffffff; -fx-font-family: 'Courier New'; -fx-font-weight: bold; -fx-font-size: 18px; -fx-padding: 10 30; -fx-cursor: hand; -fx-border-color: #555555; -fx-border-width: 2; -fx-background-radius: 5; -fx-border-radius: 5;"/>
+</VBox>
