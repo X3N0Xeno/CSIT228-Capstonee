@@ -16,8 +16,9 @@
             <ComboBox fx:id="comboPlayerCount" prefWidth="200" style="-fx-font-size: 18px;" />
         </VBox>
 
-        <Button onAction="#handleStartGame" style="-fx-background-color: #ff6600; -fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10 40; -fx-cursor: hand;" text="ENTER THE FORGE" />
-        <Button onAction="#handleExit" style="-fx-background-color: transparent; -fx-text-fill: #808080; -fx-font-size: 14px; -fx-cursor: hand; -fx-underline: true;" text="BACK TO LOBBY" />
+        <VBox fx:id="playerNamesContainer" alignment="CENTER" spacing="10" maxWidth="300" />
+
+        <Button onAction="#handleStartGame" style="-fx-background-color: #ff6600; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 10 30; -fx-cursor: hand;" text="FORGE THE BOARD" />
     </VBox>
 
     <BorderPane fx:id="gamePane" visible="false">
