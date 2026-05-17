@@ -3,6 +3,8 @@ package com.capstone.javabox.csit228.games;
 
 //game launchers
 import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
+import com.capstone.javabox.csit228.games.gemforge.GemForgeController;
+import com.capstone.javabox.csit228.games.gemforge.GemForgeLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTLauncher;
@@ -40,6 +42,7 @@ public class JavaboxController {
 
     @FXML
     public void initialize() {
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
         //Hey! This is the game registry!
         List<JavaboxGame> availableGames = new ArrayList<>(List.of(
                 //Add your game's Launcher here! Don't forget about the comma heh heh...
@@ -50,8 +53,11 @@ public class JavaboxController {
                 new WordleLauncher(),
                 new UltimateTTTLauncher(),
                 new FullHouseLauncher(),
+                new GemForgeLauncher(),
                 new ChainReactionLauncher(),
                 new FruitSnakeLauncher()
+
+
         ));
 
         //Load the Default Background
@@ -96,6 +102,10 @@ public class JavaboxController {
             else if(game instanceof FullHouseLauncher){
                 previewFxmlFile = "preview/preview-fullhouse.fxml";
                 hoverSound = "sfx_fanfare.mp3";
+            }
+            else if(game instanceof GemForgeLauncher){
+                previewFxmlFile = "preview/preview-gemforge.fxml";
+                hoverSound = "sfx_glass_break.mp3";
             }
 
             try {

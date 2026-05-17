@@ -38,4 +38,8 @@ module com.capstone.javabox.csit228 {
 
     exports com.capstone.javabox.csit228.games.chainreaction;
     opens com.capstone.javabox.csit228.games.chainreaction to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.gemforge;
+    opens com.capstone.javabox.csit228.games.gemforge to javafx.fxml;
+
 }

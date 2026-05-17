@@ -73,7 +73,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
     @FXML
     public void onExitButtonClicked(ActionEvent event){
         if (JavaboxUtils.showConfirmation("Exit Game", "Are you sure you want to quit to the lobby?")) {
-            SoundManager.stopMusic();
+            SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
             quitToLobby();
         }
     }
