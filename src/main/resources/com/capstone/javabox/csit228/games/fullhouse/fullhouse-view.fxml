@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0b120d;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.fullhouse.FullHouseController">
+    <children>
+
+        <VBox fx:id="racePane" spacing="10" style="-fx-padding: 20;" visible="false">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="40">
+                    <Label style="-fx-text-fill: #d4af37; -fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="THE ESTATE DERBY" />
+                </HBox>
+
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
+                    <StackPane alignment="CENTER_LEFT" style="-fx-border-color: #2b3d2f; -fx-border-width: 2;" HBox.hgrow="ALWAYS">
+                        <children>
+                            <VBox fx:id="trackContainer" spacing="0" />
+
+                            <VBox fx:id="winnerOverlay" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="15" style="-fx-background-color: #0b120dEE; -fx-border-color: #d4af37; -fx-border-width: 4; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 40 60;" visible="false" StackPane.alignment="CENTER">
+                                <Label style="-fx-text-fill: #ffdb58; -fx-font-size: 36px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="VICTORY!" />
+                                <ImageView fx:id="winnerIcon" fitHeight="100" fitWidth="100" preserveRatio="true" />
+                                <Label fx:id="winnerName" style="-fx-text-fill: #ffffff; -fx-font-size: 28px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="HOUSE WINS!" textAlignment="CENTER" wrapText="true" />
+                                <Label fx:id="winnerPayout" style="-fx-text-fill: #e0e0e0; -fx-font-size: 18px;" text="PAYOUT GOES TO..." textAlignment="CENTER" wrapText="true" />
+                                <Button onAction="#handleNextRace" prefWidth="200" style="-fx-background-color: #d4af37; -fx-text-fill: #0b120d; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Georgia'; -fx-cursor: hand; -fx-margin-top: 15;" text="NEXT RACE" />
+                            </VBox>
+                        </children>
+                    </StackPane>
+
+                    <VBox maxWidth="300.0" minWidth="300.0" spacing="10" style="-fx-background-color: #1a241c; -fx-border-color: #d4af37; -fx-border-width: 2; -fx-padding: 15;">
+                        <Label style="-fx-text-fill: #d4af37; -fx-font-weight: bold; -fx-font-size: 20px; -fx-font-family: 'Georgia';" text="THE LEDGER" />
+                        <ScrollPane fitToWidth="true" style="-fx-background: #0b120d; -fx-control-inner-background: #0b120d; -fx-background-color: transparent; -fx-border-color: #2b3d2f;" VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="activeLedgerContainer" spacing="5" style="-fx-padding: 10; -fx-background-color: #0b120d;" />
+                            </content>
+                        </ScrollPane>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" minHeight="100" prefHeight="100" spacing="15" VBox.vgrow="NEVER">
+                    <VBox alignment="CENTER" spacing="5">
+                        <Button fx:id="btnSpeed" onAction="#handleSpeedToggle" prefWidth="150" style="-fx-background-color: #2b3d2f; -fx-text-fill: #e0e0e0; -fx-border-color: #e0e0e0; -fx-font-size: 14px; -fx-font-weight: bold;" text="SPEED: 0.5x" />
+                    </VBox>
+
+                    <VBox alignment="CENTER_LEFT" style="-fx-padding: 0 0 0 20;" HBox.hgrow="ALWAYS">
+                        <Label fx:id="lblStatus" style="-fx-text-fill: #728075; -fx-font-size: 18px; -fx-font-family: 'Georgia'; -fx-font-style: italic;" text="AWAITING THE GUN..." wrapText="true" />
+                    </VBox>
+                </HBox>
+            </children>
+        </VBox>
+
+        <VBox fx:id="setupPane" alignment="CENTER" spacing="20.0" style="-fx-background-color: #0b120d; -fx-padding: 30;">
+            <children>
+                <HBox alignment="CENTER" spacing="20" VBox.vgrow="NEVER">
+                    <Label style="-fx-text-fill: #d4af37; -fx-font-size: 42px; -fx-font-weight: bold; -fx-font-family: 'Georgia';" text="THE BETTING PARLOR" />
+                    <VBox alignment="CENTER" style="-fx-padding: 0 0 0 40;">
+                        <Label style="-fx-text-fill: #728075; -fx-font-size: 14px; -fx-font-family: 'Georgia';" text="Racers in Derby:" />
+                        <ComboBox fx:id="comboRacerCount" style="-fx-background-color: #1a241c; -fx-text-fill: white; -fx-border-color: #d4af37; -fx-font-weight: bold;" />
+                    </VBox>
+                </HBox>
+
+                <ScrollPane fitToWidth="true" style="-fx-background: #0b120d; -fx-control-inner-background: #0b120d; -fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <FlowPane fx:id="cardContainer" alignment="CENTER" hgap="12.0" style="-fx-padding: 10; -fx-background-color: #0b120d;" vgap="12.0" />
+                    </content>
+                </ScrollPane>
+
+                <HBox alignment="CENTER" spacing="15.0" style="-fx-background-color: #1a241c; -fx-padding: 15; -fx-border-color: #2b3d2f; -fx-border-width: 2; -fx-max-width: 600;" VBox.vgrow="NEVER">
+                    <children>
+                        <TextField fx:id="txtPlayerName" prefWidth="250.0" promptText="Your Name, Sir/Madam" style="-fx-font-size: 16px; -fx-background-color: #0b120d; -fx-text-fill: #d4af37; -fx-border-color: #d4af37;" />
+                        <Button onAction="#handlePlaceBet" style="-fx-background-color: #d4af37; -fx-text-fill: #0b120d; -fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: 'Georgia';" text="PLACE WAGER" />
+                    </children>
+                </HBox>
+
+                <ScrollPane fitToWidth="true" maxWidth="800" minHeight="150.0" prefHeight="200.0" style="-fx-background: #0b120d; -fx-control-inner-background: #0b120d; -fx-background-color: #0b120d; -fx-border-color: #2b3d2f;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="setupLedgerContainer" spacing="2" style="-fx-padding: 10; -fx-background-color: #0b120d;" />
+                    </content>
+                </ScrollPane>
+
+                <HBox alignment="CENTER" spacing="40.0" VBox.vgrow="NEVER">
+                    <Button fx:id="btnExit" onAction="#onExitButtonClicked" style="-fx-background-color: #1a241c; -fx-border-color: #d4af37; -fx-border-width: 2; -fx-text-fill: #d4af37; -fx-font-weight: bold; -fx-font-size: 18px; -fx-padding: 10 30; -fx-font-family: 'Georgia';" text="EXIT PARLOR" />
+                    <Button fx:id="btnStartRaceMenu" disable="true" onAction="#handleStartRace" style="-fx-background-color: #1b4d2e; -fx-border-color: #d4af37; -fx-border-width: 2; -fx-text-fill: #d4af37; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 10 30; -fx-font-family: 'Georgia';" text="FIRE THE STARTING GUN" />
+                </HBox>
+            </children>
+        </VBox>
+
+    </children>
+</StackPane>

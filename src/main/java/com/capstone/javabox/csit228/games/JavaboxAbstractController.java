@@ -13,7 +13,8 @@ public class JavaboxAbstractController {
         } else {
             System.err.println("CRITICAL ERROR: Quit callback was never set for this controller!");
             System.err.println("This happens because you might have:");
-            System.err.println("Extended from this class but your launcher hasn't implemented JavaboxGame interface");
+            System.err.println("Extended from this class but your launcher hasn't implemented JavaboxGame interface,");
+            System.err.println("The Runnable became 'lost' which may happen if you are manually switching the scenes and did not set up setQuitCallback()");
         }
     }
 }

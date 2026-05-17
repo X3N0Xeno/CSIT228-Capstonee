@@ -37,3 +37,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/hangman-stats.txt
+/wordle-stats.txt

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.PreviewWindowSwarmController">
+    <Pane fx:id="floatingCanvas">
+        <StackPane fx:id="window1" layoutX="150" layoutY="200" style="-fx-border-color: #39FF14; -fx-border-width: 2px; -fx-padding: 40; -fx-background-color: #000000;">
+            <Label text="WINDOW" style="-fx-text-fill: #39FF14; -fx-font-size: 64px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+        <StackPane fx:id="window2" layoutX="350" layoutY="350" style="-fx-border-color: #39FF14; -fx-border-width: 2px; -fx-padding: 40; -fx-background-color: #000000;">
+            <Label text="SWARM" style="-fx-text-fill: #39FF14; -fx-font-size: 64px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+        </StackPane>
+    </Pane>
+</StackPane>
