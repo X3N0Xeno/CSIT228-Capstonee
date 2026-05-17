@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2026 at 03:22 AM
+-- Generation Time: May 17, 2026 at 07:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,66 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bookwormbattle_stats`
+--
+
+CREATE TABLE `bookwormbattle_stats` (
+  `player_id` int(11) NOT NULL,
+  `games_played` int(11) DEFAULT 0,
+  `wins` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookwormbattle_stats`
+--
+
+INSERT INTO `bookwormbattle_stats` (`player_id`, `games_played`, `wins`) VALUES
+(1, 1, 1),
+(2, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chainreaction_stats`
+--
+
+CREATE TABLE `chainreaction_stats` (
+  `player_id` int(11) NOT NULL,
+  `games_played` int(11) DEFAULT 0,
+  `wins` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chainreaction_stats`
+--
+
+INSERT INTO `chainreaction_stats` (`player_id`, `games_played`, `wins`) VALUES
+(1, 1, 0),
+(2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fruitsnake_stats`
+--
+
+CREATE TABLE `fruitsnake_stats` (
+  `player_id` int(11) NOT NULL,
+  `games_played` int(11) DEFAULT 0,
+  `highest_time` int(11) DEFAULT 0,
+  `highest_rounds` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `fruitsnake_stats`
+--
+
+INSERT INTO `fruitsnake_stats` (`player_id`, `games_played`, `highest_time`, `highest_rounds`) VALUES
+(1, 1, 6, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fullhouse_house_stats`
 --
 
@@ -38,14 +98,19 @@ CREATE TABLE `fullhouse_house_stats` (
 --
 
 INSERT INTO `fullhouse_house_stats` (`house_name`, `races_run`, `races_won`) VALUES
-('Cobblestone Keep', 1, 0),
-('Gilded Cottage', 1, 0),
-('Ironforge Mill', 1, 1),
-('Shamrock Manor', 1, 0),
-('The Emerald Pub', 1, 0),
-('The Rusty Garrison', 1, 0),
-('The Shelby Estate', 1, 0),
-('Velvet Parlor', 1, 0);
+('Banshee\'s Wail', 2, 0),
+('Cobblestone Keep', 3, 1),
+('Gilded Cottage', 3, 0),
+('Ironforge Mill', 3, 1),
+('Leprechaun\'s Loot', 2, 0),
+('Shamrock Manor', 3, 0),
+('The Brass Vault', 2, 0),
+('The Crooked Spire', 2, 0),
+('The Emerald Pub', 3, 1),
+('The Rusty Garrison', 3, 0),
+('The Shelby Estate', 3, 0),
+('Velvet Parlor', 3, 0),
+('Whisperers\' Alley', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -64,8 +129,29 @@ CREATE TABLE `fullhouse_player_stats` (
 --
 
 INSERT INTO `fullhouse_player_stats` (`player_id`, `bets_placed`, `bets_won`) VALUES
-(1, 1, 0),
-(2, 1, 0);
+(1, 3, 0),
+(2, 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gemforge_stats`
+--
+
+CREATE TABLE `gemforge_stats` (
+  `player_id` int(11) NOT NULL,
+  `games_played` int(11) DEFAULT 0,
+  `wins` int(11) DEFAULT 0,
+  `draws` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gemforge_stats`
+--
+
+INSERT INTO `gemforge_stats` (`player_id`, `games_played`, `wins`, `draws`) VALUES
+(1, 1, 1, 0),
+(2, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -169,7 +255,7 @@ CREATE TABLE `windowswarm_stats` (
 --
 
 INSERT INTO `windowswarm_stats` (`player_id`, `highest_score`, `total_runs`) VALUES
-(1, 67, 1);
+(1, 67, 2);
 
 -- --------------------------------------------------------
 
@@ -205,6 +291,24 @@ INSERT INTO `wordle_stats` (`player_id`, `games_played`, `wins`, `current_streak
 --
 
 --
+-- Indexes for table `bookwormbattle_stats`
+--
+ALTER TABLE `bookwormbattle_stats`
+  ADD PRIMARY KEY (`player_id`);
+
+--
+-- Indexes for table `chainreaction_stats`
+--
+ALTER TABLE `chainreaction_stats`
+  ADD PRIMARY KEY (`player_id`);
+
+--
+-- Indexes for table `fruitsnake_stats`
+--
+ALTER TABLE `fruitsnake_stats`
+  ADD PRIMARY KEY (`player_id`);
+
+--
 -- Indexes for table `fullhouse_house_stats`
 --
 ALTER TABLE `fullhouse_house_stats`
@@ -214,6 +318,12 @@ ALTER TABLE `fullhouse_house_stats`
 -- Indexes for table `fullhouse_player_stats`
 --
 ALTER TABLE `fullhouse_player_stats`
+  ADD PRIMARY KEY (`player_id`);
+
+--
+-- Indexes for table `gemforge_stats`
+--
+ALTER TABLE `gemforge_stats`
   ADD PRIMARY KEY (`player_id`);
 
 --
@@ -268,10 +378,34 @@ ALTER TABLE `players`
 --
 
 --
+-- Constraints for table `bookwormbattle_stats`
+--
+ALTER TABLE `bookwormbattle_stats`
+  ADD CONSTRAINT `bookwormbattle_stats_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `chainreaction_stats`
+--
+ALTER TABLE `chainreaction_stats`
+  ADD CONSTRAINT `chainreaction_stats_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `fruitsnake_stats`
+--
+ALTER TABLE `fruitsnake_stats`
+  ADD CONSTRAINT `fruitsnake_stats_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `fullhouse_player_stats`
 --
 ALTER TABLE `fullhouse_player_stats`
   ADD CONSTRAINT `fullhouse_player_stats_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `gemforge_stats`
+--
+ALTER TABLE `gemforge_stats`
+  ADD CONSTRAINT `gemforge_stats_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `hangman_stats`

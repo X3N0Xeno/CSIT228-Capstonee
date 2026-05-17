@@ -1,6 +1,6 @@
-totalGamesPlayed=7
+totalGamesPlayed=8
 totalWins=3
-currentStreak=2
+currentStreak=0
 bestStreak=2
-totalPullsSurvived=34
-totalDeaths=4
+totalPullsSurvived=39
+totalDeaths=5

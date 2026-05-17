@@ -227,6 +227,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
 
             case HEALING:
                 p.heal(5.0);
+                SoundManager.playSFX("sfx_heal.wav");
                 break;
 
             case HELP_ME:
@@ -235,21 +236,25 @@ public class BookwormBattleController extends JavaboxAbstractController {
 
             case SHIELD:
                 p.hasShield = true;
+                SoundManager.playSFX("sfx_powerup2.wav");
                 break;
 
             case SHOP_DELUXE:
                 p.addPotion(PotionType.HEALING);
                 p.addPotion(PotionType.STRENGTH);
                 p.addPotion(PotionType.PURIFY);
+                SoundManager.playSFX("sfx_shopdeluxe.wav");
                 break;
 
             case GEM_NUKE:
+                // Wipes all gems from the opponent's board instantly
                 for (int r = 0; r < 4; r++) {
                     for (int col = 0; col < 4; col++) {
                         enemy.board[r][col].setGem(null);
                     }
                 }
                 enemy.refreshBoard();
+                SoundManager.playSFX("sfx_nuke.wav");
                 break;
         }
 
@@ -329,7 +334,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
             BookwormBattleDAO.saveMatch(p1.name, p2.name, winnerAlias);
 
             javafx.application.Platform.runLater(() -> {
-                String winner = p1.hearts > 0 ? p1.name : p2.name;
+                String winner = p1.hearts > 0 ? "Player 1" : "Player 2";
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("GAME OVER");
@@ -429,6 +434,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                     targetTile.setGem(null);
                     spawnSpecificGem(currentPlayer, stolen);
                 }
+                SoundManager.playSFX("sfx_gemsteal.wav");
             }
         }
         enemy.refreshBoard();

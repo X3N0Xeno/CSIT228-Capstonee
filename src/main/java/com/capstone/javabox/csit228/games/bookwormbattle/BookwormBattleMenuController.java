@@ -40,6 +40,7 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
     private void createBouncingTitle(String text) {
         titleContainer.getChildren().clear();
+
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             Label letter = new Label(String.valueOf(c));
@@ -59,7 +60,7 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
     @FXML
     private void onPlayGame() {
-        SoundManager.playSFX("sfx_button_click.wav");
+        SoundManager.playSFX("sfx_buttonclick.wav");
 
         // Grab the aliases (default to Player 1 / Player 2 if left blank)
         String p1Alias = (p1NameInput != null && !p1NameInput.getText().trim().isEmpty()) ? p1NameInput.getText().trim() : "Player 1";
