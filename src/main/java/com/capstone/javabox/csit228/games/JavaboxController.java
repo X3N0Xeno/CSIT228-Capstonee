@@ -3,10 +3,10 @@ package com.capstone.javabox.csit228.games;
 
 //game launchers
 import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
-import com.capstone.javabox.csit228.games.gemforge.GemForgeController;
 import com.capstone.javabox.csit228.games.gemforge.GemForgeLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
+import com.capstone.javabox.csit228.games.leaderboard.LeaderboardLauncher;
 import com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
 import com.capstone.javabox.csit228.games.wordle.WordleLauncher;
@@ -53,11 +53,11 @@ public class JavaboxController {
                 new WordleLauncher(),
                 new UltimateTTTLauncher(),
                 new FullHouseLauncher(),
+                new LeaderboardLauncher(),
                 new GemForgeLauncher(),
                 new ChainReactionLauncher(),
-                new FruitSnakeLauncher()
-
-
+                new FruitSnakeLauncher(),
+                new GemForgeLauncher()
         ));
 
         //Load the Default Background

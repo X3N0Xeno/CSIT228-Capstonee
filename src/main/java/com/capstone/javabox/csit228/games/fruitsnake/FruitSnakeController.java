@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games.fruitsnake;
 
+import com.capstone.javabox.csit228.database.FruitSnakeDAO;
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.AnimationTimer;
@@ -30,6 +31,10 @@ public class FruitSnakeController extends JavaboxAbstractController {
     @FXML private Label highScoreLabel;
     @FXML private Label highRoundsLabel;
     @FXML private Label roundWonLabel;
+
+    // --- NEW: DATABASE UI VARIABLES ---
+    @FXML private TextField playerNameInput;
+    @FXML private Button saveScoreBtn;
 
     private static final int TILE = 30;
     private static final double BASE_SNAKE_INTERVAL = 0.25; // seconds per snake move
@@ -64,6 +69,14 @@ public class FruitSnakeController extends JavaboxAbstractController {
         pendingFruitDir = null;
         lastFruitDir = FruitSnakeGame.Direction.RIGHT;
         paused = false;
+
+        // Reset database UI for the new game
+        if (playerNameInput != null) {
+            playerNameInput.setDisable(false);
+            playerNameInput.clear();
+            saveScoreBtn.setDisable(false);
+            saveScoreBtn.setText("Upload");
+        }
 
         setupKeyHandler();
         startGameLoop();
@@ -183,6 +196,19 @@ public class FruitSnakeController extends JavaboxAbstractController {
         highRoundsLabel.setText("🏅 Best Rounds: " + scoreManager.getHighRounds());
 
         showScene(gameOverScene);
+    }
+
+    @FXML
+    private void handleSaveScore() {
+        String alias = playerNameInput.getText().trim();
+        if (!alias.isEmpty()) {
+            FruitSnakeDAO.saveScore(alias, elapsedSeconds, game.getRound());
+
+            // Lock the UI so they don't spam upload
+            saveScoreBtn.setText("Uploaded!");
+            saveScoreBtn.setDisable(true);
+            playerNameInput.setDisable(true);
+        }
     }
 
     private void updateHUD() {
