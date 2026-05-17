@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="previewRoot" style="-fx-background-color: #daa520;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.LeaderboardsPreviewController">
+
+    <Pane fx:id="bgCanvas" mouseTransparent="true" managed="false" />
+
+    <VBox alignment="CENTER" spacing="-10" mouseTransparent="true">
+        <HBox fx:id="textBoxLine1" alignment="CENTER" spacing="2" />
+        <HBox fx:id="textBoxLine2" alignment="CENTER" spacing="2" />
+    </VBox>
+
+</StackPane>
