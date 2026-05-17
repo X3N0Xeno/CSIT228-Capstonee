@@ -1,11 +1,17 @@
 package com.capstone.javabox.csit228.games;
 
+
+//game launchers
 import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
 import com.capstone.javabox.csit228.games.ultimatettt.UltimateTTTLauncher;
 import com.capstone.javabox.csit228.games.windowswarm.WindowSwarmLauncher;
 import com.capstone.javabox.csit228.games.wordle.WordleLauncher;
+import com.capstone.javabox.csit228.games.chainreaction.ChainReactionLauncher;
+import com.capstone.javabox.csit228.games.fruitsnake.FruitSnakeLauncher;
+
+
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -43,7 +49,9 @@ public class JavaboxController {
                 new HangmanLauncher(),
                 new WordleLauncher(),
                 new UltimateTTTLauncher(),
-                new FullHouseLauncher()
+                new FullHouseLauncher(),
+                new ChainReactionLauncher(),
+                new FruitSnakeLauncher()
         ));
 
         //Load the Default Background
