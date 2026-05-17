@@ -1,6 +1,8 @@
 package com.capstone.javabox.csit228.games.gemforge;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import javafx.scene.control.TextField;
+import com.capstone.javabox.csit228.database.GemForgeDAO;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
@@ -29,7 +31,7 @@ import java.util.List;
 
 public class GemForgeController extends JavaboxAbstractController {
 
-    @FXML private Pane particleCanvas; // The new background layer
+    @FXML private Pane particleCanvas;
     @FXML private VBox setupPane;
     @FXML private ComboBox<Integer> comboPlayerCount;
     @FXML private BorderPane gamePane;
@@ -39,6 +41,10 @@ public class GemForgeController extends JavaboxAbstractController {
 
     @FXML private GridPane boardGrid;
     @FXML private Label lblTurn;
+
+    @FXML private VBox playerNamesContainer;
+    private List<TextField> nameInputs = new ArrayList<>();
+    private List<String> activePlayers = new ArrayList<>();
 
     private static final int SIZE = 6;
     private int[][] tileHP = new int[SIZE][SIZE];
@@ -75,18 +81,35 @@ public class GemForgeController extends JavaboxAbstractController {
     @FXML
     public void initialize() {
         SoundManager.playMusic(true, "music_gem_forge1.mp3", "music_gem_forge2.mp3");
-        comboPlayerCount.getItems().addAll(2, 3, 4);
-        comboPlayerCount.setValue(2);
 
         setupPane.setVisible(true);
         gamePane.setVisible(false);
         winPane.setVisible(false);
 
         startEmberParticleEngine();
+
+        comboPlayerCount.getItems().addAll(2, 3, 4);
+        comboPlayerCount.setValue(2);
+
+        updateNameFields(2);
+
+        comboPlayerCount.setOnAction(e -> updateNameFields(comboPlayerCount.getValue()));
+    }
+
+    private void updateNameFields(int count) {
+        playerNamesContainer.getChildren().clear();
+        nameInputs.clear();
+
+        for (int i = 1; i <= count; i++) {
+            TextField tf = new TextField();
+            tf.setPromptText("Player " + i + " Alias");
+            tf.setStyle("-fx-font-family: 'Monospace'; -fx-font-size: 16px; -fx-background-color: #333333; -fx-text-fill: #ffffff; -fx-border-color: #ff6600; -fx-border-radius: 5;");
+            nameInputs.add(tf);
+            playerNamesContainer.getChildren().add(tf);
+        }
     }
 
     private void startEmberParticleEngine() {
-        // Dynamically clip the canvas bounds
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(particleCanvas.widthProperty());
         clip.heightProperty().bind(particleCanvas.heightProperty());
@@ -113,31 +136,25 @@ public class GemForgeController extends JavaboxAbstractController {
 
         Color baseColor;
 
-        // Determine ambient color based on the current game state!
         if (setupPane.isVisible()) {
-            baseColor = Color.web("#ff6600"); // Fiery orange for the setup menu
+            baseColor = Color.web("#ff6600");
         } else if (gameOver) {
-            // Find the winner's color to celebrate
             Gem winner = null;
             for (Gem g : players) {
                 if (g.isAlive) winner = g;
             }
             baseColor = (winner != null) ? winner.color : Color.WHITE;
         } else {
-            // Match the exact color of the player whose turn it is!
             baseColor = players.get(currentPlayerIndex).color;
         }
 
-        // Apply a random opacity to give it that flickering ember glow
         double opacity = 0.3 + (Math.random() * 0.5);
         Color emberColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(), opacity);
 
         double radius = 1.5 + (Math.random() * 3.5);
         Circle ember = new Circle(radius, emberColor);
 
-        // Spawn randomly across the X axis
         double startX = Math.random() * canvasWidth;
-        // Spawn strictly below the bottom edge
         double startY = canvasHeight + 15;
 
         ember.setCenterX(startX);
@@ -162,6 +179,19 @@ public class GemForgeController extends JavaboxAbstractController {
 
     @FXML
     private void handleStartGame() {
+        activePlayers.clear();
+
+        for (int i = 0; i < nameInputs.size(); i++) {
+            String alias = nameInputs.get(i).getText().trim();
+            if (alias.isEmpty()) {
+                alias = "Player " + (i + 1);
+            }
+            activePlayers.add(alias);
+        }
+
+        setupPane.setVisible(false);
+        gamePane.setVisible(true);
+
         SoundManager.playSFX("sfx_powerup.mp3");
         int playerCount = comboPlayerCount.getValue();
 
@@ -203,7 +233,7 @@ public class GemForgeController extends JavaboxAbstractController {
 
         for (int r = 0; r < SIZE; r++) {
             for (int c = 0; c < SIZE; c++) {
-                tileHP[r][c] = 2; // Baseline floor
+                tileHP[r][c] = 2;
 
                 if (patternType == 0) {
                     if ((r == 2 || r == 3) && (c == 2 || c == 3)) tileHP[r][c] = 1;
@@ -500,7 +530,8 @@ public class GemForgeController extends JavaboxAbstractController {
 
     private void updateTurnLabel() {
         Gem next = players.get(currentPlayerIndex);
-        lblTurn.setText("TURN: " + next.name);
+        String currentAlias = activePlayers.get(currentPlayerIndex);
+        lblTurn.setText("TURN: " + currentAlias.toUpperCase());
         lblTurn.setStyle("-fx-text-fill: " + toHexString(next.color) + "; -fx-font-size: 24px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;");
     }
 
@@ -611,11 +642,21 @@ public class GemForgeController extends JavaboxAbstractController {
             winPane.setVisible(true);
 
             if (winner != null) {
-                lblWinner.setText(winner.name + " WINS!");
+                // Find the index of the winning gem to pull the correct alias
+                int winnerIndex = players.indexOf(winner);
+                String winnerAlias = activePlayers.get(winnerIndex);
+
+                lblWinner.setText(winnerAlias.toUpperCase() + " WINS!");
                 lblWinner.setStyle("-fx-text-fill: " + toHexString(winner.color) + "; -fx-font-size: 72px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 15, 0.8, 0, 0);");
+
+                // UPLOAD TO LEADERBOARD
+                GemForgeDAO.saveMatch(activePlayers, winnerAlias, false);
             } else {
                 lblWinner.setText("DRAW!");
                 lblWinner.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 72px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 15, 0.8, 0, 0);");
+
+                // UPLOAD TO LEADERBOARD
+                GemForgeDAO.saveMatch(activePlayers, null, true);
             }
         }
     }
