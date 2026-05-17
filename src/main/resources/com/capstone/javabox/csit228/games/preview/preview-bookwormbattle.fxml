@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="previewRoot" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.BookwormBattlePreviewController">
+
+    <VBox alignment="CENTER" spacing="15" mouseTransparent="true">
+        <HBox fx:id="word1Box" alignment="CENTER" spacing="8" />
+        <HBox fx:id="word2Box" alignment="CENTER" spacing="8" />
+    </VBox>
+
+</StackPane>
