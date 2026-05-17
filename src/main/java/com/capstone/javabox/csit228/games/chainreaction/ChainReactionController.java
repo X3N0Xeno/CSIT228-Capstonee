@@ -69,12 +69,14 @@ public class ChainReactionController extends JavaboxAbstractController {
     @FXML
     public void initialize() {
         showScene(setupScene);
+        SoundManager.playMusic("music_chain_reaction.mp3");
     }
 
     // --- Setup ---
 
     @FXML
     private void handleStartGame() {
+        SoundManager.playMusic("music_chain_reaction.mp3");
         RadioButton selectedCount = (RadioButton) playerCountGroup.getSelectedToggle();
         if (selectedCount == null) {
             statusLabel.setText("⚠ Please select player count!");
@@ -363,6 +365,7 @@ public class ChainReactionController extends JavaboxAbstractController {
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
         quitToLobby();
     }
 

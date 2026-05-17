@@ -107,6 +107,14 @@ public class JavaboxController {
                 previewFxmlFile = "preview/preview-gemforge.fxml";
                 hoverSound = "sfx_glass_break.mp3";
             }
+            else if(game instanceof FruitSnakeLauncher){
+                previewFxmlFile = "preview/preview-fruitsnake.fxml";
+                hoverSound = "sfx_ui_new_game.mp3";
+            }else if(game instanceof ChainReactionLauncher){
+                previewFxmlFile = "preview/preview-chainreaction.fxml";
+                hoverSound = "sfx_junimo.mp3";
+            }
+
 
             try {
                 Node previewNode = FXMLLoader.load(getClass().getResource(previewFxmlFile));
