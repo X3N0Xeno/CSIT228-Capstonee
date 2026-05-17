@@ -8,13 +8,13 @@ public class CardDeck {
 
     private static final Card.CardType[] COMMON_CARDS = {
             Card.CardType.SKIP_ENEMY_TURN,
-            Card.CardType.DELETE_1_ENEMY,
+            //Card.CardType.DELETE_1_ENEMY,
             Card.CardType.DELETE_2_ENEMY,
             Card.CardType.SUMMON_ALLY,
             Card.CardType.BLOCK_CELL,
             Card.CardType.STEAL,
             Card.CardType.REDRAW,
-            Card.CardType.ANCHOR,
+            //Card.CardType.ANCHOR,
             Card.CardType.DOUBLE_TURN
     };
 

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="rootPane"
+           xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.capstone.javabox.csit228.games.chainreaction.ChainReactionController"
+           style="-fx-background-color: #1a1a2e;">
+
+    <!-- Setup Scene -->
+    <VBox fx:id="setupScene" alignment="CENTER" spacing="20"
+          style="-fx-padding: 40;">
+
+        <Label text="💥 Chain Reaction"
+               style="-fx-font-family: Monospace; -fx-font-size: 28; -fx-text-fill: #e94560;"/>
+
+        <Label text="How many players?"
+               style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #aaaaaa;"/>
+
+        <HBox alignment="CENTER" spacing="16">
+            <RadioButton text="2" style="-fx-text-fill: #eaeaea; -fx-font-family: Monospace;">
+                <toggleGroup><ToggleGroup fx:id="playerCountGroup"/></toggleGroup>
+            </RadioButton>
+            <RadioButton text="3" toggleGroup="$playerCountGroup"
+                         style="-fx-text-fill: #eaeaea; -fx-font-family: Monospace;"/>
+            <RadioButton text="4" toggleGroup="$playerCountGroup"
+                         style="-fx-text-fill: #eaeaea; -fx-font-family: Monospace;"/>
+        </HBox>
+
+        <Label text="Grid size?"
+               style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #aaaaaa;"/>
+
+        <HBox alignment="CENTER" spacing="16">
+            <RadioButton text="9×9" style="-fx-text-fill: #eaeaea; -fx-font-family: Monospace;">
+                <toggleGroup><ToggleGroup fx:id="gridSizeGroup"/></toggleGroup>
+            </RadioButton>
+            <RadioButton text="16×16" toggleGroup="$gridSizeGroup"
+                         style="-fx-text-fill: #eaeaea; -fx-font-family: Monospace;"/>
+        </HBox>
+
+        <Label text="Player Names:"
+               style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #aaaaaa;"/>
+
+        <VBox fx:id="nameFieldsBox" alignment="CENTER" spacing="8">
+            <TextField fx:id="p1Name" promptText="Player 1 (Red)" maxWidth="200"
+                       style="-fx-font-family: Monospace; -fx-background-color: #16213e;
+                              -fx-text-fill: #e94560; -fx-border-color: #e94560;
+                              -fx-border-radius: 4; -fx-background-radius: 4;
+                              -fx-prompt-text-fill: #553344;"/>
+            <TextField fx:id="p2Name" promptText="Player 2 (Blue)" maxWidth="200"
+                       style="-fx-font-family: Monospace; -fx-background-color: #16213e;
+                              -fx-text-fill: #4f9ef5; -fx-border-color: #4f9ef5;
+                              -fx-border-radius: 4; -fx-background-radius: 4;
+                              -fx-prompt-text-fill: #334455;"/>
+            <TextField fx:id="p3Name" promptText="Player 3 (Green)" maxWidth="200"
+                       style="-fx-font-family: Monospace; -fx-background-color: #16213e;
+                              -fx-text-fill: #4caf50; -fx-border-color: #4caf50;
+                              -fx-border-radius: 4; -fx-background-radius: 4;
+                              -fx-prompt-text-fill: #334433;"/>
+            <TextField fx:id="p4Name" promptText="Player 4 (Yellow)" maxWidth="200"
+                       style="-fx-font-family: Monospace; -fx-background-color: #16213e;
+                              -fx-text-fill: #f5a623; -fx-border-color: #f5a623;
+                              -fx-border-radius: 4; -fx-background-radius: 4;
+                              -fx-prompt-text-fill: #554433;"/>
+        </VBox>
+
+        <Button text="Start Game"
+                onAction="#handleStartGame"
+                style="-fx-font-family: Monospace; -fx-font-size: 16;
+                       -fx-background-color: #e94560; -fx-text-fill: white;
+                       -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand;
+                       -fx-padding: 10 30 10 30;"/>
+
+        <Button text="Quit"
+                onAction="#handleQuit"
+                style="-fx-font-family: Monospace; -fx-font-size: 13;
+                       -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+    </VBox>
+
+    <!-- Game Scene -->
+    <VBox fx:id="gameScene" visible="false" alignment="CENTER" spacing="10"
+          style="-fx-padding: 16;">
+
+        <Label text="💥 Chain Reaction"
+               style="-fx-font-family: Monospace; -fx-font-size: 20; -fx-text-fill: #e94560;"/>
+
+        <HBox fx:id="playerIndicators" alignment="CENTER"/>
+
+        <Label fx:id="turnLabel"
+               style="-fx-font-family: Monospace; -fx-font-size: 18; -fx-text-fill: #eaeaea;"/>
+
+        <Label fx:id="statusLabel"
+               style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #aaaaaa;"/>
+
+        <StackPane fx:id="gameGridContainer">
+            <GridPane fx:id="gameGrid" alignment="CENTER"/>
+        </StackPane>
+
+        <Button text="Quit"
+                onAction="#handleQuit"
+                style="-fx-font-family: Monospace; -fx-font-size: 13;
+                       -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+    </VBox>
+
+    <!-- Win Scene -->
+    <VBox fx:id="winScene" visible="false" alignment="CENTER" spacing="20"
+          style="-fx-padding: 40;">
+
+        <Label fx:id="winLabel"
+               style="-fx-font-family: Monospace; -fx-font-size: 28; -fx-text-fill: #eaeaea;"/>
+        <Label fx:id="winSubLabel"
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #aaaaaa;"/>
+
+        <HBox alignment="CENTER" spacing="12">
+            <Button text="Play Again"
+                    onAction="#handlePlayAgain"
+                    style="-fx-font-family: Monospace; -fx-font-size: 14;
+                           -fx-background-color: #e94560; -fx-text-fill: white;
+                           -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;
+                           -fx-padding: 8 20 8 20;"/>
+            <Button text="Quit"
+                    onAction="#handleQuit"
+                    style="-fx-font-family: Monospace; -fx-font-size: 14;
+                           -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
+                           -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;
+                           -fx-padding: 8 20 8 20;"/>
+        </HBox>
+    </VBox>
+
+</StackPane>

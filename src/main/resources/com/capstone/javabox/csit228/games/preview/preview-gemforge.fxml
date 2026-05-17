@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="previewRoot" style="-fx-background-color: #0d0d0d;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.GemForgePreviewController">
+
+    <Pane fx:id="logoCanvas" mouseTransparent="true" />
+
+    <VBox alignment="CENTER" spacing="5" mouseTransparent="true">
+        <Label text="GEM" style="-fx-text-fill: #ff4d4d; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-letter-spacing: 12px;" />
+        <Label text="FORGE" style="-fx-text-fill: #ff6600; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-letter-spacing: 12px; -fx-effect: dropshadow(three-pass-box, rgba(255, 102, 0, 0.3), 15, 0.5, 0, 0);" />
+    </VBox>
+
+</StackPane>

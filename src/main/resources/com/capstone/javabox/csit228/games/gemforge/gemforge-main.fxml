@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.gemforge.GemForgeController">
+
+    <Pane fx:id="particleCanvas" mouseTransparent="true" />
+
+    <VBox fx:id="setupPane" alignment="CENTER" spacing="25">
+        <Label style="-fx-text-fill: #ff6600; -fx-font-size: 80px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 10, 0.5, 0, 5);" text="GEM FORGE" />
+
+        <VBox alignment="CENTER" spacing="10">
+            <Label style="-fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-font-family: 'Monospace';" text="SELECT PLAYER COUNT" />
+            <ComboBox fx:id="comboPlayerCount" prefWidth="200" style="-fx-font-size: 18px;" />
+        </VBox>
+
+        <VBox fx:id="playerNamesContainer" alignment="CENTER" spacing="10" maxWidth="300" />
+
+        <Button onAction="#handleStartGame" style="-fx-background-color: #ff6600; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 10 30; -fx-cursor: hand;" text="FORGE THE BOARD" />
+    </VBox>
+
+    <BorderPane fx:id="gamePane" visible="false">
+        <top>
+            <VBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
+                <BorderPane.margin><Insets bottom="20" top="20" /></BorderPane.margin>
+                <Label style="-fx-text-fill: #ff6600; -fx-font-size: 48px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;" text="GEM FORGE" />
+                <Label fx:id="lblTurn" style="-fx-text-fill: #ff4d4d; -fx-font-size: 24px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" text="TURN: RUBY" />
+            </VBox>
+        </top>
+
+        <center>
+            <GridPane fx:id="boardGrid" alignment="CENTER" hgap="5" vgap="5" />
+        </center>
+
+        <bottom>
+            <VBox alignment="CENTER">
+                <BorderPane.margin><Insets bottom="20" top="20" /></BorderPane.margin>
+                <Button onAction="#handleReturnToMenu" style="-fx-background-color: #8b0000; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-cursor: hand;" text="FORFEIT TO MENU" />
+            </VBox>
+        </bottom>
+    </BorderPane>
+
+    <VBox fx:id="winPane" alignment="CENTER" spacing="40" style="-fx-background-color: rgba(0, 0, 0, 0.85);" visible="false">
+        <Label style="-fx-text-fill: #ffffff; -fx-font-size: 36px; -fx-font-family: 'Georgia'; -fx-letter-spacing: 10px;" text="VICTORY!" />
+        <Label fx:id="lblWinner" style="-fx-text-fill: #ff4d4d; -fx-font-size: 72px; -fx-font-family: 'Georgia'; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #000000, 15, 0.8, 0, 0);" text="RUBY WINS!" />
+        <Button onAction="#handleReturnToMenu" style="-fx-background-color: #ff6600; -fx-text-fill: #ffffff; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15 40; -fx-cursor: hand;" text="RETURN TO MENU" />
+    </VBox>
+
+</StackPane>

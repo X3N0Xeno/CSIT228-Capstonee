@@ -1,6 +1,7 @@
 package com.capstone.javabox.csit228.games.hangman;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.HangmanDAO;
 import com.capstone.javabox.csit228.utils.JavaboxUtils;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.fxml.FXML;
@@ -26,6 +27,9 @@ public class HangmanController extends JavaboxAbstractController {
     @FXML private FlowPane keyboardPane;
     @FXML private StackPane rootPane;
     @FXML private RouletteCanvas rouletteCanvas;
+    @FXML private TextField playerNameInput;
+    @FXML private Button saveScoreBtn;
+    private HangmanGame lastGameResult;
 
     // Stats panel
     @FXML private VBox statsPane;
@@ -204,7 +208,7 @@ public class HangmanController extends JavaboxAbstractController {
     @FXML
     private void handleQuit() {
         SoundManager.playSFX("sfx_ui_accept_death.mp3");
-        SoundManager.stopMusic();
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
         quitToLobby();
     }
 
@@ -215,11 +219,35 @@ public class HangmanController extends JavaboxAbstractController {
         restartButton.setVisible(true);
         keyButtons.values().forEach(btn -> btn.setDisable(true));
 
-        // Record the game — pulls survived = wrong guesses that didn't kill
         int pullsSurvived = win ? wrongGuess : wrongGuess - 1;
-        HangmanGame game = new HangmanGame(word, win, Math.max(0, pullsSurvived));
-        statsManager.recordGame(game);
+        // Save to global variable so the upload button can grab it
+        lastGameResult = new HangmanGame(word, win, Math.max(0, pullsSurvived));
+
+        statsManager.recordGame(lastGameResult);
         showStats();
+
+        // Reset the Database Upload UI for the new game
+        if (playerNameInput != null) {
+            playerNameInput.setDisable(false);
+            playerNameInput.clear();
+            saveScoreBtn.setDisable(false);
+            saveScoreBtn.setText("Upload");
+        }
+    }
+
+    @FXML
+    private void handleSaveScore() {
+        if (lastGameResult == null) return;
+
+        String alias = playerNameInput.getText().trim();
+        if (!alias.isEmpty()) {
+            HangmanDAO.saveGame(alias, lastGameResult.isWin(), lastGameResult.getPullsSurvived());
+
+            // Lock the UI so they don't spam upload
+            saveScoreBtn.setText("Uploaded!");
+            saveScoreBtn.setDisable(true);
+            playerNameInput.setDisable(true);
+        }
     }
 
     private void showStats() {

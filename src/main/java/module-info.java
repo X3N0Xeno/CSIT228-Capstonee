@@ -3,6 +3,7 @@ module com.capstone.javabox.csit228 {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.media;
+    requires java.sql;
 
     //MAIN APP STUFF
     exports com.capstone.javabox.csit228;
@@ -23,8 +24,10 @@ module com.capstone.javabox.csit228 {
 
     exports com.capstone.javabox.csit228.games.windowswarm to javafx.graphics;
     opens com.capstone.javabox.csit228.games.windowswarm to javafx.fxml;
+
     exports com.capstone.javabox.csit228.games.previews to javafx.graphics;
     opens com.capstone.javabox.csit228.games.previews to javafx.fxml;
+
     exports com.capstone.javabox.csit228.games.wordle;
     opens com.capstone.javabox.csit228.games.wordle to javafx.fxml;
 
@@ -33,4 +36,19 @@ module com.capstone.javabox.csit228 {
 
     opens com.capstone.javabox.csit228.games.bookwormbattle to javafx.fxml;
     exports com.capstone.javabox.csit228.games.bookwormbattle;
+
+    exports com.capstone.javabox.csit228.games.fruitsnake;
+    opens com.capstone.javabox.csit228.games.fruitsnake to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.chainreaction;
+    opens com.capstone.javabox.csit228.games.chainreaction to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.gemforge;
+    opens com.capstone.javabox.csit228.games.gemforge to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.database;
+    opens com.capstone.javabox.csit228.database to javafx.fxml;
+
+    exports com.capstone.javabox.csit228.games.leaderboard;
+    opens com.capstone.javabox.csit228.games.leaderboard to javafx.fxml;
 }
