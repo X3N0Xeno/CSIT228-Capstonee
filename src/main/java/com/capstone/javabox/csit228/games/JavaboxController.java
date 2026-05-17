@@ -3,7 +3,6 @@ package com.capstone.javabox.csit228.games;
 
 //game launchers
 import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
-import com.capstone.javabox.csit228.games.gemforge.GemForgeController;
 import com.capstone.javabox.csit228.games.gemforge.GemForgeLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
 import com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneLauncher;
@@ -58,8 +57,6 @@ public class JavaboxController {
                 new GemForgeLauncher(),
                 new ChainReactionLauncher(),
                 new FruitSnakeLauncher()
-
-
         ));
 
         //Load the Default Background
