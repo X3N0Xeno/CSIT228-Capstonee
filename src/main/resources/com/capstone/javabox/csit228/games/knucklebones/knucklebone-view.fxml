@@ -7,258 +7,260 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="rootPane" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneGameController">
-   <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-         <top>
-            <AnchorPane prefHeight="0.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="turn" alignment="CENTER" style="-fx-text-fill: white;" text="X TURN" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="JetBrains Mono Medium" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </AnchorPane>
-         </top>
-         <center>
-            <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-               <children>
-                  <VBox alignment="BOTTOM_CENTER" style="-fx-border-color: gray;" HBox.hgrow="ALWAYS">
-                     <padding>
+<StackPane fx:id="rootPane" style="-fx-background-color: black;" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.knucklebones.KnuckleBoneGameController">
+    <children>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+            <top>
+                <AnchorPane prefHeight="0.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="turn" alignment="CENTER" mouseTransparent="true" style="-fx-text-fill: white;" text="X TURN" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font name="JetBrains Mono Medium" size="20.0" />
+                            </font>
+                        </Label>
+
+                        <Button mnemonicParsing="false" onAction="#onQuitToMenuClicked" styleClass="modern-button" text="QUIT TO MENU" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-5.0" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <children>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-border-color: black;">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label fx:id="p1_die" alignment="CENTER" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="JetBrains Mono ExtraBold" size="96.0" />
-                                 </font>
-                                 <effect>
-                                    <Glow level="1.0" />
-                                 </effect>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <Label fx:id="p1_name" text="Player 1">
-                           <font>
-                              <Font name="JetBrains Mono Medium" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="p1_score" text="SCORE">
-                           <effect>
-                              <Glow level="1.0" />
-                           </effect>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="335.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <GridPane fx:id="p2_grid" alignment="CENTER" gridLinesVisible="true" VBox.vgrow="ALWAYS">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <children>
-                              <Label fx:id="p2_00" alignment="CENTER" contentDisplay="CENTER" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_01" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_02" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_10" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_11" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_12" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_20" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="108.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_21" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p2_22" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="p2_c0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.rowSpan="3" />
-                              <Button fx:id="p2_c1" layoutX="9.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="1" GridPane.rowSpan="3" />
-                              <Button fx:id="p2_c2" layoutX="64.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="2" GridPane.rowSpan="3" />
-                           </children>
-                        </GridPane>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="8.0" top="10.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <GridPane fx:id="p1_grid" alignment="CENTER" gridLinesVisible="true" layoutX="20.0" layoutY="11.0" prefWidth="159.0" VBox.vgrow="ALWAYS">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <children>
-                              <Label fx:id="p1_00" alignment="CENTER" contentDisplay="CENTER" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_01" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_02" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_10" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_11" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_12" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_20" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="108.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_21" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="p1_22" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font name="JetBrains Mono SemiBold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="p1_c0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.rowSpan="3" />
-                              <Button fx:id="p1_c1" layoutX="9.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="1" GridPane.rowSpan="3" />
-                              <Button fx:id="p1_c2" layoutX="64.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="2" GridPane.rowSpan="3" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </GridPane>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" style="-fx-border-color: gray;" HBox.hgrow="ALWAYS">
-                     <padding>
+                    </padding>
+                </AnchorPane>
+            </top>
+            <center>
+                <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <VBox alignment="BOTTOM_CENTER" style="-fx-border-color: gray;" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <children>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-border-color: black;">
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <Label fx:id="p1_die" alignment="CENTER" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="JetBrains Mono ExtraBold" size="96.0" />
+                                            </font>
+                                            <effect>
+                                                <Glow level="1.0" />
+                                            </effect>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                                <Label fx:id="p1_name" text="Player 1">
+                                    <font>
+                                        <Font name="JetBrains Mono Medium" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="p1_score" text="SCORE">
+                                    <effect>
+                                        <Glow level="1.0" />
+                                    </effect>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="335.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <GridPane fx:id="p2_grid" alignment="CENTER" gridLinesVisible="true" VBox.vgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                    <children>
+                                        <Label fx:id="p2_00" alignment="CENTER" contentDisplay="CENTER" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_01" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_02" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_10" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_11" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_12" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_20" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="108.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_21" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p2_22" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="p2_c0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.rowSpan="3" />
+                                        <Button fx:id="p2_c1" layoutX="9.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                        <Button fx:id="p2_c2" layoutX="64.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="2" GridPane.rowSpan="3" />
+                                    </children>
+                                </GridPane>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="8.0" top="10.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <GridPane fx:id="p1_grid" alignment="CENTER" gridLinesVisible="true" layoutX="20.0" layoutY="11.0" prefWidth="159.0" VBox.vgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                    <children>
+                                        <Label fx:id="p1_00" alignment="CENTER" contentDisplay="CENTER" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_01" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_02" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_10" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_11" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_12" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_20" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="108.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_21" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="10.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="p1_22" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="60.0" prefHeight="1000.0" prefWidth="1000.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                            <font>
+                                                <Font name="JetBrains Mono SemiBold" size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="p1_c0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.rowSpan="3" />
+                                        <Button fx:id="p1_c1" layoutX="9.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                        <Button fx:id="p1_c2" layoutX="64.0" layoutY="10.0" maxHeight="10000.0" maxWidth="10000.0" mnemonicParsing="false" onAction="#onColumnClicked" style="-fx-background-color: rgba(255, 255, 255, 0);" GridPane.columnIndex="2" GridPane.rowSpan="3" />
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </GridPane>
+                            </children>
+                            <padding>
+                                <Insets left="10.0" right="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" style="-fx-border-color: gray;" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <children>
+                                <Label fx:id="p2_name" text="Player 2">
+                                    <font>
+                                        <Font name="JetBrains Mono Medium" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="p2_score" text="SCORE">
+                                    <effect>
+                                        <Glow level="1.0" />
+                                    </effect>
+                                </Label>
+                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-border-color: black;">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <Label fx:id="p2_die" alignment="CENTER" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="JetBrains Mono ExtraBold" size="96.0" />
+                                            </font>
+                                            <effect>
+                                                <Glow level="1.0" />
+                                            </effect>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </center>
+            <bottom>
+                <AnchorPane prefHeight="15.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <ProgressBar fx:id="bar" layoutY="-13.0" prefWidth="600.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                    <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <children>
-                        <Label fx:id="p2_name" text="Player 2">
-                           <font>
-                              <Font name="JetBrains Mono Medium" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="p2_score" text="SCORE">
-                           <effect>
-                              <Glow level="1.0" />
-                           </effect>
-                        </Label>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-border-color: black;">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label fx:id="p2_die" alignment="CENTER" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="JetBrains Mono ExtraBold" size="96.0" />
-                                 </font>
-                                 <effect>
-                                    <Glow level="1.0" />
-                                 </effect>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </center>
-         <bottom>
-            <AnchorPane prefHeight="15.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ProgressBar fx:id="bar" layoutY="-13.0" prefWidth="600.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </AnchorPane>
-         </bottom>
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </BorderPane>
-      <Pane fx:id="particleLayer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" />
-   </children>
+                    </BorderPane.margin>
+                </AnchorPane>
+            </bottom>
+            <padding>
+                <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </BorderPane>
+        <Pane fx:id="particleLayer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" />
+    </children>
 </StackPane>

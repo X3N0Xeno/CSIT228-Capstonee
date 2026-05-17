@@ -18,7 +18,14 @@
 
         <VBox fx:id="playerNamesContainer" alignment="CENTER" spacing="10" maxWidth="300" />
 
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 15; -fx-background-radius: 8; -fx-border-color: #333333; -fx-border-radius: 8;" maxWidth="450">
+            <Label style="-fx-text-fill: #ffcc00; -fx-font-size: 16px; -fx-font-weight: bold;" text="HOW TO PLAY" />
+            <Label style="-fx-text-fill: #cccccc; -fx-font-size: 14px;" text="• Click tiles to move around!&#10;• Click the tile you're standing in to stay in that tile!&#10;• Knock other players towards lava!" textAlignment="CENTER" />
+        </VBox>
+
         <Button onAction="#handleStartGame" style="-fx-background-color: #ff6600; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px; -fx-padding: 10 30; -fx-cursor: hand;" text="FORGE THE BOARD" />
+
+        <Button onAction="#handleExit" style="-fx-background-color: transparent; -fx-text-fill: #808080; -fx-font-size: 14px; -fx-cursor: hand; -fx-underline: true;" text="BACK TO LOBBY" />
     </VBox>
 
     <BorderPane fx:id="gamePane" visible="false">
@@ -35,8 +42,11 @@
         </center>
 
         <bottom>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" spacing="15">
                 <BorderPane.margin><Insets bottom="20" top="20" /></BorderPane.margin>
+
+                <Label style="-fx-text-fill: #888888; -fx-font-size: 14px; -fx-font-style: italic;" text="Hint: Click an adjacent tile to move. Click your own tile to stay. Knock enemies into the lava!" />
+
                 <Button onAction="#handleReturnToMenu" style="-fx-background-color: #8b0000; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-cursor: hand;" text="FORFEIT TO MENU" />
             </VBox>
         </bottom>

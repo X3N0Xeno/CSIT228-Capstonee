@@ -6,6 +6,7 @@ import com.capstone.javabox.csit228.database.KnucklebonesDAO;
 import com.capstone.javabox.csit228.utils.JavaboxUtils;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -257,6 +258,18 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
         return inserted;
     }
 
+    // NEW: Action handler for the Quit button
+    @FXML
+    public void onQuitToMenuClicked(ActionEvent event) {
+
+        if (isAnimating) return; // Prevent quitting mid-animation/dice roll
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
+        if (JavaboxUtils.showConfirmation("Forfeit Match", "Are you sure you want to forfeit this match and return to the menu?")) {
+            SoundManager.playSFX("sfx_ui_accept_death.mp3");
+            returnToKnucklebonesMenu();
+        }
+    }
+
     private void handleGameOver() {
         String result;
         int s1 = p1.getScore();
@@ -274,7 +287,12 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
                 p1.name + ": " + s1 + " | " + p2.name + ": " + s2
         );
 
-        //Return to menu
+        // Uses the new reusable method!
+        returnToKnucklebonesMenu();
+    }
+
+    // NEW REUSABLE SCENE SWITCHER
+    private void returnToKnucklebonesMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("knucklebone-menu.fxml"));
             Scene gameScene = new Scene(loader.load(), 1280, 720);
@@ -291,8 +309,8 @@ public class KnuckleBoneGameController extends JavaboxAbstractController {
             JavaboxUtils.showAlert(
                     Alert.AlertType.ERROR,
                     "System Error",
-                    "Failed to load game screen",
-                    "Check if knucklebone-view.fxml exists."
+                    "Failed to load menu screen",
+                    "Check if knucklebone-menu.fxml exists."
             );
         }
     }

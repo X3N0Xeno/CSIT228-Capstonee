@@ -45,4 +45,12 @@
          </padding>
       </VBox>
    </children>
+    <Label fx:id="escPromptLabel" text="Press ESC to return back to the lobby" textFill="#00ff41" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" mouseTransparent="true">
+        <font>
+            <Font name="Courier New" size="14.0" />
+        </font>
+        <effect>
+            <Glow level="1.0" />
+        </effect>
+    </Label>
 </AnchorPane>

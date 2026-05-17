@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -39,6 +40,7 @@ public class WindowSwarmController extends JavaboxAbstractController {
     @FXML private Label skull;
     @FXML private Label scoreLabel;
     @FXML private Label warningLabel;
+    @FXML private Label escPromptLabel;
 
     private int currentScore = 0;
     private int activeWindows = 0;
@@ -122,6 +124,12 @@ public class WindowSwarmController extends JavaboxAbstractController {
             Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
             mainStage.setAlwaysOnTop(true);
             mainStage.setOnCloseRequest(Event::consume);
+
+            // NEW: Listen for ESC on the main background window
+            mainStage.getScene().setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ESCAPE) quitGameEarly();
+            });
+
             spawnIntroSequence(mainStage);
         });
     }
@@ -159,13 +167,14 @@ public class WindowSwarmController extends JavaboxAbstractController {
         root.setStyle("-fx-background-color: #000000; -fx-border-color: #00FF41; -fx-border-width: 2px;");
         root.setPadding(new Insets(20));
 
-        introStage.setScene(new Scene(root, 650, 200));
+        introStage.setScene(new Scene(root, 650, 400));
         introStage.setTitle("WARNING.exe");
         introStage.setAlwaysOnTop(true);
-
         introStage.setY(0);
 
-        String targetText = hintText;
+        // FIX: Add direct instructions to the typing text
+        String targetText = hintText + "\n\n[ PRESS ENTER TO DEFEND SYSTEM ]\n[ PRESS ESC TO ABORT ]";
+
         Timeline typingTimeline = new Timeline(new KeyFrame(Duration.millis(35), e -> {
             int currentLength = typeLabel.getText().length();
             if (currentLength < targetText.length()) {
@@ -175,6 +184,20 @@ public class WindowSwarmController extends JavaboxAbstractController {
         typingTimeline.setCycleCount(targetText.length());
         typingTimeline.play();
 
+        // FIX: Listen for ENTER to start, and ESC to quit!
+        introStage.getScene().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                typingTimeline.stop();
+                introStage.close();
+                startActualGame();
+            } else if (event.getCode() == KeyCode.ESCAPE) {
+                typingTimeline.stop();
+                introStage.close();
+                quitGameEarly();
+            }
+        });
+
+        // Failsafe: If they use the mouse to click the 'X' anyway
         introStage.setOnCloseRequest(e -> {
             typingTimeline.stop();
             startActualGame();
@@ -191,10 +214,17 @@ public class WindowSwarmController extends JavaboxAbstractController {
         scoreLabel.setVisible(true);
         warningLabel.setVisible(true);
         updateUI();
+
+        FadeTransition fadeEsc = new FadeTransition(Duration.seconds(3), escPromptLabel);
+        fadeEsc.setDelay(Duration.seconds(2));
+        fadeEsc.setToValue(0.0);
+        fadeEsc.play();
         startGameLoop();
     }
 
     private void startGameLoop() {
+        spawnSwarmWindow();
+
         spawnTimer = new Timeline(new KeyFrame(Duration.millis(currentSpawnRate), event -> {
             spawnSwarmWindow();
             if (activeWindows >= MAX_WINDOWS) {
@@ -252,6 +282,9 @@ public class WindowSwarmController extends JavaboxAbstractController {
                 updateUI();
             });
 
+            swarmStage.getScene().setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE) quitGameEarly();
+            });
             activeWindows++;
             updateUI();
             swarmStage.show();
@@ -453,5 +486,23 @@ public class WindowSwarmController extends JavaboxAbstractController {
             e.printStackTrace();
             return null;
         }
+    }
+    private void quitGameEarly() {
+        SoundManager.playSFX("sfx_ui_accept_death.mp3");
+        SoundManager.stopMusic();
+
+        if (spawnTimer != null) spawnTimer.stop();
+        if (glitchTimer != null) glitchTimer.stop();
+
+        for (Stage window : openSwarmWindows) {
+            if (window != null) window.close();
+        }
+        openSwarmWindows.clear();
+
+        Stage mainStage = (Stage) scoreLabel.getScene().getWindow();
+        mainStage.setAlwaysOnTop(false);
+        mainStage.setOnCloseRequest(null);
+        SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
+        quitToLobby();
     }
 }
