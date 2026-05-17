@@ -1,12 +1,14 @@
 package com.capstone.javabox.csit228.games.ultimatettt;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.UTTTDAO;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -27,6 +29,11 @@ public class UltimateTTTController extends JavaboxAbstractController {
     @FXML private Label p1Label;
     @FXML private Label p2Label;
     @FXML private Button restartButton;
+    @FXML private VBox savePane;
+    @FXML private TextField p1NameInput;
+    @FXML private TextField p2NameInput;
+    @FXML private Button saveScoreBtn;
+    private char matchWinner = '\0';
 
     private static final int SIZE = 3;
     private static final Random random = new Random();
@@ -89,6 +96,17 @@ public class UltimateTTTController extends JavaboxAbstractController {
         updateTurnLabel();
         statusLabel.setText("");
         restartButton.setVisible(false);
+        if (savePane != null) {
+            savePane.setVisible(false);
+            savePane.setManaged(false);
+            p1NameInput.setDisable(false);
+            p2NameInput.setDisable(false);
+            p1NameInput.clear();
+            p2NameInput.clear();
+            saveScoreBtn.setDisable(false);
+            saveScoreBtn.setText("Upload Match");
+        }
+        matchWinner = '\0';
     }
 
     // --- Board Building ---
@@ -593,7 +611,9 @@ public class UltimateTTTController extends JavaboxAbstractController {
 
     private void endGame(char winner) {
         gameOver = true;
+        matchWinner = winner; // Store the winner for the upload button
         restartButton.setVisible(true);
+
         if (winner == 'D') {
             statusLabel.setText("🤝 It's a draw!");
             statusLabel.setStyle("-fx-text-fill: #aaaaaa;");
@@ -609,6 +629,11 @@ public class UltimateTTTController extends JavaboxAbstractController {
                 for (int sr = 0; sr < SIZE; sr++)
                     for (int sc = 0; sc < SIZE; sc++)
                         cellButtons[br][bc][sr][sc].setDisable(true);
+
+        if (savePane != null) {
+            savePane.setVisible(true);
+            savePane.setManaged(true);
+        }
     }
 
     // --- Game Logic Helpers ---
@@ -736,5 +761,24 @@ public class UltimateTTTController extends JavaboxAbstractController {
                 "-fx-border-radius: 6; -fx-background-radius: 6; " +
                 "-fx-text-fill: " + textColor + "; -fx-font-family: Monospace; " +
                 "-fx-font-size: 11; -fx-cursor: hand; -fx-border-width: 2;";
+    }
+
+    @FXML
+    private void handleSaveMatch() {
+        String p1Alias = p1NameInput.getText().trim();
+        String p2Alias = p2NameInput.getText().trim();
+
+        if (p1Alias.isEmpty() || p2Alias.isEmpty()) {
+            statusLabel.setText("⚠ Both players must enter an alias to upload!");
+            statusLabel.setStyle("-fx-text-fill: #f5a623;");
+            return;
+        }
+
+        UTTTDAO.saveMatch(p1Alias, p2Alias, matchWinner);
+
+        saveScoreBtn.setText("Match Uploaded!");
+        saveScoreBtn.setDisable(true);
+        p1NameInput.setDisable(true);
+        p2NameInput.setDisable(true);
     }
 }

@@ -1,6 +1,7 @@
 package com.capstone.javabox.csit228.games.fullhouse;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.database.FullHouseDAO;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -136,7 +137,10 @@ public class FullHouseController extends JavaboxAbstractController {
             Label name = new Label(h.name);
             name.setStyle("-fx-text-fill: " + h.colorHex + "; -fx-font-weight: bold; -fx-font-size: 12px; -fx-font-family: 'Georgia';");
 
-            Label stats = new Label(h.getStatsString());
+            String liveRecord = FullHouseDAO.getHouseGlobalRecord(h.name);
+            String fullStatsText = h.getStatsString() + "\n" + liveRecord;
+
+            Label stats = new Label(fullStatsText);
             stats.setStyle("-fx-text-fill: #e0e0e0; -fx-font-size: 11px;");
             stats.setTextAlignment(TextAlignment.CENTER);
 
@@ -365,7 +369,6 @@ public class FullHouseController extends JavaboxAbstractController {
     }
 
     private void declareWinner(House w) {
-        SoundManager.playSFX("sfx_fanfare.mp3");
         String winnerText;
         if (w.getBettors().isEmpty()) {
             winnerText = "THE HOUSE TAKES IT ALL!";
@@ -376,7 +379,8 @@ public class FullHouseController extends JavaboxAbstractController {
         lblStatus.setText(w.name.toUpperCase() + " CROSSES THE FINISH LINE!");
         btnSpeed.setVisible(false);
 
-        // --- POPULATE AND SHOW OVERLAY ---
+        FullHouseDAO.saveRaceResults(w, activeHouses);
+
         try {
             winnerIcon.setImage(new Image(getClass().getResourceAsStream(w.iconPath)));
         } catch (Exception e) {}
