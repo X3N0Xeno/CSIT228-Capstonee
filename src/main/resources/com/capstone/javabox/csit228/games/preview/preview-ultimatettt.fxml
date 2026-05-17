@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.previews.PreviewUltimateTTTController">
+
+    <VBox alignment="CENTER" spacing="30">
+
+        <Label text="ULTIMATE" style="-fx-text-fill: #ffffff; -fx-font-size: 64px; -fx-font-family: 'Monospace'; -fx-font-weight: bold; -fx-letter-spacing: 10px;" />
+
+        <GridPane hgap="8" vgap="8" style="-fx-background-color: #333355;" alignment="CENTER" maxWidth="-Infinity">
+
+            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let0" text="T" style="-fx-text-fill: #e94560; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let1" text="I" style="-fx-text-fill: #4caf50; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let2" text="C" style="-fx-text-fill: #e94560; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+
+            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let3" text="T" style="-fx-text-fill: #4caf50; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let4" text="A" style="-fx-text-fill: #e94560; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="2" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let5" text="C" style="-fx-text-fill: #4caf50; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+
+            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let6" text="T" style="-fx-text-fill: #e94560; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let7" text="O" style="-fx-text-fill: #4caf50; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="2" style="-fx-background-color: #000000; -fx-pref-width: 90; -fx-pref-height: 90;">
+                <Label fx:id="let8" text="E" style="-fx-text-fill: #e94560; -fx-font-size: 60px; -fx-font-family: 'Monospace'; -fx-font-weight: bold;" scaleX="0" scaleY="0"/>
+            </StackPane>
+
+        </GridPane>
+    </VBox>
+</StackPane>
