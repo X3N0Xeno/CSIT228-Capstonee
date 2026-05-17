@@ -237,6 +237,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
             case HEALING:
                 p.heal(5.0);
                 System.out.println(p.name + " used Healing Card (+5 Hearts)");
+                SoundManager.playSFX("sfx_heal.wav");
                 break;
 
             case HELP_ME:
@@ -247,6 +248,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
             case SHIELD:
                 p.hasShield = true;
                 System.out.println(p.name + " used Graceful Shield (Invulnerable for 1 hit)");
+                SoundManager.playSFX("sfx_powerup2.wav");
                 break;
 
             case SHOP_DELUXE:
@@ -254,6 +256,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 p.addPotion(PotionType.STRENGTH);
                 p.addPotion(PotionType.PURIFY);
                 System.out.println(p.name + " used Shop Deluxe (Got 3 Potions)");
+                SoundManager.playSFX("sfx_shopdeluxe.wav");
                 break;
 
             case GEM_NUKE:
@@ -265,6 +268,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 }
                 enemy.refreshBoard();
                 System.out.println(p.name + " used Gem Nuke! Enemy gems destroyed.");
+                SoundManager.playSFX("sfx_nuke.wav");
                 break;
         }
 
@@ -472,6 +476,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                     targetTile.setGem(null);
                     spawnSpecificGem(currentPlayer, stolen);
                 }
+                SoundManager.playSFX("sfx_gemsteal.wav");
             }
         }
         enemy.refreshBoard();

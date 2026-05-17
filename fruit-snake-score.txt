@@ -1,0 +1,2 @@
+highScore=59
+highRounds=0

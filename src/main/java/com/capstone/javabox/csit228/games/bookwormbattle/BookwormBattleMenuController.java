@@ -63,7 +63,7 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
     @FXML
     private void onPlayGame() {
-        SoundManager.playSFX("sfx_button_click.wav");
+        SoundManager.playSFX("sfx_buttonclick.wav");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bookwormbattle-view.fxml"));
             Parent battleRoot = loader.load();
