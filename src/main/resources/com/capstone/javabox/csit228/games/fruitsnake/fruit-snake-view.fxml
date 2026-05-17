@@ -11,7 +11,6 @@
            style="-fx-background-color: #1a1a2e;"
            focusTraversable="true">
 
-    <!-- Setup Scene -->
     <VBox fx:id="setupScene" alignment="CENTER" spacing="20"
           style="-fx-padding: 40;">
 
@@ -50,30 +49,25 @@
                        -fx-cursor: hand;"/>
     </VBox>
 
-    <!-- Game Scene -->
     <VBox fx:id="gameScene" visible="false" alignment="CENTER" spacing="8"
           style="-fx-padding: 12;">
 
         <HBox alignment="CENTER" spacing="30">
             <Label fx:id="scoreLabel"
                    text="⏱ 0s"
-                   style="-fx-font-family: Monospace; -fx-font-size: 16;
-                          -fx-text-fill: #4caf50;"/>
+                   style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #4caf50;"/>
             <Label fx:id="roundLabel"
                    text="Round: 0"
-                   style="-fx-font-family: Monospace; -fx-font-size: 16;
-                          -fx-text-fill: #eaeaea;"/>
+                   style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #eaeaea;"/>
             <Label fx:id="lengthLabel"
                    text="Snake: 3 / 200"
-                   style="-fx-font-family: Monospace; -fx-font-size: 16;
-                          -fx-text-fill: #e94560;"/>
+                   style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #e94560;"/>
         </HBox>
 
         <Label fx:id="roundWonLabel"
                text=""
                visible="false"
-               style="-fx-font-family: Monospace; -fx-font-size: 14;
-                      -fx-text-fill: #f5a623;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #f5a623;"/>
 
         <Canvas fx:id="gameCanvas" width="600" height="600"/>
 
@@ -81,33 +75,34 @@
                 onAction="#handleQuit"
                 style="-fx-font-family: Monospace; -fx-font-size: 13;
                        -fx-background-color: #0f3460; -fx-text-fill: #eaeaea;
-                       -fx-border-radius: 4; -fx-background-radius: 4;
-                       -fx-cursor: hand;"/>
+                       -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
     </VBox>
 
-    <!-- Game Over Scene -->
     <VBox fx:id="gameOverScene" visible="false" alignment="CENTER" spacing="16"
           style="-fx-padding: 40;">
 
         <Label text="💀 Game Over"
-               style="-fx-font-family: Monospace; -fx-font-size: 28;
-                      -fx-text-fill: #e94560;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 28; -fx-text-fill: #e94560;"/>
 
         <Label fx:id="finalScoreLabel"
-               style="-fx-font-family: Monospace; -fx-font-size: 16;
-                      -fx-text-fill: #eaeaea;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #eaeaea;"/>
         <Label fx:id="finalRoundsLabel"
-               style="-fx-font-family: Monospace; -fx-font-size: 16;
-                      -fx-text-fill: #eaeaea;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 16; -fx-text-fill: #eaeaea;"/>
 
         <Separator style="-fx-background-color: #333355;"/>
 
         <Label fx:id="highScoreLabel"
-               style="-fx-font-family: Monospace; -fx-font-size: 14;
-                      -fx-text-fill: #f5a623;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #f5a623;"/>
         <Label fx:id="highRoundsLabel"
-               style="-fx-font-family: Monospace; -fx-font-size: 14;
-                      -fx-text-fill: #f5a623;"/>
+               style="-fx-font-family: Monospace; -fx-font-size: 14; -fx-text-fill: #f5a623;"/>
+
+        <Label text="Submit to Global Leaderboard:" style="-fx-font-family: Monospace; -fx-font-size: 12; -fx-text-fill: #aaaaaa; -fx-padding: 10 0 0 0;"/>
+        <HBox alignment="CENTER" spacing="10">
+            <TextField fx:id="playerNameInput" promptText="Enter Alias"
+                       style="-fx-font-family: Monospace; -fx-background-color: #0f3460; -fx-text-fill: white; -fx-border-color: #e94560; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+            <Button fx:id="saveScoreBtn" text="Upload" onAction="#handleSaveScore"
+                    style="-fx-font-family: Monospace; -fx-background-color: #e94560; -fx-text-fill: white; -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand;"/>
+        </HBox>
 
         <HBox alignment="CENTER" spacing="12">
             <Button text="Play Again"

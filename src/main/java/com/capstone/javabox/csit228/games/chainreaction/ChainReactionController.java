@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games.chainreaction;
 
+import com.capstone.javabox.csit228.database.ChainReactionDAO;
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
 import com.capstone.javabox.csit228.utils.SoundManager;
 import javafx.animation.*;
@@ -344,6 +345,13 @@ public class ChainReactionController extends JavaboxAbstractController {
                 "-fx-text-fill: #aaaaaa;");
         SoundManager.playSFX("sfx_powerup.mp3");
         showScene(winScene);
+
+        // --- NEW: UPLOAD TO LEADERBOARD ---
+        List<String> activePlayers = new ArrayList<>();
+        for (int i = 0; i < playerCount; i++) {
+            activePlayers.add(playerNames[i]);
+        }
+        ChainReactionDAO.saveMatch(activePlayers, playerNames[playerIndex]);
     }
 
     @FXML
