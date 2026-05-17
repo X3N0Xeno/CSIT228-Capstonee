@@ -40,7 +40,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
         double delay = 0;
 
         for (Node node : titleBox.getChildren()) {
-            if (node instanceof Label) {
+            if (node instanceof Label || node instanceof javafx.scene.image.ImageView) {
                 TranslateTransition bounce = new TranslateTransition(Duration.seconds(0.6), node);
                 bounce.setByY(-15);
                 bounce.setCycleCount(TranslateTransition.INDEFINITE);
@@ -56,30 +56,42 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
         menuBox.setVisible(true);
         helpBox.setVisible(false);
         lobbyBox.setVisible(false);
+        /*Platform.runLater(() -> {
+            Stage stage = JavaboxUtils.getStage(menuBox);
+            if (stage != null) {
+                stage.setResizable(true);
+                stage.setMaximized(true);
+            }
+        });*/
     }
 
     @FXML
     public void onPlayButtonClicked(ActionEvent event) {
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
         menuBox.setVisible(false);
         lobbyBox.setVisible(true);
     }
 
     @FXML
     public void onHelpButtonClicked(ActionEvent event){
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
         menuBox.setVisible(false);
         helpBox.setVisible(true);
     }
 
     @FXML
     public void onExitButtonClicked(ActionEvent event){
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
         if (JavaboxUtils.showConfirmation("Exit Game", "Are you sure you want to quit to the lobby?")) {
             SoundManager.playMusic(true, "music_lobby_music1.mp3", "music_lobby_music2.mp3");
+            SoundManager.playSFX("sfx_ui_accept_death.mp3");
             quitToLobby();
         }
     }
 
     @FXML
     public void onBackToMenuClicked(ActionEvent event){
+        SoundManager.playSFX("sfx_ui_prompt.mp3");
         menuBox.setVisible(true);
         helpBox.setVisible(false);
         lobbyBox.setVisible(false);
@@ -87,6 +99,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
 
     @FXML
     public void onStartRoundButtonClicked(ActionEvent event) {
+        SoundManager.playSFX("sfx_ui_confirm.mp3");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("knucklebone-view.fxml"));
             Scene gameScene = new Scene(loader.load(), 1280, 720);
@@ -128,6 +141,7 @@ public class KnuckleBoneMenuController extends JavaboxAbstractController {
 
     @FXML
     public void onToggleButtonClicked() {
+        SoundManager.playSFX("sfx_collect.mp3");
         ToggleButton selected1 = (ToggleButton) p1Color.getSelectedToggle();
         ToggleButton selected2 = (ToggleButton) p2Color.getSelectedToggle();
 
