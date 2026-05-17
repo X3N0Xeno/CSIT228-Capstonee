@@ -75,6 +75,10 @@
                                 <Button mnemonicParsing="false" onAction="#onSkip" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: #57606f; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="SKIP TURN" />
                             </children>
                         </VBox>
+
+                        <Separator opacity="0.2" />
+                        <Button mnemonicParsing="false" onAction="#onQuitToMenu" prefWidth="200.0"
+                                style="-fx-background-color: #34495e; -fx-text-fill: white;" text="MAIN MENU" />
                     </children>
                 </VBox>
 

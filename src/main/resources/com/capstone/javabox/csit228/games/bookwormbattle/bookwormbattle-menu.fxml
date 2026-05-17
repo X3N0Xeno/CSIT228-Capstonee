@@ -2,25 +2,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
-<VBox fx:id="mainMenuVBox" alignment="CENTER" prefHeight="850.0" prefWidth="1100.0" spacing="40"
-      style="-fx-background-color: #1e272e;" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capstone.javabox.csit228.games.bookwormbattle.BookwormBattleMenuController">
+<VBox fx:id="mainMenuVBox" alignment="CENTER" prefHeight="850.0" prefWidth="1100.0" spacing="50"
+      style="-fx-background-color: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.capstone.javabox.csit228.games.bookwormbattle.BookwormBattleMenuController">
 
-    <Label text="BOOKWORM BATTLE" textFill="#ffd32a">
-        <font>
-            <Font name="System Bold" size="72.0" />
-        </font>
-    </Label>
+    <!-- The Animated Title Container -->
+    <HBox fx:id="titleContainer" alignment="CENTER" spacing="5">
+        <!-- Letters will be injected here via Controller for animation -->
+    </HBox>
 
-    <VBox alignment="CENTER" spacing="20">
-        <Button onAction="#onPlayGame" prefHeight="60.0" prefWidth="300.0"
-                style="-fx-background-color: #05c46b; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24; -fx-cursor: hand;" text="PLAY GAME" />
+    <VBox alignment="CENTER" spacing="25" style="-fx-background-color: rgba(0,0,0,0.3); -fx-padding: 40; -fx-background-radius: 20; -fx-border-color: #ffd32a; -fx-border-width: 2; -fx-max-width: 450;">
+        <Button onAction="#onPlayGame" prefHeight="65.0" prefWidth="320.0"
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26; -fx-cursor: hand; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="START BATTLE" />
 
-        <Button onAction="#onHowToPlay" prefHeight="50.0" prefWidth="300.0"
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 18; -fx-cursor: hand;" text="HOW TO PLAY" />
+        <Button onAction="#onHowToPlay" prefHeight="55.0" prefWidth="320.0"
+                style="-fx-background-color: #d35400; -fx-text-fill: white; -fx-font-size: 20; -fx-cursor: hand; -fx-background-radius: 10;" text="LIBRARIAN'S GUIDE" />
 
-        <Button onAction="#onExit" prefHeight="50.0" prefWidth="300.0"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 18; -fx-cursor: hand;" text="EXIT GAME" />
+        <Button onAction="#onExit" prefHeight="55.0" prefWidth="320.0"
+                style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-size: 20; -fx-cursor: hand; -fx-background-radius: 10;" text="EXIT TO HUB" />
     </VBox>
+
+    <Label text="LEX WOULD BE PROUD" textFill="#808e9b">
+        <font><Font name="System Italic" size="14.0" /></font>
+    </Label>
 </VBox>

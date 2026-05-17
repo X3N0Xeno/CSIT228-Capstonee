@@ -1,52 +1,86 @@
 package com.capstone.javabox.csit228.games.bookwormbattle;
 
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
+import com.capstone.javabox.csit228.utils.SoundManager;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.Stage;
-import javafx.stage.Modality;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class BookwormBattleMenuController extends JavaboxAbstractController {
 
+    @FXML private VBox mainMenuVBox;
+    @FXML private HBox titleContainer;
+
     @FXML
-    private VBox mainMenuVBox;
+    public void initialize() {
+        SoundManager.playMusic("music_bookworm_menu.mp3");
+        createBouncingTitle("BOOKWORM BATTLE");
+    }
+
+    private void createBouncingTitle(String text) {
+        titleContainer.getChildren().clear();
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            Label letter = new Label(String.valueOf(c));
+            letter.setTextFill(Color.web("#ffd32a")); // Gold
+            letter.setFont(Font.font("System", FontWeight.BOLD, 80));
+
+            // Add a little extra space for the gap between words
+            if (c == ' ') letter.setMinWidth(30);
+
+            titleContainer.getChildren().add(letter);
+
+            // Create the individual bounce
+            TranslateTransition bounce = new TranslateTransition(Duration.seconds(0.6), letter);
+            bounce.setByY(-30); // How high they jump
+            bounce.setCycleCount(TranslateTransition.INDEFINITE);
+            bounce.setAutoReverse(true);
+
+            // The "Wave" magic: Delay each letter's start
+            bounce.setDelay(Duration.millis(i * 100));
+
+            bounce.play();
+        }
+    }
 
     @FXML
     private void onPlayGame() {
+        SoundManager.playSFX("sfx_button_click.wav");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bookwormbattle-view.fxml"));
             Parent battleRoot = loader.load();
-
             BookwormBattleController gameController = loader.getController();
             gameController.setQuitCallback(this.quitCallback);
 
             Stage currentStage = (Stage) mainMenuVBox.getScene().getWindow();
-
             currentStage.getScene().setRoot(battleRoot);
-
             gameController.startCountdown();
-
         } catch (IOException e) {
-            System.err.println("Error loading Bookworm Battle View!");
             e.printStackTrace();
         }
     }
 
     @FXML
     private void onHowToPlay() {
+        SoundManager.playSFX("sfx_buttonclick.wav");
         Stage infoStage = new Stage();
         infoStage.initModality(Modality.APPLICATION_MODAL);
         infoStage.setTitle("Bookworm Battle - Official Manual");
@@ -107,6 +141,8 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
     @FXML
     private void onExit() {
+        SoundManager.playSFX("sfx_buttonclick.wav");
+        SoundManager.stopMusic();
         quitToLobby();
     }
 }
