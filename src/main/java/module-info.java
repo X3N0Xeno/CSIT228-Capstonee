@@ -34,6 +34,9 @@ module com.capstone.javabox.csit228 {
     exports com.capstone.javabox.csit228.games.ultimatettt;
     opens com.capstone.javabox.csit228.games.ultimatettt to javafx.fxml;
 
+    opens com.capstone.javabox.csit228.games.bookwormbattle to javafx.fxml;
+    exports com.capstone.javabox.csit228.games.bookwormbattle;
+
     exports com.capstone.javabox.csit228.games.fruitsnake;
     opens com.capstone.javabox.csit228.games.fruitsnake to javafx.fxml;
 

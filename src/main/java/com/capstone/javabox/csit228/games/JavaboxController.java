@@ -2,6 +2,7 @@ package com.capstone.javabox.csit228.games;
 
 
 //game launchers
+import com.capstone.javabox.csit228.games.bookwormbattle.BookwormBattleLauncher;
 import com.capstone.javabox.csit228.games.fullhouse.FullHouseLauncher;
 import com.capstone.javabox.csit228.games.gemforge.GemForgeLauncher;
 import com.capstone.javabox.csit228.games.hangman.HangmanLauncher;
@@ -57,7 +58,8 @@ public class JavaboxController {
                 new GemForgeLauncher(),
                 new ChainReactionLauncher(),
                 new FruitSnakeLauncher(),
-                new GemForgeLauncher()
+                new GemForgeLauncher(),
+                new BookwormBattleLauncher()
         ));
 
         //Load the Default Background
@@ -111,6 +113,9 @@ public class JavaboxController {
                 previewFxmlFile = "preview/preview-fruitsnake.fxml";
                 hoverSound = "sfx_ui_new_game.mp3";
             }else if(game instanceof ChainReactionLauncher){
+                previewFxmlFile = "preview/preview-chainreaction.fxml";
+                hoverSound = "sfx_junimo.mp3";
+            } else if (game instanceof BookwormBattleLauncher) {
                 previewFxmlFile = "preview/preview-chainreaction.fxml";
                 hoverSound = "sfx_junimo.mp3";
             }

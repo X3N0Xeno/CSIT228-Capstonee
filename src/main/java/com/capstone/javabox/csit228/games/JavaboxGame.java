@@ -3,7 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public interface JavaboxGame {
+public interface    JavaboxGame {
     String getGameTitle();
     void launchGame(Stage activeStage, Runnable onQuit);
 
