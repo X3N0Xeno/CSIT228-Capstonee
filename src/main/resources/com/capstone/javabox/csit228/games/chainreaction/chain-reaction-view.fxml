@@ -95,7 +95,9 @@
         <Label fx:id="statusLabel"
                style="-fx-font-family: Monospace; -fx-font-size: 13; -fx-text-fill: #aaaaaa;"/>
 
-        <GridPane fx:id="gameGrid" alignment="CENTER"/>
+        <StackPane fx:id="gameGridContainer">
+            <GridPane fx:id="gameGrid" alignment="CENTER"/>
+        </StackPane>
 
         <Button text="Quit"
                 onAction="#handleQuit"
