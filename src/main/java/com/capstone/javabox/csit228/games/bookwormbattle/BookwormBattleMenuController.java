@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,6 +29,9 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
     @FXML private VBox mainMenuVBox;
     @FXML private HBox titleContainer;
 
+    @FXML private TextField p1NameInput;
+    @FXML private TextField p2NameInput;
+
     @FXML
     public void initialize() {
         SoundManager.playMusic("music_bookworm_menu.mp3");
@@ -40,23 +44,16 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             Label letter = new Label(String.valueOf(c));
-            letter.setTextFill(Color.web("#ffd32a")); // Gold
+            letter.setTextFill(Color.web("#ffd32a"));
             letter.setFont(Font.font("System", FontWeight.BOLD, 80));
-
-            // Add a little extra space for the gap between words
             if (c == ' ') letter.setMinWidth(30);
-
             titleContainer.getChildren().add(letter);
 
-            // Create the individual bounce
             TranslateTransition bounce = new TranslateTransition(Duration.seconds(0.6), letter);
-            bounce.setByY(-30); // How high they jump
+            bounce.setByY(-30);
             bounce.setCycleCount(TranslateTransition.INDEFINITE);
             bounce.setAutoReverse(true);
-
-            // The "Wave" magic: Delay each letter's start
             bounce.setDelay(Duration.millis(i * 100));
-
             bounce.play();
         }
     }
@@ -64,6 +61,11 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
     @FXML
     private void onPlayGame() {
         SoundManager.playSFX("sfx_buttonclick.wav");
+
+        // Grab the aliases (default to Player 1 / Player 2 if left blank)
+        String p1Alias = (p1NameInput != null && !p1NameInput.getText().trim().isEmpty()) ? p1NameInput.getText().trim() : "Player 1";
+        String p2Alias = (p2NameInput != null && !p2NameInput.getText().trim().isEmpty()) ? p2NameInput.getText().trim() : "Player 2";
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bookwormbattle-view.fxml"));
             Parent battleRoot = loader.load();
@@ -72,7 +74,9 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
             Stage currentStage = (Stage) mainMenuVBox.getScene().getWindow();
             currentStage.getScene().setRoot(battleRoot);
-            gameController.startCountdown();
+
+            // Pass the names into the game!
+            gameController.startCountdown(p1Alias, p2Alias);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,27 +91,23 @@ public class BookwormBattleMenuController extends JavaboxAbstractController {
 
         VBox layout = new VBox(15);
         layout.setPadding(new Insets(20));
-        layout.setStyle("-fx-background-color: #1e272e;"); // Matches your game theme
+        layout.setStyle("-fx-background-color: #1e272e;");
 
-        // Content String
         String content =
                 "--- THE BASICS ---\n" +
                         "• Spell words (3+ letters) to damage the enemy.\n" +
                         "• Letters are cleared and replaced by tiles above (Gravity).\n" +
                         "• Spell a 5+ letter word to SEED a Gem on your board.\n" +
                         "• Use that Gem in a future word to HARVEST its effect.\n\n" +
-
                         "--- GEMS ---\n" +
                         "• 5L (Purple): Poison (1 dmg/turn for 2 turns).\n" +
                         "• 6L (Green): Heal (+2.5 Hearts).\n" +
                         "• 7L (Orange): Power Down (Halve enemy next attack).\n" +
                         "• 8L+ (Blue): Freeze (Skip enemy's next turn).\n\n" +
-
                         "--- POTIONS (Dropped every 2 phases) ---\n" +
                         "• HEALING: Restores 3 Hearts instantly.\n" +
                         "• STRENGTH: Doubles the damage of your next word.\n" +
                         "• PURIFY: Removes Poison, Weakness, and Freeze.\n\n" +
-
                         "--- CARDS (From Reward Wheel) ---\n" +
                         "• SCRAMBLE COL/ROW: Click enemy tile to ruin that line with rare letters (J, K, X, Y, Q, Z).\n" +
                         "• LOCKDOWN: Click an enemy tile to lock it from being used.\n" +

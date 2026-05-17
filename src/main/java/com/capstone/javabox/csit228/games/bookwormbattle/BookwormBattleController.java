@@ -1,5 +1,6 @@
 package com.capstone.javabox.csit228.games.bookwormbattle;
 
+import com.capstone.javabox.csit228.database.BookwormBattleDAO;
 import com.capstone.javabox.csit228.games.JavaboxAbstractController;
 import com.capstone.javabox.csit228.games.bookwormbattle.GameConstants.*;
 import com.capstone.javabox.csit228.utils.SoundManager;
@@ -44,7 +45,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
     private CardType pendingCardAction = null;
     private int totalPhasesPassed = 0;
 
-    // --- Controller Variables ---
     @FXML private VBox wheelOverlay;
     @FXML private Label wheelResultLabel, wheelStatusLabel;
 
@@ -54,9 +54,10 @@ public class BookwormBattleController extends JavaboxAbstractController {
         setupTimer();
     }
 
-    public void startCountdown() {
-        p1 = new Player("Player 1", p1GridPane);
-        p2 = new Player("Player 2", p2GridPane);
+    // --- RECEIVE PLAYER ALIASES ---
+    public void startCountdown(String p1Alias, String p2Alias) {
+        p1 = new Player(p1Alias, p1GridPane);
+        p2 = new Player(p2Alias, p2GridPane);
         currentPlayer = p1;
 
         totalPhasesPassed = 0;
@@ -120,13 +121,11 @@ public class BookwormBattleController extends JavaboxAbstractController {
         enemy.takeDamage(damage);
 
         processGravity(currentPlayer);
-
         spawnGemAtRandom(currentPlayer, word.length());
 
         currentPlayer.refreshBoard();
         updateUI();
 
-//        showCardPicker();
         triggerRandomRewardWheel();
     }
 
@@ -139,8 +138,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
         if (totalPhasesPassed % 2 == 0) {
             System.out.println("Cycle Complete (2 Phases)! Dropping Potions...");
             giveRandomPotions();
-
-            // Optional: Show a message on screen so players know why they got potions
             wordPreview.setText("POTION DROP!");
             wordPreview.setStyle("-fx-text-fill: #27ae60; -fx-font-size: 24;");
         }
@@ -173,7 +170,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
         box.getChildren().clear();
         box.setSpacing(5);
 
-        // 1. Render Cards (Blue Buttons)
         for (int i = 0; i < p.cards.size(); i++) {
             GameConstants.CardType card = p.cards.get(i);
             Button b = new Button(card.label);
@@ -187,7 +183,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
             box.getChildren().add(b);
         }
 
-        // 2. Render Potions (Green Buttons)
         p.potions.forEach((type, qty) -> {
             if (qty > 0) {
                 Button b = new Button(type.name() + " (" + qty + ")");
@@ -219,7 +214,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
     }
 
     private void applyCard(CardType c, Player p) {
-        // Determine who the opponent is
         Player enemy = (p == p1) ? p2 : p1;
 
         switch (c) {
@@ -231,23 +225,17 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 updateUI();
                 return;
 
-        /*
-           INSTANT CARDS:
-        */
             case HEALING:
                 p.heal(5.0);
-                System.out.println(p.name + " used Healing Card (+5 Hearts)");
                 SoundManager.playSFX("sfx_heal.wav");
                 break;
 
             case HELP_ME:
                 p.scrambles++;
-                System.out.println(p.name + " used Help Me Card (+1 Scramble)");
                 break;
 
             case SHIELD:
                 p.hasShield = true;
-                System.out.println(p.name + " used Graceful Shield (Invulnerable for 1 hit)");
                 SoundManager.playSFX("sfx_powerup2.wav");
                 break;
 
@@ -255,7 +243,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 p.addPotion(PotionType.HEALING);
                 p.addPotion(PotionType.STRENGTH);
                 p.addPotion(PotionType.PURIFY);
-                System.out.println(p.name + " used Shop Deluxe (Got 3 Potions)");
                 SoundManager.playSFX("sfx_shopdeluxe.wav");
                 break;
 
@@ -267,22 +254,17 @@ public class BookwormBattleController extends JavaboxAbstractController {
                     }
                 }
                 enemy.refreshBoard();
-                System.out.println(p.name + " used Gem Nuke! Enemy gems destroyed.");
                 SoundManager.playSFX("sfx_nuke.wav");
                 break;
         }
 
-        // Remove the instant card from inventory
         p.cards.remove(c);
-
-        // Refresh UI
         updateUI();
     }
 
     // --- UTILS ---
 
     private void updateUI() {
-        // 1. Basic Labels
         p1HealthLabel.setText(String.format("Hearts: %.1f/20.0", p1.hearts));
         p2HealthLabel.setText(String.format("Hearts: %.1f/20.0", p2.hearts));
         p1ScrambleLabel.setText("Scrambles: " + p1.scrambles);
@@ -290,10 +272,8 @@ public class BookwormBattleController extends JavaboxAbstractController {
 
         turnIndicator.setText(currentPlayer.name + "'s Turn");
 
-        // 2. TARGETING MODE VISUALS
         if (pendingCardAction != null) {
             Player enemy = (currentPlayer == p1) ? p2 : p1;
-
             enemy.gridPane.setOpacity(1.0);
             enemy.gridPane.setMouseTransparent(false);
             enemy.gridPane.setStyle("-fx-border-color: #3498db; -fx-border-width: 5; -fx-border-radius: 15;");
@@ -304,7 +284,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
             wordPreview.setText("TARGETING: " + pendingCardAction.label);
             wordPreview.setStyle("-fx-text-fill: #3498db; -fx-font-weight: bold; -fx-font-size: 28;");
         } else {
-            // NORMAL TURN VISUALS
             p1GridPane.setOpacity(currentPlayer == p1 ? 1.0 : 0.4);
             p1GridPane.setMouseTransparent(currentPlayer != p1);
             p1GridPane.setStyle("-fx-border-color: #ff4757; -fx-border-width: 2; -fx-border-radius: 15;");
@@ -316,7 +295,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
             wordPreview.setStyle("-fx-text-fill: #ffd32a; -fx-font-weight: bold; -fx-font-size: 42;");
         }
 
-
         renderInv(p1, p1Inventory);
         renderInv(p2, p2Inventory);
         renderStatus(p1, p1StatusBox);
@@ -327,28 +305,16 @@ public class BookwormBattleController extends JavaboxAbstractController {
         box.getChildren().clear();
         box.setSpacing(5);
 
-        if (p.isFrozen) {
-            box.getChildren().add(createStatusIndicator("❄ FROZEN", "#2980b9"));
-        }
-        if (p.poisonTicks > 0) {
-            box.getChildren().add(createStatusIndicator("☣ POISON (" + p.poisonTicks + "T)", "#8e44ad"));
-        }
-
-        if (p.isPoweredDown) {
-            box.getChildren().add(createStatusIndicator("↓ POWER DOWN", "#d35400"));
-        }
-
-        if (p.hasStrength) {
-            box.getChildren().add(createStatusIndicator("↑ STRENGTH UP", "#27ae60"));
-        }
-        if (p.hasShield) {
-            box.getChildren().add(createStatusIndicator("🛡 SHIELDED", "#16a085"));
-        }
+        if (p.isFrozen) box.getChildren().add(createStatusIndicator("❄ FROZEN", "#2980b9"));
+        if (p.poisonTicks > 0) box.getChildren().add(createStatusIndicator("☣ POISON (" + p.poisonTicks + "T)", "#8e44ad"));
+        if (p.isPoweredDown) box.getChildren().add(createStatusIndicator("↓ POWER DOWN", "#d35400"));
+        if (p.hasStrength) box.getChildren().add(createStatusIndicator("↑ STRENGTH UP", "#27ae60"));
+        if (p.hasShield) box.getChildren().add(createStatusIndicator("🛡 SHIELDED", "#16a085"));
     }
 
     private Button createStatusIndicator(String text, String color) {
         Button b = new Button(text);
-        b.setDisable(true); 
+        b.setDisable(true);
         b.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-opacity: 1.0; " +
                 "-fx-font-weight: bold; -fx-pref-width: 160; -fx-font-size: 11px; -fx-border-color: white; -fx-border-width: 0.5;");
         return b;
@@ -362,6 +328,10 @@ public class BookwormBattleController extends JavaboxAbstractController {
             if (turnTimer != null) turnTimer.stop();
             SoundManager.stopMusic();
             SoundManager.playSFX("sfx_victory.wav");
+
+            // --- DATABASE UPLOAD ---
+            String winnerAlias = p1.hearts > 0 ? p1.name : p2.name;
+            BookwormBattleDAO.saveMatch(p1.name, p2.name, winnerAlias);
 
             javafx.application.Platform.runLater(() -> {
                 String winner = p1.hearts > 0 ? "Player 1" : "Player 2";
@@ -378,7 +348,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == btnPlayAgain) {
-                    startCountdown();
+                    startCountdown(p1.name, p2.name);
                 } else {
                     quitToLobby();
                 }
@@ -396,9 +366,7 @@ public class BookwormBattleController extends JavaboxAbstractController {
                 } else {
                     p.board[r][c].setSelected(false);
                 }
-
                 p.gridPane.add(p.board[r][c].pane, c, r);
-
                 Tile currentTile = p.board[r][c];
                 currentTile.pane.setOnMouseClicked(e -> handleMouseClick(e, p, currentTile));
             }
@@ -408,31 +376,21 @@ public class BookwormBattleController extends JavaboxAbstractController {
     private void setupTimer() {
         turnTimer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             secondsRemaining--;
-
-            if (timerLabel != null) {
-                timerLabel.setText("Time: " + secondsRemaining + "s");
-            }
-
-            if (secondsRemaining <= 0) {
-                System.out.println("Time up! Skipping turn.");
-                onSkip();
-            }
+            if (timerLabel != null) timerLabel.setText("Time: " + secondsRemaining + "s");
+            if (secondsRemaining <= 0) onSkip();
         }));
         turnTimer.setCycleCount(Timeline.INDEFINITE);
     }
 
     private void startTurnTimer() {
         secondsRemaining = 30;
-        if (timerLabel != null) {
-            timerLabel.setText("Time: 30s");
-        }
+        if (timerLabel != null) timerLabel.setText("Time: 30s");
         turnTimer.playFromStart();
     }
 
     private void handleMouseClick(javafx.scene.input.MouseEvent e, Player p, Tile tile) {
         if (pendingCardAction != null) {
             Player enemy = (currentPlayer == p1) ? p2 : p1;
-
             if (p == enemy) {
                 executeTargetedCard(pendingCardAction, enemy, tile);
                 currentPlayer.cards.remove(pendingCardAction);
@@ -501,62 +459,45 @@ public class BookwormBattleController extends JavaboxAbstractController {
 
     private void spawnGemAtRandom(Player p, int len) {
         GemType type = null;
-        if (len == 5) type = GemType.POISON;      // 5 Letters -> Purple
-        else if (len == 6) type = GemType.HEAL;    // 6 Letters -> Green
-        else if (len == 7) type = GemType.POWER_DOWN; // 7 Letters -> Orange
-        else if (len >= 8) type = GemType.FREEZE;  // 8+ Letters -> Blue
+        if (len == 5) type = GemType.POISON;
+        else if (len == 6) type = GemType.HEAL;
+        else if (len == 7) type = GemType.POWER_DOWN;
+        else if (len >= 8) type = GemType.FREEZE;
 
         if (type != null) {
             List<Tile> availableTiles = new ArrayList<>();
             for (int r = 0; r < 4; r++) {
                 for (int c = 0; c < 4; c++) {
                     Tile t = p.board[r][c];
-                    // Only spawn on tiles that are NOT already gems
                     if (t != null && t.gemType == null) {
                         availableTiles.add(t);
                     }
                 }
             }
-
             if (!availableTiles.isEmpty()) {
                 Tile target = availableTiles.get(random.nextInt(availableTiles.size()));
                 target.setGem(type);
-                System.out.println("UI UPDATE: " + type + " gem spawned at " + target.r + "," + target.c);
             }
         }
-
         SoundManager.playSFX("sfx_gemspawn.wav");
     }
 
     private void applyGemEffect(GemType type, Player enemy) {
         switch (type) {
-            case POISON -> {
-                enemy.poisonTicks = 2; // Purple
-                SoundManager.playSFX("sfx_poison.wav");
-            }
-            case HEAL -> {
-                currentPlayer.heal(2.5); // Green
-                SoundManager.playSFX("sfx_heal.wav");
-            }
-            case POWER_DOWN -> {
-                enemy.isPoweredDown = true; // Orange
-                SoundManager.playSFX("sfx_powerdown.wav");
-            }
-            case FREEZE -> {
-                enemy.isFrozen = true; // Blue
-                SoundManager.playSFX("sfx_frozen.wav");
-            }
+            case POISON -> { enemy.poisonTicks = 2; SoundManager.playSFX("sfx_poison.wav"); }
+            case HEAL -> { currentPlayer.heal(2.5); SoundManager.playSFX("sfx_heal.wav"); }
+            case POWER_DOWN -> { enemy.isPoweredDown = true; SoundManager.playSFX("sfx_powerdown.wav"); }
+            case FREEZE -> { enemy.isFrozen = true; SoundManager.playSFX("sfx_frozen.wav"); }
         }
     }
 
     @FXML
     private void onScramble() {
         if (currentPlayer.scrambles > 0) {
-            onClear(); // Reset word
-            currentPlayer.scrambles--; // Decrement charge
-
-            setupBoard(currentPlayer); // Shuffle non-gem tiles
-            updateUI(); // Force label to update from 2 -> 1 -> 0
+            onClear();
+            currentPlayer.scrambles--;
+            setupBoard(currentPlayer);
+            updateUI();
         } else {
             wordPreview.setText("NO CHARGES!");
         }
@@ -585,7 +526,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
     }
 
     private void clearSelection() {
-        // We clear BOTH players' potential selections just to be safe during turn transitions
         if (p1 != null) {
             for (Tile t : p1.selectedTiles) t.setSelected(false);
             p1.selectedTiles.clear();
@@ -594,66 +534,12 @@ public class BookwormBattleController extends JavaboxAbstractController {
             for (Tile t : p2.selectedTiles) t.setSelected(false);
             p2.selectedTiles.clear();
         }
-
         wordPreview.setText("");
     }
 
     @FXML
     private void onSkip() {
         endTurn();
-    }
-
-    private void showCardPicker() {
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        VBox box = new VBox(15);
-        box.setAlignment(Pos.CENTER);
-        box.setPadding(new Insets(20));
-        box.setStyle("-fx-background-color: #2c3e50;");
-
-        Label l = new Label(currentPlayer.name + " Choose a Reward");
-        l.setTextFill(Color.WHITE);
-        box.getChildren().add(l);
-
-        List<CardType> pool = new ArrayList<>(Arrays.asList(CardType.values()));
-        Collections.shuffle(pool);
-
-        {
-            CardType card = pool.get(0);
-            Button b = new Button(card.label);
-            b.setPrefWidth(200);
-            b.setOnAction(e -> {
-                currentPlayer.addCard(card);
-                stage.close();
-                endTurn();
-            });
-            box.getChildren().add(b);
-        }
-        {
-            CardType card = pool.get(1);
-            Button b = new Button(card.label);
-            b.setPrefWidth(200);
-            b.setOnAction(e -> {
-                currentPlayer.addCard(card);
-                stage.close();
-                endTurn();
-            });
-            box.getChildren().add(b);
-        }
-        {
-            CardType card = pool.get(2);
-            Button b = new Button(card.label);
-            b.setPrefWidth(200);
-            b.setOnAction(e -> {
-                currentPlayer.addCard(card);
-                stage.close();
-                endTurn();
-            });
-            box.getChildren().add(b);
-        }
-
-        stage.setScene(new Scene(box));
-        stage.show();
     }
 
     private void triggerRandomRewardWheel() {
@@ -663,12 +549,10 @@ public class BookwormBattleController extends JavaboxAbstractController {
         CardType[] allCards = CardType.values();
         CardType winningCard = allCards[random.nextInt(allCards.length)];
 
-        // Animation Settings
-        final int totalFlickers = 15; // How many times it changes before stopping
+        final int totalFlickers = 15;
         final int[] currentFlicker = {0};
-        final double[] currentDelay = {0.05}; // Delay
+        final double[] currentDelay = {0.05};
 
-        // We use a recursive Timeline approach to simulate slowing down
         runFlickerStep(allCards, winningCard, totalFlickers, currentFlicker, currentDelay);
     }
 
@@ -678,16 +562,10 @@ public class BookwormBattleController extends JavaboxAbstractController {
             current[0]++;
 
             if (current[0] < total) {
-                // Pick a random card to show during the flicker (not necessarily the winner)
                 wheelStatusLabel.setText(allCards[random.nextInt(allCards.length)].label);
-
-                // Slow down the next flicker by 15%
                 delay[0] *= 1.15;
-
-                // Repeat
                 runFlickerStep(allCards, winningCard, total, current, delay);
             } else {
-                // STOPPED! Reveal the actual winner
                 revealFinalReward(winningCard);
             }
         }));
@@ -697,25 +575,23 @@ public class BookwormBattleController extends JavaboxAbstractController {
     private void revealFinalReward(CardType winner) {
         SoundManager.playSFX("sfx_reward.wav");
         wheelStatusLabel.setText(winner.label);
-        wheelStatusLabel.setTextFill(Color.web("#ffd32a")); // Gold highlight for winner
+        wheelStatusLabel.setTextFill(Color.web("#ffd32a"));
         wheelResultLabel.setText("REWARD GRANTED: " + winner.label);
 
-        // Pause so they can see it, then give the card and close
         Timeline pause = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
             currentPlayer.addCard(winner);
-            wheelStatusLabel.setTextFill(Color.WHITE); // Reset for next time
+            wheelStatusLabel.setTextFill(Color.WHITE);
             wheelOverlay.setVisible(false);
             gameUI.setDisable(false);
-            endTurn(); // Transition to next player
+            endTurn();
         }));
         pause.play();
     }
 
     private void giveRandomPotions() {
         PotionType[] pts = PotionType.values();
-        Random r = new Random();
-        p1.addPotion(pts[r.nextInt(pts.length)]);
-        p2.addPotion(pts[r.nextInt(pts.length)]);
+        p1.addPotion(pts[random.nextInt(pts.length)]);
+        p2.addPotion(pts[random.nextInt(pts.length)]);
     }
 
     @Override
@@ -735,7 +611,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
     }
 
     private void processGravity(Player p) {
-        // 1. Mark selected tiles as empty
         for (Tile t : p.selectedTiles) {
             t.letter = ' ';
             t.gemType = null;
@@ -743,13 +618,11 @@ public class BookwormBattleController extends JavaboxAbstractController {
         }
         p.selectedTiles.clear();
 
-        // 2. Physics logic
         for (int c = 0; c < 4; c++) {
             for (int r = 3; r >= 0; r--) {
                 if (p.board[r][c].letter == ' ') {
                     for (int k = r - 1; k >= 0; k--) {
                         if (p.board[k][c].letter != ' ') {
-                            // Move letter AND gemType down
                             p.board[r][c].letter = p.board[k][c].letter;
                             p.board[r][c].gemType = p.board[k][c].gemType;
 
@@ -760,7 +633,6 @@ public class BookwormBattleController extends JavaboxAbstractController {
                     }
                 }
             }
-            // 3. Fill top with new letters
             for (int r = 0; r < 4; r++) {
                 if (p.board[r][c].letter == ' ') {
                     p.board[r][c].letter = generateLetter();
@@ -774,31 +646,20 @@ public class BookwormBattleController extends JavaboxAbstractController {
     @FXML
     private void onQuitToMenu() {
         SoundManager.stopMusic();
-        // 1. Stop the game timer so it doesn't run in the background
-        if (turnTimer != null) {
-            turnTimer.stop();
-        }
+        if (turnTimer != null) turnTimer.stop();
 
         try {
-            // 2. Load the Menu FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bookwormbattle-menu.fxml"));
             Parent menuRoot = loader.load();
-
-            // 3. Pass the JavaBox quit callback back to the Menu Controller
-            // This ensures the "Exit to Hub" button in the menu still works!
             BookwormBattleMenuController menuController = loader.getController();
             menuController.setQuitCallback(this.quitCallback);
 
-            // 4. Swap the view
             Stage stage = (Stage) gameUI.getScene().getWindow();
             stage.getScene().setRoot(menuRoot);
-
         } catch (IOException e) {
-            System.err.println("Failed to return to Bookworm Battle Menu!");
             e.printStackTrace();
         }
     }
 
     private char generateLetter() { return DATA.charAt(new Random().nextInt(DATA.length())); }
 }
-

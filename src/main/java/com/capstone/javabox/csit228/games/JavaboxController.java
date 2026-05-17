@@ -48,17 +48,16 @@ public class JavaboxController {
         List<JavaboxGame> availableGames = new ArrayList<>(List.of(
                 //Add your game's Launcher here! Don't forget about the comma heh heh...
                 //By the way, your launcher must implement JavaboxGame and your Controller must extend JavaboxAbstractController!
+                new LeaderboardLauncher(),
                 new KnuckleBoneLauncher(),
                 new WindowSwarmLauncher(),
                 new HangmanLauncher(),
                 new WordleLauncher(),
                 new UltimateTTTLauncher(),
                 new FullHouseLauncher(),
-                new LeaderboardLauncher(),
                 new GemForgeLauncher(),
                 new ChainReactionLauncher(),
                 new FruitSnakeLauncher(),
-                new GemForgeLauncher(),
                 new BookwormBattleLauncher()
         ));
 
@@ -84,6 +83,10 @@ public class JavaboxController {
             if (game instanceof KnuckleBoneLauncher) {
                 previewFxmlFile = "preview/preview-knucklebones.fxml";
                 hoverSound = "sfx_dice.mp3";
+            }
+            else if (game instanceof LeaderboardLauncher) {
+                previewFxmlFile = "preview/preview-leaderboards.fxml";
+                hoverSound = "sfx_button.mp3";
             }
             else if (game instanceof WindowSwarmLauncher) {
                 previewFxmlFile = "preview/preview-windowswarm.fxml";
@@ -116,8 +119,8 @@ public class JavaboxController {
                 previewFxmlFile = "preview/preview-chainreaction.fxml";
                 hoverSound = "sfx_junimo.mp3";
             } else if (game instanceof BookwormBattleLauncher) {
-                previewFxmlFile = "preview/preview-chainreaction.fxml";
-                hoverSound = "sfx_junimo.mp3";
+                previewFxmlFile = "preview/preview-bookwormbattle.fxml";
+                hoverSound = "sfx_collect.mp3";
             }
 
 
