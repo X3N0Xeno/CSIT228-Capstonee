@@ -39,3 +39,4 @@ build/
 .DS_Store
 /hangman-stats.txt
 /wordle-stats.txt
+/fruit-snake-score.txt

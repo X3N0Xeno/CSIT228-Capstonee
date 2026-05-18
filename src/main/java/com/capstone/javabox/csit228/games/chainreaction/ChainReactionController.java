@@ -51,10 +51,7 @@ public class ChainReactionController extends JavaboxAbstractController {
     private boolean animating;
     private boolean chainOccurred;
 
-    // Stores the waves from the last move — passed to infection phase
     private List<ChainReactionGame.ExplosionWave> lastWaves = new ArrayList<>();
-
-    // Cells currently showing plague icon — cleared at start of each turn
     private final Set<String> infectedCellKeys = new HashSet<>();
 
     private static final String[] PLAYER_COLORS = {
@@ -174,7 +171,6 @@ public class ChainReactionController extends JavaboxAbstractController {
         hasPlaced[currentPlayer] = true;
         animating = true;
 
-        // Clear plague icons from previous turn
         infectedCellKeys.clear();
 
         lastWaves = game.placeOrb(row, col, currentPlayer);
@@ -183,14 +179,13 @@ public class ChainReactionController extends JavaboxAbstractController {
         updateCellUI(row, col);
 
         if (!chainOccurred) {
-            // No explosion — no chain, no infection, just advance
             finishTurn();
         } else {
             animateWaves(lastWaves, 0, this::runInfectionPhase);
         }
     }
 
-    // --- Wave Animation (flash-based) ---
+    // --- Wave Animation ---
 
     private void animateWaves(List<ChainReactionGame.ExplosionWave> waves, int waveIndex, Runnable onDone) {
         if (waveIndex >= waves.size()) {
@@ -200,7 +195,6 @@ public class ChainReactionController extends JavaboxAbstractController {
 
         ChainReactionGame.ExplosionWave wave = waves.get(waveIndex);
 
-        // Collect all cells to update after this wave
         Set<String> toUpdate = new LinkedHashSet<>();
         for (int[] pos : wave.explodingCells) {
             toUpdate.add(pos[0] + "," + pos[1]);
@@ -209,7 +203,6 @@ public class ChainReactionController extends JavaboxAbstractController {
             }
         }
 
-        // Flash exploding cells white
         for (int[] pos : wave.explodingCells) {
             cellPanes[pos[0]][pos[1]].setStyle(
                     "-fx-background-color: white; -fx-border-color: white; " +
@@ -219,7 +212,6 @@ public class ChainReactionController extends JavaboxAbstractController {
 
         SoundManager.playSFX("sfx_ui_confirm.mp3");
 
-        // After 150ms update all affected cells, then 80ms pause before next wave
         Timeline flashTimer = new Timeline(new KeyFrame(Duration.millis(150), e -> {
             for (String key : toUpdate) {
                 String[] parts = key.split(",");
@@ -233,10 +225,9 @@ public class ChainReactionController extends JavaboxAbstractController {
         flashTimer.play();
     }
 
-    // --- Infection Phase (chain-cells only) ---
+    // --- Infection Phase ---
 
     private void runInfectionPhase() {
-        // Only infect cells involved in the chain
         ChainReactionGame.InfectionResult result = game.runInfectionPhase(lastWaves);
 
         if (result.infectedCells.isEmpty()) {
@@ -244,13 +235,11 @@ public class ChainReactionController extends JavaboxAbstractController {
             return;
         }
 
-        // Show plague icons on spreading cells
         for (int[] cell : result.infectedCells)
             infectedCellKeys.add(cell[0] + "," + cell[1]);
         for (int[] cell : result.infectedCells)
             updateCellUI(cell[0], cell[1]);
 
-        // After 400ms apply conversion/death results
         Timeline delay = new Timeline(new KeyFrame(Duration.millis(400), e -> {
             for (int[] cell : result.convertedCells) updateCellUI(cell[0], cell[1]);
             for (int[] cell : result.diedCells)      updateCellUI(cell[0], cell[1]);
@@ -313,9 +302,20 @@ public class ChainReactionController extends JavaboxAbstractController {
     }
 
     private void updateTurnLabel() {
+        String color = PLAYER_COLORS[currentPlayer];
+
         turnLabel.setText(playerNames[currentPlayer] + "'s Turn");
         turnLabel.setStyle("-fx-font-family: Monospace; -fx-font-size: 18; " +
-                "-fx-text-fill: " + PLAYER_COLORS[currentPlayer] + ";");
+                "-fx-text-fill: " + color + ";");
+
+        // Color the grid border to match the current player
+        gameGrid.setStyle(
+                "-fx-border-color: " + color + "; " +
+                        "-fx-border-width: 3; " +
+                        "-fx-border-radius: 4; " +
+                        "-fx-padding: 4;"
+        );
+        gameGrid.setEffect(new javafx.scene.effect.DropShadow(20, Color.web(color)));
     }
 
     private void dimPlayerIndicator(int playerIndex) {
@@ -339,6 +339,9 @@ public class ChainReactionController extends JavaboxAbstractController {
 
     private void showWin(int playerIndex) {
         animating = false;
+        gameGrid.setEffect(null);
+        gameGrid.setStyle("");
+
         winLabel.setText("🏆 " + playerNames[playerIndex] + " Wins!");
         winLabel.setStyle("-fx-font-family: Monospace; -fx-font-size: 28; " +
                 "-fx-text-fill: " + PLAYER_COLORS[playerIndex] + ";");
@@ -348,7 +351,6 @@ public class ChainReactionController extends JavaboxAbstractController {
         SoundManager.playSFX("sfx_powerup.mp3");
         showScene(winScene);
 
-        // --- NEW: UPLOAD TO LEADERBOARD ---
         List<String> activePlayers = new ArrayList<>();
         for (int i = 0; i < playerCount; i++) {
             activePlayers.add(playerNames[i]);
@@ -384,7 +386,6 @@ public class ChainReactionController extends JavaboxAbstractController {
         String color = PLAYER_COLORS[cell.getOwner()];
         pane.setStyle(filledCellStyle(color, cell.getType()));
 
-        // Orb circles
         HBox orbBox = new HBox(3);
         orbBox.setAlignment(Pos.CENTER);
 
@@ -405,7 +406,6 @@ public class ChainReactionController extends JavaboxAbstractController {
 
         pane.getChildren().add(orbBox);
 
-        // Special cell icon — top right
         if (cell.getType() == Cell.CellType.FORTIFIED) {
             Label icon = new Label("🛡");
             icon.setFont(Font.font(9));
@@ -419,7 +419,6 @@ public class ChainReactionController extends JavaboxAbstractController {
             pane.getChildren().add(icon);
         }
 
-        // Plague icon — bottom left, only during infection phase of this turn
         if (infectedCellKeys.contains(r + "," + c)) {
             Label plague = new Label("☣");
             plague.setFont(Font.font(gridSize == 9 ? 12 : 8));
